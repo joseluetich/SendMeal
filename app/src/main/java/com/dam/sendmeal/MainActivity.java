@@ -22,6 +22,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -222,9 +223,28 @@ public class MainActivity extends AppCompatActivity {
             aviso.show();
             return false;
         }
-        //else if()
+        else if(!vencimientoValido()) {
+            Toast aviso = Toast.makeText(MainActivity.this,"Vencimiento invalido",Toast.LENGTH_LONG);
+            aviso.show();
+            return false;
+        }
 
         return true;
     }
 
+    public boolean vencimientoValido() {
+        Calendar vencimiento = Calendar.getInstance();
+        Calendar hoy = Calendar.getInstance();
+        int anio = Integer.valueOf(inputAno.getText().toString());
+        int mes = Integer.valueOf(inputMes.getText().toString());
+        vencimiento.set(Calendar.YEAR, anio);
+        vencimiento.set(Calendar.MONTH, mes);
+        vencimiento.set(Calendar.DAY_OF_MONTH, 1);
+        hoy.add(Calendar.MONTH, 3);
+
+        if(vencimiento.after(hoy))
+            return true;
+        else
+            return false;
+    }
 }
