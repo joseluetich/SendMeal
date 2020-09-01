@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="sides">16dp</dimen>
+    <dimen name="between">8dp</dimen>
+    <dimen name="between2">6dp</dimen>
+    <dimen name="between3">4dp</dimen>
+    <dimen name="nula">0dp</dimen>
+    <dimen name="textoError">12dp</dimen>
+    <dimen name="seekBar">32dp</dimen>
+    <dimen name="value">14dp</dimen>
+</resources>

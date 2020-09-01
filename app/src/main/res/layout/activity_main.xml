@@ -1,247 +1,304 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/LinearLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/ConstraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/nombre"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/nombre"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <EditText
+            android:id="@+id/nombre"
+            android:layout_width="@dimen/nula"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/sides"
+            android:layout_marginTop="@dimen/sides"
+            android:layout_marginEnd="@dimen/sides"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="@string/nombre"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/email"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        android:text="@string/email"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nombre" />
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="@dimen/nula"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/sides"
+            android:layout_marginTop="@dimen/between"
+            android:layout_marginEnd="@dimen/sides"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:hint="@string/email"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nombre" />
 
-    <EditText
-        android:id="@+id/contrasena"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/contrasena"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        <EditText
+            android:id="@+id/contrasena"
+            android:layout_width="@dimen/nula"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/sides"
+            android:layout_marginTop="@dimen/between"
+            android:layout_marginEnd="@dimen/sides"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:hint="@string/contrasena"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/email" />
 
-    <EditText
-        android:id="@+id/contrasena2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/contrasena2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contrasena" />
-
-
-    <RadioButton
-        android:id="@+id/credito"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/credito"
-        app:layout_constraintEnd_toStartOf="@+id/debito"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tipoDeTarjeta" />
-
-    <RadioButton
-        android:id="@+id/debito"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/debito"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/credito"
-        app:layout_constraintTop_toBottomOf="@+id/tipoDeTarjeta" />
-
-    <EditText
-        android:id="@+id/mes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:inputType="date"
-        android:text="@string/mes"
-        app:layout_constraintEnd_toStartOf="@+id/ano"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fechaVencimiento" />
-
-    <TextView
-        android:id="@+id/tipoDeTarjeta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/tipoDeTarjeta"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contrasena2" />
-
-    <EditText
-        android:id="@+id/numeroTarjeta"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:inputType="numberSigned"
-        android:text="@string/numeroTarjeta"
-        app:layout_constraintEnd_toStartOf="@+id/ccv"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/credito" />
-
-    <EditText
-        android:id="@+id/ccv"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:inputType="number"
-        android:text="@string/ccv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/numeroTarjeta"
-        app:layout_constraintTop_toBottomOf="@+id/debito" />
-
-    <TextView
-        android:id="@+id/fechaVencimiento"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/fechaVencimiento"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/numeroTarjeta" />
-
-    <EditText
-        android:id="@+id/cbu"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/cbu"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mes" />
-
-    <EditText
-        android:id="@+id/aliasCBU"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/aliasCbu"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cbu" />
-
-    <Switch
-        android:id="@+id/realizarCarga"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/realizarCarga"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/aliasCBU" />
-
-    <TextView
-        android:id="@+id/creditoInicial"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/creditoInicial"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/realizarCarga" />
-
-    <SeekBar
-        android:id="@+id/barra"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/creditoInicial" />
-
-    <CheckBox
-        android:id="@+id/terminos"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/terminos"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/barra" />
-
-    <EditText
-        android:id="@+id/ano"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/ano"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/mes"
-        app:layout_constraintTop_toBottomOf="@+id/fechaVencimiento" />
+        <EditText
+            android:id="@+id/contrasena2"
+            android:layout_width="@dimen/nula"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/sides"
+            android:layout_marginTop="@dimen/between"
+            android:layout_marginEnd="@dimen/sides"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:hint="@string/contrasena2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/contrasena" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <RadioGroup
+            android:id="@+id/tarjetas"
+            android:layout_width="@dimen/nula"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/sides"
+            android:layout_marginTop="@dimen/between"
+            android:layout_marginEnd="@dimen/sides"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tipoDeTarjeta">
+
+            <RadioButton
+                android:id="@+id/credito"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/credito" />
+
+            <RadioButton
+                android:id="@+id/debito"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:text="@string/debito" />
+
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/mes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/sides"
+            android:layout_marginTop="@dimen/between3"
+            android:layout_marginEnd="@dimen/between"
+            android:ems="10"
+            android:inputType="number"
+            android:hint="@string/mes"
+            android:enabled="false"
+            app:layout_constraintEnd_toStartOf="@+id/ano"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fechaVencimiento" />
+
+        <TextView
+            android:id="@+id/tipoDeTarjeta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/sides"
+            android:layout_marginTop="@dimen/between"
+            android:text="@string/tipoDeTarjeta"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/contrasena2" />
+
+        <EditText
+            android:id="@+id/numeroTarjeta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/sides"
+            android:layout_marginTop="@dimen/between"
+            android:layout_marginEnd="@dimen/between"
+            android:ems="10"
+            android:hint="@string/numeroTarjeta"
+            android:inputType="numberSigned"
+            app:layout_constraintEnd_toStartOf="@+id/ccv"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tarjetas" />
+
+        <EditText
+            android:id="@+id/ccv"
+            android:layout_width="@dimen/nula"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/between"
+            android:layout_marginTop="@dimen/between"
+            android:layout_marginEnd="@dimen/sides"
+            android:ems="10"
+            android:enabled="false"
+            android:hint="@string/ccv"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/numeroTarjeta"
+            app:layout_constraintTop_toBottomOf="@+id/tarjetas" />
+
+        <TextView
+            android:id="@+id/fechaVencimiento"
+            android:layout_width="@dimen/nula"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/sides"
+            android:layout_marginTop="@dimen/between"
+            android:text="@string/fechaVencimiento"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/numeroTarjeta" />
+
+        <EditText
+            android:id="@+id/cbu"
+            android:layout_width="@dimen/nula"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/sides"
+            android:layout_marginTop="@dimen/between"
+            android:layout_marginEnd="@dimen/sides"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="@string/cbu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mes" />
+
+        <EditText
+            android:id="@+id/aliasCBU"
+            android:layout_width="@dimen/nula"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/sides"
+            android:layout_marginTop="@dimen/between"
+            android:layout_marginEnd="@dimen/sides"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="@string/aliasCbu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cbu" />
+
+        <Switch
+            android:id="@+id/realizarCarga"
+            android:layout_width="@dimen/nula"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/sides"
+            android:layout_marginTop="@dimen/between"
+            android:layout_marginEnd="@dimen/sides"
+            android:text="@string/realizarCarga"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/aliasCBU" />
+
+        <TextView
+            android:id="@+id/creditoInicial"
+            android:layout_width="@dimen/nula"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/sides"
+            android:layout_marginTop="@dimen/between"
+            android:text="@string/creditoInicial"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/realizarCarga" />
+
+        <SeekBar
+            android:id="@+id/montoCredito"
+            android:layout_width="@dimen/nula"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/sides"
+            android:layout_marginTop="@dimen/sides"
+            android:layout_marginEnd="@dimen/sides"
+            android:max="1500"
+            android:min="0"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/creditoInicial" />
+
+        <CheckBox
+            android:id="@+id/terminos"
+            android:layout_width="@dimen/nula"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/sides"
+            android:layout_marginTop="@dimen/between"
+            android:layout_marginEnd="@dimen/sides"
+            android:text="@string/terminos"
+            android:checked="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/montoCredito" />
+
+        <EditText
+            android:id="@+id/ano"
+            android:layout_width="@dimen/nula"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/between"
+            android:layout_marginTop="@dimen/between3"
+            android:layout_marginEnd="@dimen/sides"
+            android:ems="10"
+            android:inputType="number"
+            android:enabled="false"
+            android:hint="@string/ano"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/mes"
+            app:layout_constraintTop_toBottomOf="@+id/fechaVencimiento" />
+
+        <TextView
+            android:id="@+id/errorContrasena"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/sides"
+            android:text="@string/errorContrasena"
+            android:visibility="invisible"
+            android:textColor="@color/rojo"
+            android:textSize="@dimen/value"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/contrasena2" />
+
+        <TextView
+            android:id="@+id/monto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sides"
+            android:layout_marginEnd="@dimen/seekBar"
+            android:layout_marginBottom="@dimen/between3"
+            android:text="@string/monto"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/value"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/montoCredito"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/realizarCarga" />
+
+        <Button
+            android:id="@+id/registrar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="@string/registrar"
+            android:enabled="false"
+            android:textColor="@color/blanco"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/terminos" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
