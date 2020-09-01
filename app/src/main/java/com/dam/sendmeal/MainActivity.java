@@ -197,7 +197,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else { //si esta desactivado
                     monto.setVisibility(View.GONE); //desaparece el texto del monto
-                    montoCredito.setVisibility(View.GONE); //y desaparece la seekbar
+                    montoCredito.setVisibility(View.GONE); //y desapa
+                    // rece la seekbar
                 }
             }
         });
@@ -208,6 +209,8 @@ public class MainActivity extends AppCompatActivity {
                 if(terminos.isChecked()) { //si esta marcado
                     registrar.setEnabled(true); //puedo habilitar el boton
                 }
+                else
+                    registrar.setEnabled(false);
             }
         });
 
