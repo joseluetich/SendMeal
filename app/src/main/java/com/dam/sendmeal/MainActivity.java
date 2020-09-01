@@ -22,6 +22,9 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class MainActivity extends AppCompatActivity {
 
     EditText inputContrasena;
@@ -42,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
     TextView creditoInicial;
     CheckBox terminos;
     Button registrar;
-    //Toast aviso;
     EditText email;
 
     @Override
@@ -201,10 +203,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     public boolean cumpleRequisitos() {
-        if(email.getText().toString().isEmpty() || contrasena.isEmpty() ||
-                contrasena2.isEmpty() || inputNumeroTarjeta.getText().toString().isEmpty()
-                || inputCcv.getText().toString().isEmpty() || inputMes.getText().toString().isEmpty()
-                || inputAno.getText().toString().isEmpty()) {
+        Pattern emailPattern = Pattern.compile("@[a-z][a-z][a-z]");
+        Matcher matcherEmail = emailPattern.matcher(email.getText().toString());
+
+        if(email.getText().toString().isEmpty() || contrasena.isEmpty() || contrasena2.isEmpty() || inputNumeroTarjeta.getText().toString().isEmpty()
+                || inputCcv.getText().toString().isEmpty() || inputMes.getText().toString().isEmpty() || inputAno.getText().toString().isEmpty()) {
             Toast aviso = Toast.makeText(MainActivity.this,"Campos obligatorios incompletos",Toast.LENGTH_LONG);
             aviso.show();
             return false;
@@ -214,6 +217,13 @@ public class MainActivity extends AppCompatActivity {
             aviso.show();
             return false;
         }
+        else if(!matcherEmail.find()) {
+            Toast aviso = Toast.makeText(MainActivity.this,"Email invalido",Toast.LENGTH_LONG);
+            aviso.show();
+            return false;
+        }
+        //else if()
+
         return true;
     }
 
