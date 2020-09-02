@@ -1,4 +1,5 @@
 <resources>
+    <!--Campos-->
     <string name="app_name">SendMeal</string>
     <string name="nombre">Nombre y Apellido</string>
     <string name="email">Email  *</string>
@@ -17,11 +18,15 @@
     <string name="realizarCarga">Realizar carga inicial?</string>
     <string name="creditoInicial">Credito inicial</string>
     <string name="terminos">Acepto los terminos y condiciones</string>
-    <string name="errorContrasena">"        Las contraseñas no coinciden."</string>
     <string name="monto">0</string>
     <string name="registrar">REGISTRAR</string>
+    <!--Tipo de entradas-->
     <string name="digitosNombre">"áéíóúÁÉÍÓÚQWERTYUIOPASDFGHJKLÑZXCVBNMqwertyuiopasdfghjklñzxcvbnm "</string>
-    <string name="digitosTarjeta">"0123456789 "</string>
+    <string name="digitosEmail">"+QWERTYUIOPASDFGHJKLÑZXCVBNMqwertyuiopasdfghjklñzxcvbnm@.-_0123456789"</string>
+    <string name="entidadRegularEmail">"@[a-z][a-z][a-z]"</string>
+    <!--Errores-->
     <string name="campoObligatorio">"        Campo obligatorio"</string>
     <string name="campoObligatorioCorto">"Campo obligatorio"</string>
+    <string name="emailInvalido">"        Email invalido"</string>
+    <string name="errorContrasena">"        Las contraseñas no coinciden."</string>
 </resources>
