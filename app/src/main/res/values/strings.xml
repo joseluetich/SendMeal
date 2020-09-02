@@ -17,9 +17,11 @@
     <string name="realizarCarga">Realizar carga inicial?</string>
     <string name="creditoInicial">Credito inicial</string>
     <string name="terminos">Acepto los terminos y condiciones</string>
-    <string name="errorContrasena">Las contraseñas no coinciden.</string>
+    <string name="errorContrasena">"        Las contraseñas no coinciden."</string>
     <string name="monto">0</string>
     <string name="registrar">REGISTRAR</string>
     <string name="digitosNombre">"áéíóúÁÉÍÓÚQWERTYUIOPASDFGHJKLÑZXCVBNMqwertyuiopasdfghjklñzxcvbnm "</string>
     <string name="digitosTarjeta">"0123456789 "</string>
+    <string name="campoObligatorio">"        Campo obligatorio"</string>
+    <string name="campoObligatorioCorto">"Campo obligatorio"</string>
 </resources>
