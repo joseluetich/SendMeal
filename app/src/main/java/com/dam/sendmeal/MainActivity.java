@@ -1,11 +1,13 @@
 package com.dam.sendmeal;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -25,6 +27,7 @@ import android.widget.Toast;
 import com.dam.sendmeal.model.CuentaBancaria;
 import com.dam.sendmeal.model.Tarjeta;
 import com.dam.sendmeal.model.Usuario;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -36,10 +39,10 @@ public class MainActivity extends AppCompatActivity {
     EditText inputNombre;
     EditText inputContrasena;
     EditText inputcontrasenaRepetida;
-    TextView errorContrasena;
     String contrasena, contrasenaRepetida; //guarda el contenido de inputContrasena e inputcontrasenaRepetida
     EditText inputNumeroTarjeta;
     String numeroTarjeta; //guarda el contenido de inputNumeroTarjeta
+    String email;
     EditText inputCcv;
     EditText inputMes;
     EditText inputAno;
@@ -52,9 +55,17 @@ public class MainActivity extends AppCompatActivity {
     TextView creditoInicial;
     CheckBox terminos;
     Button registrar;
-    EditText email;
+    EditText inputEmail;
     EditText inputCbu;
     EditText inputAliasCbu;
+    TextInputLayout layoutEmail;
+    TextInputLayout layoutContrasena;
+    TextInputLayout layoutContrasenaRepetida;
+    TextInputLayout layoutNumeroTarjeta;
+    TextInputLayout layoutCcv;
+    TextInputLayout layoutMes;
+    TextInputLayout layoutAno;
+
     int idTarjetas=0; //falta asignar un id para guardar en la clase tarjeta
 
     @Override
@@ -66,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         inputNombre = findViewById(R.id.nombre);
         inputContrasena = findViewById(R.id.contrasena);
         inputcontrasenaRepetida = findViewById(R.id.contrasenaRepetida);
-        errorContrasena = findViewById(R.id.errorContrasena);
+        //errorContrasena = findViewById(R.id.errorContrasena);
         inputNumeroTarjeta = findViewById(R.id.numeroTarjeta);
         inputCcv = findViewById(R.id.ccv);
         inputMes = findViewById(R.id.mes);
@@ -80,12 +91,36 @@ public class MainActivity extends AppCompatActivity {
         creditoInicial = findViewById(R.id.creditoInicial);
         terminos = findViewById(R.id.terminos);
         registrar = findViewById(R.id.registrar);
-        email = findViewById(R.id.email);
+        inputEmail = findViewById(R.id.email);
         inputCbu = findViewById(R.id.cbu);
         inputAliasCbu = findViewById(R.id.aliasCbu);
+        layoutEmail = findViewById(R.id.layoutEmail);
+        layoutContrasena = findViewById(R.id.layoutContrasena);
+        layoutContrasenaRepetida = findViewById(R.id.layoutContrasenaRepetida);
+        layoutNumeroTarjeta = findViewById(R.id.layoutNumeroTarjeta);
+        layoutCcv = findViewById(R.id.layoutCcv);
+        layoutMes = findViewById(R.id.layoutMes);
+        layoutAno = findViewById(R.id.layoutAno);
 
         contrasena=""; //para que no ocurra errror en el .isEmpty() de la linea 101
         contrasenaRepetida="";
+
+        inputEmail.addTextChangedListener(new TextWatcher() { //si no ingreso el email la primera vez, reconoce que se agrega texto para sacar el error
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String errorEmail = null;
+                if (TextUtils.isEmpty(inputEmail.getText())) {
+                    errorEmail = getString(R.string.campoObligatorio);
+                }
+                toggleTextInputLayoutError(layoutEmail, errorEmail);
+            }
+        });
 
         inputContrasena.addTextChangedListener(new TextWatcher() { //listener de la contrasena
             @Override
@@ -96,20 +131,18 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) { //por si lo ultimo en modificarse fue contrasena
-                contrasena = inputContrasena.getText().toString(); //obtengo el string de inputContrasena
+                String campoObligatorio = null; //verifica si todavia no se escribio nada
+                if (TextUtils.isEmpty(inputContrasena.getText())) { //si ya se escribio dejara de mostrar el error
+                    campoObligatorio = getString(R.string.campoObligatorio);
+                }
+                toggleTextInputLayoutError(layoutContrasena, campoObligatorio);
 
-                if(!contrasena.isEmpty() && contrasena.equals(contrasenaRepetida)){ //si las contrasenias coinciden
-                    errorContrasena.setVisibility(View.GONE); //oculto el mensaje de error
-                    if(terminos.isChecked()) { //si el checkbox de terminos esta activado
-                        registrar.setEnabled(true); //puedo habilitar el boton registrar
-                    }
+                contrasena = inputContrasena.getText().toString(); //obtengo el string de inputContrasena
+                String errorContrasena = null; //verifica que las contrasenias coincida, en caso de que el ult cambio sea en contrasena
+                if (!contrasena.isEmpty() /*&& !contrasenaRepetida.isEmpty() */&& !contrasena.equals(contrasenaRepetida)) {
+                    errorContrasena = getString(R.string.errorContrasena);
                 }
-                else if(contrasena.isEmpty() || contrasenaRepetida.isEmpty()){ //si algun campo esta vacio
-                    errorContrasena.setVisibility(View.GONE); //no muestro el mensaje de error
-                }
-                else { //de lo contrario
-                    errorContrasena.setVisibility(View.VISIBLE); //muestro el mensaje de error
-                }
+                toggleTextInputLayoutError(layoutContrasenaRepetida, errorContrasena);
             }
         });
 
@@ -122,17 +155,18 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) { //por si lo ultimo en modificarse fue repetir contrasena
-                contrasenaRepetida = inputcontrasenaRepetida.getText().toString();
+                String campoObligatorio = null; //se verifica que se hayan completado caracteres para sacar el error
+                if (TextUtils.isEmpty(inputcontrasenaRepetida.getText())) {
+                    campoObligatorio = getString(R.string.campoObligatorio);
+                }
+                toggleTextInputLayoutError(layoutContrasenaRepetida, campoObligatorio);
 
-                if(!contrasena.isEmpty() && contrasena.equals(contrasenaRepetida)){ //si las contrasenas coinciden
-                    errorContrasena.setVisibility(View.GONE); //oculto el mensaje de error
+                contrasenaRepetida = inputcontrasenaRepetida.getText().toString();
+                String errorContrasenaRepetida = null;
+                if (!contrasena.isEmpty() && !contrasenaRepetida.isEmpty() && !contrasena.equals(contrasenaRepetida)) {
+                    errorContrasenaRepetida = getString(R.string.errorContrasena);
                 }
-                else if(contrasena.isEmpty() || contrasenaRepetida.isEmpty()){ //si algun campo esta vacio
-                    errorContrasena.setVisibility(View.GONE); //oculto el mensaje de error
-                }
-                else { //de lo contrario
-                    errorContrasena.setVisibility(View.VISIBLE); //muestro el mensaje de error
-                }
+                toggleTextInputLayoutError(layoutContrasenaRepetida, errorContrasenaRepetida);
             }
         });
 
@@ -235,7 +269,7 @@ public class MainActivity extends AppCompatActivity {
                     //creo al usuario registrado
                     String nombre = inputNombre.getText().toString();
                     String clave = inputContrasena.getText().toString();
-                    String mail = email.getText().toString();
+                    String mail = inputEmail.getText().toString();
                     Double credito = Double.valueOf(monto.getText().toString());
                     Usuario user = new Usuario(idTarjetas+1, nombre, clave, mail, credito, tarjeta, cuenta);
                 }
@@ -244,20 +278,23 @@ public class MainActivity extends AppCompatActivity {
     }
     public boolean cumpleRequisitos() {
         Pattern emailPattern = Pattern.compile("@[a-z][a-z][a-z]"); //indica como deberia ser el email
-        Matcher matcherEmail = emailPattern.matcher(email.getText().toString()); //lo va a comparar con lo ingresado en email
+        Matcher matcherEmail = emailPattern.matcher(inputEmail.getText().toString()); //lo va a comparar con lo ingresado en email
 
-        //verifica que los campos obligatorios no esten vacios
-        if(email.getText().toString().isEmpty() || contrasena.isEmpty() || contrasenaRepetida.isEmpty() || inputNumeroTarjeta.getText().toString().isEmpty()
+        if(!camposObligatoriosCompletos()) {
+            return false;
+        }
+        /*//verifica que los campos obligatorios no esten vacios
+        if(inputEmail.getText().toString().isEmpty() || contrasena.isEmpty() || contrasenaRepetida.isEmpty() || inputNumeroTarjeta.getText().toString().isEmpty()
                 || inputCcv.getText().toString().isEmpty() || inputMes.getText().toString().isEmpty() || inputAno.getText().toString().isEmpty()) {
             Toast aviso = Toast.makeText(MainActivity.this,"Campos obligatorios incompletos",Toast.LENGTH_LONG);
             aviso.show();
             return false;
-        }
-        else if(errorContrasena.getVisibility()==View.VISIBLE){ //verifica que las contrasenias coincidan
+        }*/
+        /*else if(errorContrasena.getVisibility()==View.VISIBLE){ //verifica que las contrasenias coincidan
             Toast aviso = Toast.makeText(MainActivity.this,"Las contraseñas no coinciden",Toast.LENGTH_LONG);
             aviso.show();
             return false;
-        }
+        }*/
         else if(realizarCarga.isChecked() && monto.getText().toString().equals("0")){ //verifica que si el switch esta activo, hay monto mayor a 0
             Toast aviso = Toast.makeText(MainActivity.this,"Monto invalido",Toast.LENGTH_LONG);
             aviso.show();
@@ -284,9 +321,71 @@ public class MainActivity extends AppCompatActivity {
         Calendar hoy = Calendar.getInstance(); //obtiene fecha actual
         hoy.add(Calendar.MONTH, 3); //le suma tres meses
 
-        if(vencimiento.after(hoy)) //compara si el vencimiento es despues de tres meses a partir de hoy
-            return true;
-        else
-            return false;
+        //compara si el vencimiento es despues de tres meses a partir de hoy
+        return vencimiento.after(hoy);
+    }
+
+    public boolean camposObligatoriosCompletos() {
+        boolean check = true;
+        //email
+        String errorEmail = null;
+        if (TextUtils.isEmpty(inputEmail.getText())) {
+            errorEmail = getString(R.string.campoObligatorio);
+            check = false;
+        }
+        toggleTextInputLayoutError(layoutEmail, errorEmail);
+        //contrasena
+        String errorContrasena = null;
+        if (TextUtils.isEmpty(inputContrasena.getText())) {
+            errorContrasena = getString(R.string.campoObligatorio);
+            check = false;
+        }
+        toggleTextInputLayoutError(layoutContrasena, errorContrasena);
+        //contrasenaRepetida
+        String errorContrasenaRepetida = null;
+        if (TextUtils.isEmpty(inputcontrasenaRepetida.getText())) {
+            errorContrasenaRepetida = getString(R.string.campoObligatorio);
+            check = false;
+        }
+        toggleTextInputLayoutError(layoutContrasenaRepetida, errorContrasenaRepetida);
+        //numeroTarjeta
+        String errorNumeroTarjeta = null;
+        if (TextUtils.isEmpty(inputNumeroTarjeta.getText())) {
+            errorNumeroTarjeta = getString(R.string.campoObligatorio);
+            check = false;
+        }
+        toggleTextInputLayoutError(layoutNumeroTarjeta, errorNumeroTarjeta);
+        //ccv
+        String errorCcv = null;
+        if (TextUtils.isEmpty(inputCcv.getText())) {
+            errorCcv = getString(R.string.campoObligatorioCorto);
+            check = false;
+        }
+        toggleTextInputLayoutError(layoutCcv, errorCcv);
+        //mes
+        String errorMes = null;
+        if (TextUtils.isEmpty(inputMes.getText())) {
+            errorMes = getString(R.string.campoObligatorio);
+            check = false;
+        }
+        toggleTextInputLayoutError(layoutMes, errorMes);
+        //anio
+        String errorAno = null;
+        if (TextUtils.isEmpty(inputAno.getText())) {
+            errorAno = getString(R.string.campoObligatorioCorto);
+            check = false;
+        }
+        toggleTextInputLayoutError(layoutAno, errorAno);
+        return check;
+    }
+
+    private static void toggleTextInputLayoutError(@NonNull TextInputLayout textInputLayout,
+                                                   String msg) {
+        textInputLayout.setError(msg);
+        if (msg == null) {
+            textInputLayout.setErrorEnabled(false);
+        } else {
+            textInputLayout.setErrorEnabled(true);
+        }
     }
 }

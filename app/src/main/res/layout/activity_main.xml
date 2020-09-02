@@ -19,7 +19,7 @@
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent" >
 
             <EditText
                 android:id="@+id/nombre"
@@ -34,7 +34,7 @@
                 android:inputType="textPersonName" />
 
         </com.google.android.material.textfield.TextInputLayout>
-        
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutEmail"
             android:layout_width="0dp"
@@ -117,18 +117,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/errorContrasena"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:text="@string/errorContrasena"
-            android:visibility="gone"
-            android:textColor="@color/rojo"
-            android:textSize="@dimen/value"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutContrasenaRepetida" />
-
-        <TextView
             android:id="@+id/tipoDeTarjeta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -136,7 +124,7 @@
             android:layout_marginTop="8dp"
             android:text="@string/tipoDeTarjeta"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/errorContrasena" />
+            app:layout_constraintTop_toBottomOf="@+id/layoutContrasenaRepetida" />
 
         <RadioGroup
             android:id="@+id/tarjetas"
