@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="dim162">162dp</dimen>
+    <dimen name="dim125">125dp</dimen>
+    <dimen name="dim48">48dp</dimen>
     <dimen name="dim32">32dp</dimen>
+    <dimen name="dim24">24dp</dimen>
     <dimen name="dim16">16dp</dimen>
     <dimen name="dim14">14dp</dimen>
     <dimen name="dim8">8dp</dimen>
