@@ -3,7 +3,7 @@
     <string name="nombre">Nombre y Apellido</string>
     <string name="email">Email  *</string>
     <string name="contrasena">Contraseña  *</string>
-    <string name="contrasena2">Repetir Contraseña  *</string>
+    <string name="contrasenaRepetida">Repetir Contraseña  *</string>
     <string name="tipoDeTarjeta">Tipo de tarjeta  *</string>
     <string name="debito">Debito</string>
     <string name="credito">Credito</string>

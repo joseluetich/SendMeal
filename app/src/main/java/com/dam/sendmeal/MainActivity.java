@@ -35,9 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
     EditText inputNombre;
     EditText inputContrasena;
-    EditText inputContrasena2;
+    EditText inputcontrasenaRepetida;
     TextView errorContrasena;
-    String contrasena, contrasena2; //guarda el contenido de inputContrasena e inputContrasena2
+    String contrasena, contrasenaRepetida; //guarda el contenido de inputContrasena e inputcontrasenaRepetida
     EditText inputNumeroTarjeta;
     String numeroTarjeta; //guarda el contenido de inputNumeroTarjeta
     EditText inputCcv;
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         //obtengo las entidades por id
         inputNombre = findViewById(R.id.nombre);
         inputContrasena = findViewById(R.id.contrasena);
-        inputContrasena2 = findViewById(R.id.contrasena2);
+        inputcontrasenaRepetida = findViewById(R.id.contrasenaRepetida);
         errorContrasena = findViewById(R.id.errorContrasena);
         inputNumeroTarjeta = findViewById(R.id.numeroTarjeta);
         inputCcv = findViewById(R.id.ccv);
@@ -82,10 +82,10 @@ public class MainActivity extends AppCompatActivity {
         registrar = findViewById(R.id.registrar);
         email = findViewById(R.id.email);
         inputCbu = findViewById(R.id.cbu);
-        inputAliasCbu = findViewById(R.id.aliasCBU);
+        inputAliasCbu = findViewById(R.id.aliasCbu);
 
         contrasena=""; //para que no ocurra errror en el .isEmpty() de la linea 101
-        contrasena2="";
+        contrasenaRepetida="";
 
         inputContrasena.addTextChangedListener(new TextWatcher() { //listener de la contrasena
             @Override
@@ -98,13 +98,13 @@ public class MainActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) { //por si lo ultimo en modificarse fue contrasena
                 contrasena = inputContrasena.getText().toString(); //obtengo el string de inputContrasena
 
-                if(!contrasena.isEmpty() && contrasena.equals(contrasena2)){ //si las contrasenias coinciden
+                if(!contrasena.isEmpty() && contrasena.equals(contrasenaRepetida)){ //si las contrasenias coinciden
                     errorContrasena.setVisibility(View.GONE); //oculto el mensaje de error
                     if(terminos.isChecked()) { //si el checkbox de terminos esta activado
                         registrar.setEnabled(true); //puedo habilitar el boton registrar
                     }
                 }
-                else if(contrasena.isEmpty() || contrasena2.isEmpty()){ //si algun campo esta vacio
+                else if(contrasena.isEmpty() || contrasenaRepetida.isEmpty()){ //si algun campo esta vacio
                     errorContrasena.setVisibility(View.GONE); //no muestro el mensaje de error
                 }
                 else { //de lo contrario
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        inputContrasena2.addTextChangedListener(new TextWatcher() { //listener de repetir contrasena
+        inputcontrasenaRepetida.addTextChangedListener(new TextWatcher() { //listener de repetir contrasena
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
 
@@ -122,12 +122,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) { //por si lo ultimo en modificarse fue repetir contrasena
-                contrasena2 = inputContrasena2.getText().toString();
+                contrasenaRepetida = inputcontrasenaRepetida.getText().toString();
 
-                if(!contrasena.isEmpty() && contrasena.equals(contrasena2)){ //si las contrasenas coinciden
+                if(!contrasena.isEmpty() && contrasena.equals(contrasenaRepetida)){ //si las contrasenas coinciden
                     errorContrasena.setVisibility(View.GONE); //oculto el mensaje de error
                 }
-                else if(contrasena.isEmpty() || contrasena2.isEmpty()){ //si algun campo esta vacio
+                else if(contrasena.isEmpty() || contrasenaRepetida.isEmpty()){ //si algun campo esta vacio
                     errorContrasena.setVisibility(View.GONE); //oculto el mensaje de error
                 }
                 else { //de lo contrario
@@ -247,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
         Matcher matcherEmail = emailPattern.matcher(email.getText().toString()); //lo va a comparar con lo ingresado en email
 
         //verifica que los campos obligatorios no esten vacios
-        if(email.getText().toString().isEmpty() || contrasena.isEmpty() || contrasena2.isEmpty() || inputNumeroTarjeta.getText().toString().isEmpty()
+        if(email.getText().toString().isEmpty() || contrasena.isEmpty() || contrasenaRepetida.isEmpty() || inputNumeroTarjeta.getText().toString().isEmpty()
                 || inputCcv.getText().toString().isEmpty() || inputMes.getText().toString().isEmpty() || inputAno.getText().toString().isEmpty()) {
             Toast aviso = Toast.makeText(MainActivity.this,"Campos obligatorios incompletos",Toast.LENGTH_LONG);
             aviso.show();
