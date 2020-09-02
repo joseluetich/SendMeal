@@ -136,13 +136,6 @@ public class MainActivity extends AppCompatActivity {
                     campoObligatorio = getString(R.string.campoObligatorio);
                 }
                 toggleTextInputLayoutError(layoutContrasena, campoObligatorio);
-
-                contrasena = inputContrasena.getText().toString(); //obtengo el string de inputContrasena
-                String errorContrasena = null; //verifica que las contrasenias coincida, en caso de que el ult cambio sea en contrasena
-                if (!contrasena.isEmpty() /*&& !contrasenaRepetida.isEmpty() */&& !contrasena.equals(contrasenaRepetida)) {
-                    errorContrasena = getString(R.string.errorContrasena);
-                }
-                toggleTextInputLayoutError(layoutContrasenaRepetida, errorContrasena);
             }
         });
 
@@ -160,13 +153,20 @@ public class MainActivity extends AppCompatActivity {
                     campoObligatorio = getString(R.string.campoObligatorio);
                 }
                 toggleTextInputLayoutError(layoutContrasenaRepetida, campoObligatorio);
+            }
+        });
 
-                contrasenaRepetida = inputcontrasenaRepetida.getText().toString();
-                String errorContrasenaRepetida = null;
-                if (!contrasena.isEmpty() && !contrasenaRepetida.isEmpty() && !contrasena.equals(contrasenaRepetida)) {
-                    errorContrasenaRepetida = getString(R.string.errorContrasena);
+        tarjetas.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int id) { //listener radiogroup tipo de tarjeta
+                if(id == R.id.credito) { //si esta marcado credito
+                    credito.setChecked(true); //queda marcado credito
+                    debito.setChecked(false); //y desmarcado debito
+                } //de esta manera me aseguro que una opcion se elija si o si
+                else { //si no
+                    credito.setChecked(false); //queda desmarcado credito
+                    debito.setChecked(true); //y marcado debito
                 }
-                toggleTextInputLayoutError(layoutContrasenaRepetida, errorContrasenaRepetida);
             }
         });
 
@@ -180,8 +180,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 numeroTarjeta = inputNumeroTarjeta.getText().toString(); //almacena el string del campo numero de tarjeta
-
-                if(!numeroTarjeta.isEmpty()){ //si el campo no esta vacio
+                if(!numeroTarjeta.isEmpty()) { //si el campo no esta vacio
                     inputCcv.setEnabled(true); //se habilita el ccv el mes y el anio
                     inputAno.setEnabled(true);
                     inputMes.setEnabled(true);
@@ -191,21 +190,65 @@ public class MainActivity extends AppCompatActivity {
                     inputAno.setEnabled(false);
                     inputMes.setEnabled(false);
                 }
+
+                String errorNumeroTarjeta = null; //verifica que el campo obligatorio sea completado
+                if (TextUtils.isEmpty(inputNumeroTarjeta.getText())) {
+                    errorNumeroTarjeta = getString(R.string.campoObligatorio);
+                }
+                toggleTextInputLayoutError(layoutNumeroTarjeta, errorNumeroTarjeta);
             }
         });
 
-        tarjetas.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        inputCcv.addTextChangedListener(new TextWatcher() { //listener Ccv
             @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int id) { //listener radiogroup tipo de tarjeta
-                //de esta manera me aseguro que una opcion se elija si o si
-                if(id == R.id.credito) { //si esta marcado credito
-                    credito.setChecked(true); //queda marcado credito
-                    debito.setChecked(false); //y desmarcado debito
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                String errorCcv = null; //verifica que el campo obligatorio sea completado
+                if (TextUtils.isEmpty(inputCcv.getText())) {
+                    errorCcv = getString(R.string.campoObligatorioCorto);
                 }
-                else { //si no
-                    credito.setChecked(false); //queda desmarcado credito
-                    debito.setChecked(true); //y marcado debito
+                toggleTextInputLayoutError(layoutCcv, errorCcv);
+            }
+        });
+
+        inputMes.addTextChangedListener(new TextWatcher() { //listener Ccv
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String errorMes = null; //verifica que el campo obligatorio sea completado
+                if (TextUtils.isEmpty(inputMes.getText())) {
+                    errorMes = getString(R.string.campoObligatorio);
                 }
+                toggleTextInputLayoutError(layoutMes, errorMes);
+            }
+        });
+
+        inputAno.addTextChangedListener(new TextWatcher() { //listener Ccv
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                String errorAno = null; //verifica que el campo obligatorio sea completado
+                if (TextUtils.isEmpty(inputAno.getText())) {
+                    errorAno = getString(R.string.campoObligatorioCorto);
+                }
+                toggleTextInputLayoutError(layoutAno, errorAno);
             }
         });
 
@@ -276,47 +319,38 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    public boolean cumpleRequisitos() {
-        Pattern emailPattern = Pattern.compile("@[a-z][a-z][a-z]"); //indica como deberia ser el email
-        Matcher matcherEmail = emailPattern.matcher(inputEmail.getText().toString()); //lo va a comparar con lo ingresado en email
 
+    public boolean cumpleRequisitos() {
+        boolean check = true;
+        String ano = inputAno.getText().toString();
+        String mes = inputMes.getText().toString();
         if(!camposObligatoriosCompletos()) {
-            return false;
+            check = false;
         }
-        /*//verifica que los campos obligatorios no esten vacios
-        if(inputEmail.getText().toString().isEmpty() || contrasena.isEmpty() || contrasenaRepetida.isEmpty() || inputNumeroTarjeta.getText().toString().isEmpty()
-                || inputCcv.getText().toString().isEmpty() || inputMes.getText().toString().isEmpty() || inputAno.getText().toString().isEmpty()) {
-            Toast aviso = Toast.makeText(MainActivity.this,"Campos obligatorios incompletos",Toast.LENGTH_LONG);
-            aviso.show();
-            return false;
-        }*/
-        /*else if(errorContrasena.getVisibility()==View.VISIBLE){ //verifica que las contrasenias coincidan
-            Toast aviso = Toast.makeText(MainActivity.this,"Las contraseñas no coinciden",Toast.LENGTH_LONG);
-            aviso.show();
-            return false;
-        }*/
+        if(!inputEmail.getText().toString().isEmpty() && !ingresoEmailValido()) { //primero m fijo si ya no tiene la etiqueta de
+            check = false; //campo obligatorio, si se cumple la primera condicion recien dp ve si el email es valido o no
+        }
+        if(!inputcontrasenaRepetida.getText().toString().isEmpty() && !contrasenasCoinciden()){ //primero me fijo si no tiene la etiqueta
+            check = false; //de campo obligatorio, valido antes si el campo no es nulo
+        }
+        //FALTA MODIFICAR ESOS ERRORES
         else if(realizarCarga.isChecked() && monto.getText().toString().equals("0")){ //verifica que si el switch esta activo, hay monto mayor a 0
             Toast aviso = Toast.makeText(MainActivity.this,"Monto invalido",Toast.LENGTH_LONG);
             aviso.show();
-            return false;
+            check = false;
         }
-        else if(!matcherEmail.find()) { //analiza si el email ingresado tiene un arroba y tres letras detras
-            Toast aviso = Toast.makeText(MainActivity.this,"Email invalido",Toast.LENGTH_LONG);
-            aviso.show();
-            return false;
-        }
-        else if(!vencimientoValido()) { //analiza si el vencimiento ingresado es por lo menos tres meses despues de la fecha actual
+        else if(!ano.isEmpty() && !mes.isEmpty() && !vencimientoValido(ano, mes)) { //analiza si el vencimiento ingresado es por lo menos tres meses despues de la fecha actual
             Toast aviso = Toast.makeText(MainActivity.this,"Vencimiento invalido",Toast.LENGTH_LONG);
             aviso.show();
-            return false;
+            check = false;
         }
-        return true;
+        return check;
     }
 
-    public boolean vencimientoValido() {
+    public boolean vencimientoValido(String ano, String mes) {
         final Calendar vencimiento = Calendar.getInstance();
-        vencimiento.set(Calendar.YEAR, Integer.parseInt(inputAno.getText().toString())); //asigna el anio ingresado al calendar
-        vencimiento.set(Calendar.MONTH, Integer.parseInt(inputMes.getText().toString())); //asigna el mes ingresado al calendar
+        vencimiento.set(Calendar.YEAR, Integer.parseInt(ano)); //asigna el anio ingresado al calendar
+        vencimiento.set(Calendar.MONTH, Integer.parseInt(mes)); //asigna el mes ingresado al calendar
 
         Calendar hoy = Calendar.getInstance(); //obtiene fecha actual
         hoy.add(Calendar.MONTH, 3); //le suma tres meses
@@ -379,8 +413,34 @@ public class MainActivity extends AppCompatActivity {
         return check;
     }
 
-    private static void toggleTextInputLayoutError(@NonNull TextInputLayout textInputLayout,
-                                                   String msg) {
+    public boolean ingresoEmailValido() {
+        Pattern emailPattern = Pattern.compile(getString(R.string.entidadRegularEmail)); //indica como deberia ser el email
+        email = inputEmail.getText().toString();
+        Matcher matcherEmail = emailPattern.matcher(email); //lo va a comparar con lo ingresado en email
+        String errorPatronEmail = null;
+        boolean check = true;
+        if(!email.isEmpty() && !matcherEmail.find()) { //analiza si el email ingresado tiene un arroba y tres letras detras
+            errorPatronEmail = getString(R.string.emailInvalido);
+            check = false;
+        }
+        toggleTextInputLayoutError(layoutEmail, errorPatronEmail);
+        return check;
+    }
+
+    public boolean contrasenasCoinciden() {
+        contrasena = inputContrasena.getText().toString(); //obtengo el string de inputContrasena
+        contrasenaRepetida = inputcontrasenaRepetida.getText().toString(); //obtengo el string de inputContrasenaRepetida
+        String errorContrasena = null; //verifica que las contrasenias coincida
+        boolean check = true;
+        if (!contrasena.isEmpty() && !contrasenaRepetida.isEmpty() && !contrasena.equals(contrasenaRepetida)) {
+            errorContrasena = getString(R.string.errorContrasena);
+            check = false;
+        }
+        toggleTextInputLayoutError(layoutContrasenaRepetida, errorContrasena);
+        return check;
+    }
+
+    private static void toggleTextInputLayoutError(@NonNull TextInputLayout textInputLayout, String msg) {
         textInputLayout.setError(msg);
         if (msg == null) {
             textInputLayout.setErrorEnabled(false);
