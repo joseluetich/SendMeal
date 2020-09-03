@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
     TextInputLayout layoutCcv;
     TextInputLayout layoutMes;
     TextInputLayout layoutAno;
+    TextView errorCargaInicial;
 
     int idTarjetas=0; //falta asignar un id para guardar en la clase tarjeta
 
@@ -101,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
         layoutCcv = findViewById(R.id.layoutCcv);
         layoutMes = findViewById(R.id.layoutMes);
         layoutAno = findViewById(R.id.layoutAno);
+        errorCargaInicial = findViewById(R.id.errorCargaInicial);
 
         contrasena=""; //para que no ocurra errror en el .isEmpty() de la linea 101
         contrasenaRepetida="";
@@ -271,11 +273,12 @@ public class MainActivity extends AppCompatActivity {
                 if(b) { //si esta activado
                     monto.setVisibility(View.VISIBLE); //muestro el texto del monto
                     montoCredito.setVisibility(View.VISIBLE); //y muestro la seekbar
+                    creditoInicial.setVisibility(View.VISIBLE);
                 }
                 else { //si esta desactivado
                     monto.setVisibility(View.GONE); //desaparece el texto del monto
-                    montoCredito.setVisibility(View.GONE); //y desapa
-                    // rece la seekbar
+                    montoCredito.setVisibility(View.GONE); //y desaparece la seekbar
+                    creditoInicial.setVisibility(View.GONE);
                 }
             }
         });
@@ -322,8 +325,7 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean cumpleRequisitos() {
         boolean check = true;
-        String ano = inputAno.getText().toString();
-        String mes = inputMes.getText().toString();
+
         if(!camposObligatoriosCompletos()) {
             check = false;
         }
@@ -333,30 +335,37 @@ public class MainActivity extends AppCompatActivity {
         if(!inputcontrasenaRepetida.getText().toString().isEmpty() && !contrasenasCoinciden()){ //primero me fijo si no tiene la etiqueta
             check = false; //de campo obligatorio, valido antes si el campo no es nulo
         }
-        //FALTA MODIFICAR ESOS ERRORES
-        else if(realizarCarga.isChecked() && monto.getText().toString().equals("0")){ //verifica que si el switch esta activo, hay monto mayor a 0
-            Toast aviso = Toast.makeText(MainActivity.this,"Monto invalido",Toast.LENGTH_LONG);
-            aviso.show();
+        if(!montoValido()) { //comprueba que si el switch esta activado, el monto no sea nulo
             check = false;
         }
-        else if(!ano.isEmpty() && !mes.isEmpty() && !vencimientoValido(ano, mes)) { //analiza si el vencimiento ingresado es por lo menos tres meses despues de la fecha actual
-            Toast aviso = Toast.makeText(MainActivity.this,"Vencimiento invalido",Toast.LENGTH_LONG);
-            aviso.show();
+        String ano = inputAno.getText().toString();
+        String mes = inputMes.getText().toString();
+        if(!ano.isEmpty() && !mes.isEmpty() && !vencimientoValido(ano, mes)) {
             check = false;
         }
         return check;
     }
 
     public boolean vencimientoValido(String ano, String mes) {
-        final Calendar vencimiento = Calendar.getInstance();
+        boolean check = true;
+
+        String errorMes = null;
+        String errorAno = null;
+        Calendar vencimiento = Calendar.getInstance();
         vencimiento.set(Calendar.YEAR, Integer.parseInt(ano)); //asigna el anio ingresado al calendar
         vencimiento.set(Calendar.MONTH, Integer.parseInt(mes)); //asigna el mes ingresado al calendar
 
         Calendar hoy = Calendar.getInstance(); //obtiene fecha actual
         hoy.add(Calendar.MONTH, 3); //le suma tres meses
 
-        //compara si el vencimiento es despues de tres meses a partir de hoy
-        return vencimiento.after(hoy);
+        if(!vencimiento.after(hoy)) { //analiza si el vencimiento ingresado es por lo menos tres meses despues de la fecha actual
+            errorMes = getString(R.string.errorMes);
+            errorAno = getString(R.string.errorAno);
+            check = false;
+        }
+        toggleTextInputLayoutError(layoutMes, errorMes);
+        toggleTextInputLayoutError(layoutAno, errorAno);
+        return check;
     }
 
     public boolean camposObligatoriosCompletos() {
@@ -437,6 +446,18 @@ public class MainActivity extends AppCompatActivity {
             check = false;
         }
         toggleTextInputLayoutError(layoutContrasenaRepetida, errorContrasena);
+        return check;
+    }
+
+    public boolean montoValido() {
+        boolean check = true;
+        if(realizarCarga.isChecked() && monto.getText().toString().equals("0")){ //verifica que si el switch esta activo, hay monto mayor a 0
+            errorCargaInicial.setVisibility(View.VISIBLE); //se muestra el error
+            check = false;
+        }
+        else {
+            errorCargaInicial.setVisibility(View.GONE);
+        }
         return check;
     }
 
