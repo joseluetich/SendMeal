@@ -26,7 +26,10 @@
     <string name="entidadRegularEmail">"@[a-z][a-z][a-z]"</string>
     <!--Errores-->
     <string name="campoObligatorio">"        Campo obligatorio"</string>
-    <string name="campoObligatorioCorto">"Campo obligatorio"</string>
+    <string name="campoObligatorioCorto">"   Campo obligatorio"</string>
     <string name="emailInvalido">"        Email invalido"</string>
     <string name="errorContrasena">"        Las contraseñas no coinciden."</string>
+    <string name="errorCargaInicial">Carga inicial invalida</string>
+    <string name="errorMes">"        Fecha de vencimiento invalida"</string>
+    <string name="errorAno">" "</string>
 </resources>
