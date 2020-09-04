@@ -1,23 +1,24 @@
 <resources>
     <!--Campos-->
     <string name="app_name">SendMeal</string>
+    <string name="crearCuenta">Crear cuenta</string>
     <string name="nombre">Nombre y Apellido</string>
     <string name="email">Email  *</string>
     <string name="contrasena">Contraseña  *</string>
     <string name="contrasenaRepetida">Repetir Contraseña  *</string>
-    <string name="tipoDeTarjeta">Tipo de tarjeta  *</string>
+    <string name="tipoDeTarjeta">Tipo de tarjeta</string>
     <string name="debito">Debito</string>
     <string name="credito">Credito</string>
     <string name="numeroTarjeta">Numero de Tarjeta  *</string>
     <string name="ccv">CCV  *</string>
     <string name="fechaVencimiento">Fecha de vencimiento</string>
-    <string name="mes">Mes  *</string>
-    <string name="ano">Año  *</string>
+    <string name="mes">Mes</string>
+    <string name="ano">Año</string>
     <string name="cbu">CBU</string>
     <string name="aliasCbu">Alias CBU</string>
     <string name="realizarCarga">Realizar carga inicial?</string>
     <string name="creditoInicial">Credito inicial</string>
-    <string name="terminos">Acepto los terminos y condiciones</string>
+    <string name="terminos">Acepto los términos y condiciones</string>
     <string name="monto">0</string>
     <string name="registrar">REGISTRAR</string>
     <!--Tipo de entradas-->
@@ -27,9 +28,42 @@
     <!--Errores-->
     <string name="campoObligatorio">"        Campo obligatorio"</string>
     <string name="campoObligatorioCorto">"   Campo obligatorio"</string>
-    <string name="emailInvalido">"        Email invalido"</string>
-    <string name="errorContrasena">"        Las contraseñas no coinciden."</string>
-    <string name="errorCargaInicial">Carga inicial invalida</string>
-    <string name="errorMes">"        Fecha de vencimiento invalida"</string>
-    <string name="errorAno">" "</string>
+    <string name="emailInvalido">"        Email invalido: ejemplo@gmail.com"</string>
+    <string name="errorContrasena">"        Las contraseñas no coinciden"</string>
+    <string name="errorCargaInicial">Carga inicial inválida</string>
+    <string name="errorFechaVencimiento">Fecha de vencimiento inválida</string>
+    <!--Arreglos-->
+    <string-array name="meses">
+        <item>Mes</item>
+        <item>Enero</item>
+        <item>Febrero</item>
+        <item>Marzo</item>
+        <item>Abril</item>
+        <item>Mayo</item>
+        <item>Junio</item>
+        <item>Julio</item>
+        <item>Agosto</item>
+        <item>Septiembre</item>
+        <item>Octubre</item>
+        <item>Noviembre</item>
+        <item>Diciembre</item>
+    </string-array>
+    <string-array name="anos">
+        <item><Año></Año></item><item>2020</item>
+        <item>2021</item><item>2022</item>
+        <item>2023</item><item>2024</item>
+        <item>2025</item><item>2026</item>
+        <item>2027</item><item>2028</item>
+        <item>2029</item><item>2030</item>
+        <item>2031</item><item>2032</item>
+        <item>2033</item><item>2034</item>
+        <item>2035</item><item>2036</item>
+        <item>2037</item><item>2038</item>
+        <item>2039</item><item>2040</item>
+        <item>2041</item><item>2042</item>
+        <item>2043</item><item>2044</item>
+        <item>2045</item><item>2046</item>
+        <item>2047</item><item>2048</item>
+        <item>2049</item><item>2050</item>
+    </string-array>
 </resources>
