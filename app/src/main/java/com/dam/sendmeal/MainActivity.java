@@ -2,7 +2,9 @@ package com.dam.sendmeal;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -13,6 +15,8 @@ import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -20,6 +24,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,8 +49,6 @@ public class MainActivity extends AppCompatActivity {
     String numeroTarjeta; //guarda el contenido de inputNumeroTarjeta
     String email;
     EditText inputCcv;
-    EditText inputMes;
-    EditText inputAno;
     RadioGroup tarjetas;
     RadioButton credito;
     RadioButton debito;
@@ -63,9 +66,12 @@ public class MainActivity extends AppCompatActivity {
     TextInputLayout layoutContrasenaRepetida;
     TextInputLayout layoutNumeroTarjeta;
     TextInputLayout layoutCcv;
-    TextInputLayout layoutMes;
-    TextInputLayout layoutAno;
     TextView errorCargaInicial;
+    Spinner spinnerMes;
+    String mesSeleccionado;
+    Spinner spinnerAno;
+    String anoSeleccionado;
+    TextView errorFechaVencimiento;
 
     int idTarjetas=0; //falta asignar un id para guardar en la clase tarjeta
 
@@ -78,11 +84,8 @@ public class MainActivity extends AppCompatActivity {
         inputNombre = findViewById(R.id.nombre);
         inputContrasena = findViewById(R.id.contrasena);
         inputcontrasenaRepetida = findViewById(R.id.contrasenaRepetida);
-        //errorContrasena = findViewById(R.id.errorContrasena);
         inputNumeroTarjeta = findViewById(R.id.numeroTarjeta);
         inputCcv = findViewById(R.id.ccv);
-        inputMes = findViewById(R.id.mes);
-        inputAno = findViewById(R.id.ano);
         tarjetas = findViewById(R.id.tarjetas);
         credito = findViewById(R.id.credito);
         debito = findViewById(R.id.debito);
@@ -100,12 +103,16 @@ public class MainActivity extends AppCompatActivity {
         layoutContrasenaRepetida = findViewById(R.id.layoutContrasenaRepetida);
         layoutNumeroTarjeta = findViewById(R.id.layoutNumeroTarjeta);
         layoutCcv = findViewById(R.id.layoutCcv);
-        layoutMes = findViewById(R.id.layoutMes);
-        layoutAno = findViewById(R.id.layoutAno);
         errorCargaInicial = findViewById(R.id.errorCargaInicial);
+        spinnerMes = findViewById(R.id.spinnerMes);
+        spinnerAno = findViewById(R.id.spinnerAno);
+        errorFechaVencimiento = findViewById(R.id.errorFechaVencimiento);
 
         contrasena=""; //para que no ocurra errror en el .isEmpty() de la linea 101
         contrasenaRepetida="";
+        spinnerMes.setEnabled(false);
+        spinnerAno.setEnabled(false);
+        registrar.setBackgroundColor(ContextCompat.getColor(getBaseContext(),R.color.colorPrimaryDesable));
 
         inputEmail.addTextChangedListener(new TextWatcher() { //si no ingreso el email la primera vez, reconoce que se agrega texto para sacar el error
             @Override
@@ -184,15 +191,14 @@ public class MainActivity extends AppCompatActivity {
                 numeroTarjeta = inputNumeroTarjeta.getText().toString(); //almacena el string del campo numero de tarjeta
                 if(!numeroTarjeta.isEmpty()) { //si el campo no esta vacio
                     inputCcv.setEnabled(true); //se habilita el ccv el mes y el anio
-                    inputAno.setEnabled(true);
-                    inputMes.setEnabled(true);
+                    spinnerMes.setEnabled(true);
+                    spinnerAno.setEnabled(true);
                 }
                 else { //si el campo esta vacio
                     inputCcv.setEnabled(false); //permanecen deshabilitados el ccv el mes y el anio
-                    inputAno.setEnabled(false);
-                    inputMes.setEnabled(false);
+                    spinnerAno.setEnabled(false);
+                    spinnerMes.setEnabled(false);
                 }
-
                 String errorNumeroTarjeta = null; //verifica que el campo obligatorio sea completado
                 if (TextUtils.isEmpty(inputNumeroTarjeta.getText())) {
                     errorNumeroTarjeta = getString(R.string.campoObligatorio);
@@ -219,38 +225,35 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        inputMes.addTextChangedListener(new TextWatcher() { //listener Ccv
+        spinnerMes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                String errorMes = null; //verifica que el campo obligatorio sea completado
-                if (TextUtils.isEmpty(inputMes.getText())) {
-                    errorMes = getString(R.string.campoObligatorio);
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                mesSeleccionado = spinnerMes.getSelectedItem().toString();
+                if(!mesSeleccionado.equals(getString(R.string.mes))) {
+                    ((TextView)spinnerMes.getSelectedView()).setError(null);
+                    errorFechaVencimiento.setVisibility(View.GONE);
                 }
-                toggleTextInputLayoutError(layoutMes, errorMes);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
 
-        inputAno.addTextChangedListener(new TextWatcher() { //listener Ccv
+        spinnerAno.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-                String errorAno = null; //verifica que el campo obligatorio sea completado
-                if (TextUtils.isEmpty(inputAno.getText())) {
-                    errorAno = getString(R.string.campoObligatorioCorto);
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                anoSeleccionado = spinnerAno.getSelectedItem().toString();
+                if(!anoSeleccionado.equals(getString(R.string.ano))) {
+                    ((TextView)spinnerAno.getSelectedView()).setError(null);
+                    errorFechaVencimiento.setVisibility(View.GONE);
                 }
-                toggleTextInputLayoutError(layoutAno, errorAno);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
 
@@ -284,13 +287,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
         terminos.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @SuppressLint("ResourceAsColor")
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) { //listener del checkbox terminos
                 if(terminos.isChecked()) { //si esta marcado
                     registrar.setEnabled(true); //puedo habilitar el boton
+                    registrar.setBackgroundColor(ContextCompat.getColor(getBaseContext(),R.color.colorPrimary));
                 }
-                else
+                else {
                     registrar.setEnabled(false);
+                    registrar.setBackgroundColor(ContextCompat.getColor(getBaseContext(),R.color.colorPrimaryDesable));
+                }
             }
         });
 
@@ -298,15 +305,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(cumpleRequisitos()) { //si cumple con todos los requisitos
-                    Toast aviso = Toast.makeText(MainActivity.this, "Registro exitoso", Toast.LENGTH_LONG); //aviso al usuario
-                    aviso.show();
                     //creo la tarjeta registrada
                     String ccv = inputCcv.getText().toString();
                     Calendar vencimiento = Calendar.getInstance();
-                    vencimiento.set(Calendar.YEAR, Integer.parseInt(inputAno.getText().toString())); //no deberia hacer dos veces lo mismo
-                    vencimiento.set(Calendar.MONTH, Integer.parseInt(inputMes.getText().toString()));
+                    int numeroMesSeleccionado = transformarMes(mesSeleccionado);
+                    vencimiento.set(Calendar.YEAR, Integer.parseInt(anoSeleccionado)); //no deberia hacer dos veces lo mismo
+                    vencimiento.set(Calendar.MONTH, numeroMesSeleccionado);
                     Date fechaVencimiento = vencimiento.getTime();
-                    Boolean esCredito = credito.isChecked();
+                    boolean esCredito = credito.isChecked();
                     Tarjeta tarjeta = new Tarjeta(numeroTarjeta, ccv, fechaVencimiento, esCredito);
                     //creo la cuenta bancaria registrada
                     String cbu = inputCbu.getText().toString();
@@ -318,6 +324,8 @@ public class MainActivity extends AppCompatActivity {
                     String mail = inputEmail.getText().toString();
                     Double credito = Double.valueOf(monto.getText().toString());
                     Usuario user = new Usuario(idTarjetas+1, nombre, clave, mail, credito, tarjeta, cuenta);
+                    Toast aviso = Toast.makeText(MainActivity.this, "Registro exitoso", Toast.LENGTH_LONG); //aviso al usuario
+                    aviso.show();
                 }
             }
         });
@@ -338,10 +346,18 @@ public class MainActivity extends AppCompatActivity {
         if(!montoValido()) { //comprueba que si el switch esta activado, el monto no sea nulo
             check = false;
         }
-        String ano = inputAno.getText().toString();
-        String mes = inputMes.getText().toString();
-        if(!ano.isEmpty() && !mes.isEmpty() && !vencimientoValido(ano, mes)) {
-            check = false;
+        if(mesSeleccionado.equals(getString(R.string.mes))) {
+            ((TextView) spinnerMes.getSelectedView()).setError("Error message");
+            errorFechaVencimiento.setVisibility(View.VISIBLE);
+        }
+        if(anoSeleccionado.equals(getString(R.string.ano))) {
+            ((TextView) spinnerAno.getSelectedView()).setError("Error message");
+            errorFechaVencimiento.setVisibility(View.VISIBLE);
+        }
+        if(!mesSeleccionado.equals(getString(R.string.mes)) && !anoSeleccionado.equals(getString(R.string.ano)) && !vencimientoValido(anoSeleccionado,mesSeleccionado)) {
+            ((TextView) spinnerMes.getSelectedView()).setError("Error message");
+            ((TextView) spinnerAno.getSelectedView()).setError("Error message");
+            errorFechaVencimiento.setVisibility(View.VISIBLE);
         }
         return check;
     }
@@ -349,22 +365,16 @@ public class MainActivity extends AppCompatActivity {
     public boolean vencimientoValido(String ano, String mes) {
         boolean check = true;
 
-        String errorMes = null;
-        String errorAno = null;
         Calendar vencimiento = Calendar.getInstance();
         vencimiento.set(Calendar.YEAR, Integer.parseInt(ano)); //asigna el anio ingresado al calendar
-        vencimiento.set(Calendar.MONTH, Integer.parseInt(mes)); //asigna el mes ingresado al calendar
+        vencimiento.set(Calendar.MONTH, transformarMes(mes)); //asigna el mes ingresado al calendar
 
         Calendar hoy = Calendar.getInstance(); //obtiene fecha actual
         hoy.add(Calendar.MONTH, 3); //le suma tres meses
 
         if(!vencimiento.after(hoy)) { //analiza si el vencimiento ingresado es por lo menos tres meses despues de la fecha actual
-            errorMes = getString(R.string.errorMes);
-            errorAno = getString(R.string.errorAno);
             check = false;
         }
-        toggleTextInputLayoutError(layoutMes, errorMes);
-        toggleTextInputLayoutError(layoutAno, errorAno);
         return check;
     }
 
@@ -405,20 +415,7 @@ public class MainActivity extends AppCompatActivity {
             check = false;
         }
         toggleTextInputLayoutError(layoutCcv, errorCcv);
-        //mes
-        String errorMes = null;
-        if (TextUtils.isEmpty(inputMes.getText())) {
-            errorMes = getString(R.string.campoObligatorio);
-            check = false;
-        }
-        toggleTextInputLayoutError(layoutMes, errorMes);
-        //anio
-        String errorAno = null;
-        if (TextUtils.isEmpty(inputAno.getText())) {
-            errorAno = getString(R.string.campoObligatorioCorto);
-            check = false;
-        }
-        toggleTextInputLayoutError(layoutAno, errorAno);
+
         return check;
     }
 
@@ -459,6 +456,24 @@ public class MainActivity extends AppCompatActivity {
             errorCargaInicial.setVisibility(View.GONE);
         }
         return check;
+    }
+
+    public int transformarMes(String mesSeleccionado){
+        switch (mesSeleccionado){
+            case "Enero": return 0;
+            case "Febrero": return 1;
+            case "Marzo": return 2;
+            case "Abril": return 3;
+            case "Mayo": return 4;
+            case "Junio": return 5;
+            case "Julio": return 6;
+            case "Agosto": return 7;
+            case "Septiembre": return 8;
+            case "Octubre": return 9;
+            case "Noviembre": return 10;
+            case "Diciembre": return 11;
+        }
+        return -1;
     }
 
     private static void toggleTextInputLayoutError(@NonNull TextInputLayout textInputLayout, String msg) {

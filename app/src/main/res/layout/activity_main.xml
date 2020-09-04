@@ -10,24 +10,41 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
+        <TextView
+            android:id="@+id/crearCuenta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="sans-serif-thin"
+            android:text="@string/crearCuenta"
+            android:textAllCaps="false"
+            android:textColor="@color/azulOscuro"
+            android:textSize="@dimen/dim32"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutNombre"
             android:layout_width="@dimen/dim0"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dim16"
-            android:layout_marginTop="@dimen/dim16"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="@dimen/dim16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" >
+            app:layout_constraintTop_toBottomOf="@+id/crearCuenta">
 
             <EditText
                 android:id="@+id/nombre"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+
                 android:layout_marginStart="@dimen/dim16"
                 android:layout_marginTop="@dimen/dim16"
                 android:layout_marginEnd="@dimen/dim16"
+                android:backgroundTint="@color/azulOscuro"
                 android:digits="@string/digitosNombre"
                 android:ems="10"
                 android:hint="@string/nombre"
@@ -53,10 +70,12 @@
                 android:layout_marginStart="@dimen/dim16"
                 android:layout_marginTop="@dimen/dim8"
                 android:layout_marginEnd="@dimen/dim16"
+                android:backgroundTint="@color/azulOscuro"
                 android:digits="@string/digitosEmail"
                 android:ems="10"
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
+                android:textSize="18dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/layoutNombre" />
@@ -80,6 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dim16"
                 android:layout_marginEnd="@dimen/dim16"
+                android:backgroundTint="@color/azulOscuro"
                 android:ems="10"
                 android:hint="@string/contrasena"
                 android:inputType="textPassword"
@@ -107,6 +127,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dim16"
                 android:layout_marginEnd="@dimen/dim16"
+                android:backgroundTint="@color/azulOscuro"
                 android:ems="10"
                 android:hint="@string/contrasenaRepetida"
                 android:inputType="textPassword"
@@ -123,7 +144,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dim32"
             android:layout_marginTop="16dp"
+            android:fontFamily="sans-serif-medium"
             android:text="@string/tipoDeTarjeta"
+            android:textColor="@color/azulOscuro"
+            android:textSize="18dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layoutContrasenaRepetida" />
 
@@ -144,14 +168,16 @@
                 android:layout_width="@dimen/dim162"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="@string/credito" />
+                android:text="@string/credito"
+                android:textSize="18dp" />
 
             <RadioButton
                 android:id="@+id/debito"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="false"
-                android:text="@string/debito" />
+                android:text="@string/debito"
+                android:textSize="18dp" />
 
         </RadioGroup>
 
@@ -173,6 +199,7 @@
                 android:layout_marginStart="@dimen/dim16"
                 android:layout_marginTop="@dimen/dim8"
                 android:layout_marginEnd="@dimen/dim8"
+                android:backgroundTint="@color/azulOscuro"
                 android:ems="10"
                 android:hint="@string/numeroTarjeta"
                 android:inputType="numberSigned"
@@ -200,6 +227,7 @@
                 android:layout_marginStart="@dimen/dim8"
                 android:layout_marginTop="@dimen/dim8"
                 android:layout_marginEnd="@dimen/dim16"
+                android:backgroundTint="@color/azulOscuro"
                 android:ems="10"
                 android:enabled="false"
                 android:hint="@string/ccv"
@@ -218,67 +246,49 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dim32"
             android:layout_marginTop="16dp"
+            android:fontFamily="sans-serif-medium"
             android:text="@string/fechaVencimiento"
+            android:textColor="@color/azulOscuro"
+            android:textSize="18dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layoutNumeroTarjeta" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutMes"
-            android:layout_width="@dimen/dim0"
+        <Spinner
+            android:id="@+id/spinnerMes"
+            android:layout_width="175dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dim16"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="@dimen/dim4"
-            app:layout_constraintEnd_toStartOf="@+id/layoutAno"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fechaVencimiento">
-
-            <EditText
-                android:id="@+id/mes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dim16"
-                android:layout_marginTop="@dimen/dim4"
-                android:layout_marginEnd="@dimen/dim8"
-                android:ems="10"
-                android:enabled="false"
-                android:hint="@string/mes"
-                android:inputType="number"
-                android:maxLength="2"
-                app:layout_constraintEnd_toStartOf="@+id/ano"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fechaVencimiento" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutAno"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="@dimen/dim16"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:entries="@array/meses"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fechaVencimiento">
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fechaVencimiento" />
 
-            <EditText
-                android:id="@+id/ano"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dim8"
-                android:layout_marginTop="@dimen/dim4"
-                android:layout_marginEnd="@dimen/dim16"
-                android:ems="10"
-                android:enabled="false"
-                android:hint="@string/ano"
-                android:inputType="number"
-                android:maxLength="4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/layoutMes"
-                app:layout_constraintTop_toBottomOf="@+id/fechaVencimiento" />
+        <Spinner
+            android:id="@+id/spinnerAno"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:entries="@array/anos"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/spinnerMes"
+            app:layout_constraintTop_toBottomOf="@+id/fechaVencimiento" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:id="@+id/errorFechaVencimiento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:text="@string/errorFechaVencimiento"
+            android:textColor="@color/rojo"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerAno" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutCbu"
@@ -289,7 +299,7 @@
             android:layout_marginEnd="@dimen/dim16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutMes">
+            app:layout_constraintTop_toBottomOf="@+id/errorFechaVencimiento">
 
             <EditText
                 android:id="@+id/cbu"
@@ -298,12 +308,13 @@
                 android:layout_marginStart="@dimen/dim16"
                 android:layout_marginTop="@dimen/dim8"
                 android:layout_marginEnd="@dimen/dim16"
+                android:backgroundTint="@color/azulOscuro"
                 android:ems="10"
                 android:hint="@string/cbu"
                 android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layoutMes" />
+                app:layout_constraintTop_toBottomOf="@+id/spinnerMes" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -325,6 +336,7 @@
                 android:layout_marginStart="@dimen/dim16"
                 android:layout_marginTop="@dimen/dim8"
                 android:layout_marginEnd="@dimen/dim16"
+                android:backgroundTint="@color/azulOscuro"
                 android:ems="10"
                 android:hint="@string/aliasCbu"
                 android:inputType="textPersonName"
@@ -341,7 +353,10 @@
             android:layout_marginStart="@dimen/dim32"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="@dimen/dim32"
+            android:fontFamily="sans-serif-medium"
             android:text="@string/realizarCarga"
+            android:textColor="@color/azulOscuro"
+            android:textSize="18dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layoutAliasCbu"
@@ -355,6 +370,7 @@
             android:layout_marginTop="8dp"
             android:visibility="gone"
             android:text="@string/creditoInicial"
+            android:textSize="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/errorCargaInicial" />
 
@@ -378,9 +394,9 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="48dp"
             android:text="@string/monto"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/azulOscuro"
             android:visibility="gone"
-            android:textSize="@dimen/dim14"
+            android:textSize="@dimen/dim16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/errorCargaInicial" />
 
@@ -404,6 +420,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="@dimen/dim32"
             android:checked="false"
+            android:textSize="18dp"
             android:text="@string/terminos"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -413,18 +430,31 @@
             android:id="@+id/registrar"
             android:layout_width="@dimen/dim0"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dim48"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="@dimen/dim48"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
             android:backgroundTint="@color/colorPrimary"
             android:enabled="false"
+            android:fontFamily="sans-serif-medium"
             android:text="@string/registrar"
             android:textColor="@color/blanco"
-            android:textStyle="bold"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/terminos" />
+
+        <ImageView
+            android:id="@+id/imagenUsuario"
+            android:layout_width="43dp"
+            android:layout_height="43dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="120dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/user" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
