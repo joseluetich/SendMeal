@@ -349,15 +349,18 @@ public class MainActivity extends AppCompatActivity {
         if(mesSeleccionado.equals(getString(R.string.mes))) {
             ((TextView) spinnerMes.getSelectedView()).setError("Error message");
             errorFechaVencimiento.setVisibility(View.VISIBLE);
+            check = false;
         }
         if(anoSeleccionado.equals(getString(R.string.ano))) {
             ((TextView) spinnerAno.getSelectedView()).setError("Error message");
             errorFechaVencimiento.setVisibility(View.VISIBLE);
+            check = false;
         }
         if(!mesSeleccionado.equals(getString(R.string.mes)) && !anoSeleccionado.equals(getString(R.string.ano)) && !vencimientoValido(anoSeleccionado,mesSeleccionado)) {
             ((TextView) spinnerMes.getSelectedView()).setError("Error message");
             ((TextView) spinnerAno.getSelectedView()).setError("Error message");
             errorFechaVencimiento.setVisibility(View.VISIBLE);
+            check = false;
         }
         return check;
     }
