@@ -1,44 +1,40 @@
 <resources>
-    <string name="app_name">Send Meal</string>
-
-    <!--Create Account Page-->
-    <string name="createAccount">Crear cuenta</string>
-    <string name="nameHint">Nombre y Apellido</string>
-    <string name="emailHint">Email</string>
-    <string name="passwordHint">Contraseña</string>
-    <string name="repeatPasswordHint">Repetir Contraseña</string>
-    <string name="cardType">Tipo de tarjeta</string>
-    <string name="debitRadioButtonText">Débito</string>
-    <string name="creditRadioButtonText">Crédito</string>
-    <string name="cardNumberHint">Número de Tarjeta</string>
-    <string name="ccvHint">CCV</string>
-    <string name="dueDate">Fecha de vencimiento</string>
+    <!--Campos-->
+    <string name="app_name">SendMeal</string>
+    <string name="crearCuenta">Crear cuenta</string>
+    <string name="nombre">Nombre y Apellido</string>
+    <string name="email">Email  *</string>
+    <string name="contrasena">Contraseña  *</string>
+    <string name="contrasenaRepetida">Repetir Contraseña  *</string>
+    <string name="tipoDeTarjeta">Tipo de tarjeta</string>
+    <string name="debito">Debito</string>
+    <string name="credito">Credito</string>
+    <string name="numeroTarjeta">Numero de Tarjeta  *</string>
+    <string name="ccv">CCV  *</string>
+    <string name="fechaVencimiento">Fecha de vencimiento</string>
     <string name="mes">Mes</string>
     <string name="ano">Año</string>
-    <string name="cbuHint">CBU</string>
-    <string name="aliasCbuHint">Alias CBU</string>
-    <string name="addInitialAmountLabel">Realizar carga inicial?</string>
-    <string name="initialCredit">Crédito inicial</string>
-    <string name="termsAndConditions">Acepto los términos y condiciones</string>
-    <string name="amountLabel">0</string>
-    <string name="registerButtonText">Registrar</string>
-
+    <string name="cbu">CBU</string>
+    <string name="aliasCbu">Alias CBU</string>
+    <string name="realizarCarga">Realizar carga inicial?</string>
+    <string name="creditoInicial">Credito inicial</string>
+    <string name="terminos">Acepto los términos y condiciones</string>
+    <string name="monto">0</string>
+    <string name="registrar">REGISTRAR</string>
     <!--Tipo de entradas-->
-    <string name="nameDigits">"áéíóúÁÉÍÓÚQWERTYUIOPASDFGHJKLÑZXCVBNMqwertyuiopasdfghjklñzxcvbnm "</string>
-    <string name="emailDigits">"+QWERTYUIOPASDFGHJKLÑZXCVBNMqwertyuiopasdfghjklñzxcvbnm@.-_0123456789"</string>
+    <string name="digitosNombre">"áéíóúÁÉÍÓÚQWERTYUIOPASDFGHJKLÑZXCVBNMqwertyuiopasdfghjklñzxcvbnm "</string>
+    <string name="digitosEmail">"+QWERTYUIOPASDFGHJKLÑZXCVBNMqwertyuiopasdfghjklñzxcvbnm@.-_0123456789"</string>
     <string name="entidadRegularEmail">"@[a-z][a-z][a-z]"</string>
-
-    <!--Helpers-->
-    <string name="obligatoryFieldHelper">"*Campo obligatorio"</string>
-
-    <!--Errors-->
-    <string name="errorObligatoryField">"Campo obligatorio"</string>
-    <string name="invalidEmail">"Email inválido: ejemplo@gmail.com"</string>
-    <string name="errorPasswordMatch">"Las contraseñas no coinciden"</string>
-    <string name="errorInitialCredit">Carga inicial inválida</string>
-    <string name="errorDueDate">Fecha de vencimiento inválida</string>
-    <string name="errorCCV">Debe poseer 3 dígitos</string>
-    <!--Arrays-->
+    <!--Errores-->
+    <string name="campoObligatorio">"        Campo obligatorio"</string>
+    <string name="campoObligatorioCorto">"   Campo obligatorio"</string>
+    <string name="emailInvalido">"        Email invalido: ejemplo@gmail.com"</string>
+    <string name="errorContrasena">"        Las contraseñas no coinciden"</string>
+    <string name="errorCargaInicial">Carga inicial inválida</string>
+    <string name="errorFechaVencimiento">Fecha de vencimiento inválida</string>
+    <string name="crearCuentaHome">CREAR CUENTA</string>
+    <string name="bienvenida">Bienvenido!</string>
+    <!--Arreglos-->
     <string-array name="meses">
         <item>Mes</item>
         <item>Enero</item>
@@ -55,21 +51,37 @@
         <item>Diciembre</item>
     </string-array>
     <string-array name="anos">
-        <item>Año</item><item>2020</item>
-        <item>2021</item><item>2022</item>
-        <item>2023</item><item>2024</item>
-        <item>2025</item><item>2026</item>
-        <item>2027</item><item>2028</item>
-        <item>2029</item><item>2030</item>
-        <item>2031</item><item>2032</item>
-        <item>2033</item><item>2034</item>
-        <item>2035</item><item>2036</item>
-        <item>2037</item><item>2038</item>
-        <item>2039</item><item>2040</item>
-        <item>2041</item><item>2042</item>
-        <item>2043</item><item>2044</item>
-        <item>2045</item><item>2046</item>
-        <item>2047</item><item>2048</item>
-        <item>2049</item><item>2050</item>
+        <item>Año</item>
+        <item>2020</item>
+        <item>2021</item>
+        <item>2022</item>
+        <item>2023</item>
+        <item>2024</item>
+        <item>2025</item>
+        <item>2026</item>
+        <item>2027</item>
+        <item>2028</item>
+        <item>2029</item>
+        <item>2030</item>
+        <item>2031</item>
+        <item>2032</item>
+        <item>2033</item>
+        <item>2034</item>
+        <item>2035</item>
+        <item>2036</item>
+        <item>2037</item>
+        <item>2038</item>
+        <item>2039</item>
+        <item>2040</item>
+        <item>2041</item>
+        <item>2042</item>
+        <item>2043</item>
+        <item>2044</item>
+        <item>2045</item>
+        <item>2046</item>
+        <item>2047</item>
+        <item>2048</item>
+        <item>2049</item>
+        <item>2050</item>
     </string-array>
 </resources>

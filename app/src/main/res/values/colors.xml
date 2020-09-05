@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <color name="colorPrimary">#383E56</color>
-    <color name="colorPrimaryVariant">#383E56</color>
-    <color name="colorSecondary">#FFD571</color>
-    <color name="colorSecondaryVariant">#FFD571</color>
-    <color name="colorBackground">#FFFFFF</color>
-    <color name="colorOnPrimary">#FFFFFF</color>
-
-
-<!--    <color name="colorPrimaryDesable">#fdb7af</color>-->
-<!--    <color name="colorPrimaryDark">#fa4b38</color>-->
-<!--    <color name="colorAccent">#2B2C43</color>-->
-<!--    <color name="rojo">#C62828</color>-->
-<!--    <color name="blanco">#FFFFFF</color>-->
-<!--    <color name="btnInabilitado">#396200EE</color>-->
-<!--    <color name="azulOscuro">#131A66</color>-->
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDesable">#804A148C</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="rojo">#C62828</color>
+    <color name="blanco">#FFFFFF</color>
+    <color name="btnInabilitado">#396200EE</color>
+    <color name="azulOscuro">#131A66</color>
+    <color name="honeydew">#F1FAEE</color>
 </resources>
