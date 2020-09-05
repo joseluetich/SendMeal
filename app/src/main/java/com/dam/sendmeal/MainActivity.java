@@ -231,6 +231,7 @@ public class MainActivity extends AppCompatActivity {
                 mesSeleccionado = spinnerMes.getSelectedItem().toString();
                 if(!mesSeleccionado.equals(getString(R.string.mes))) {
                     ((TextView)spinnerMes.getSelectedView()).setError(null);
+                    ((TextView)spinnerAno.getSelectedView()).setError(null);
                     errorFechaVencimiento.setVisibility(View.GONE);
                 }
             }
@@ -247,6 +248,7 @@ public class MainActivity extends AppCompatActivity {
                 anoSeleccionado = spinnerAno.getSelectedItem().toString();
                 if(!anoSeleccionado.equals(getString(R.string.ano))) {
                     ((TextView)spinnerAno.getSelectedView()).setError(null);
+                    ((TextView)spinnerMes.getSelectedView()).setError(null);
                     errorFechaVencimiento.setVisibility(View.GONE);
                 }
             }
