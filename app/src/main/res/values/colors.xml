@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorPrimary">#1D3557</color>
+    <color name="colorPrimaryDesable">#804A148C</color>
+    <color name="colorPrimaryDark">#457B9D</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="rojo">#C62828</color>
+    <color name="blanco">#FFFFFF</color>
+    <color name="btnInabilitado">#396200EE</color>
+    <color name="azulOscuro">#131A66</color>
+    <color name="honeydew">#F1FAEE</color>
+    <color name="imperialRed">#E63946</color>
+    <color name="powderBlue">#A8DADC</color>
+    <color name="celadronBlue">#457B9D</color>
+    <color name="prussianBlue">#1D3557</color>
 </resources>
