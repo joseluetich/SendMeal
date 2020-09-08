@@ -14,6 +14,17 @@
         android:focusableInTouchMode="true"
         tools:context=".MainActivity">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarRegistro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            app:navigationIcon="?attr/homeAsUpIndicator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/createAccountTextView"
             android:layout_width="wrap_content"
@@ -25,7 +36,7 @@
             android:textFontWeight="600"
             android:textSize="@dimen/dim32"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbarRegistro" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/nameTextField"

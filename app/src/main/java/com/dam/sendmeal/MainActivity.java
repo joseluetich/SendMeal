@@ -1,5 +1,10 @@
 package com.dam.sendmeal;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.Editable;
@@ -52,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     Tarjeta card;
     CuentaBancaria bankAccount;
     Boolean passwordMatch = true;
+    Toolbar toolbarRegistro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +91,8 @@ public class MainActivity extends AppCompatActivity {
         user.setCuentaBancaria(bankAccount);
         user.setTarjeta(card);
 
+        toolbarRegistro = findViewById(R.id.toolbarRegistro);
+        setSupportActionBar(toolbarRegistro);//configuro la toolbar
 
         monthSpinner.setEnabled(false);
         yearSpinner.setEnabled(false);

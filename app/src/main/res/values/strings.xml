@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Send Meal</string>
 
+    <string name="crearCuenta">Crear Cuenta</string>
+    <string name="crearPlato">Crear Plato</string>
+    <string name="listaDePlatos">Lista de Platos</string>
+
     <!--Create Account Page-->
     <string name="createAccount">Crear cuenta</string>
     <string name="nameHint">Nombre y Apellido</string>
@@ -22,7 +26,7 @@
     <string name="termsAndConditions">Acepto los términos y condiciones</string>
     <string name="amountLabel">0</string>
     <string name="registerButtonText">Registrar</string>
-
+    <string name="bienvenida">Bienvenido!</string>
     <!--Tipo de entradas-->
     <string name="nameDigits">"áéíóúÁÉÍÓÚQWERTYUIOPASDFGHJKLÑZXCVBNMqwertyuiopasdfghjklñzxcvbnm "</string>
     <string name="emailDigits">"+QWERTYUIOPASDFGHJKLÑZXCVBNMqwertyuiopasdfghjklñzxcvbnm@.-_0123456789"</string>
