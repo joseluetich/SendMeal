@@ -40,12 +40,12 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(irARegistrarse);
                 return true;
             case R.id.opcionCrearPlato:
-                Intent irACrearPlato = new Intent(this, MainActivity.class);
+                Intent irACrearPlato = new Intent(this, NuevoPlatoActivity.class);
                 startActivity(irACrearPlato);
                 return true;
             case R.id.opcionListaDePlatos:
-                Intent irAListaDePlatos = new Intent(this, MainActivity.class);
-                startActivity(irAListaDePlatos);
+                /*Intent irAListaDePlatos = new Intent(this, ListaDePlatosActivity.class);
+                startActivity(irAListaDePlatos);*/
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

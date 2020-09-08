@@ -27,6 +27,14 @@
     <string name="amountLabel">0</string>
     <string name="registerButtonText">Registrar</string>
     <string name="bienvenida">Bienvenido!</string>
+
+    <string name="idPlato">Id</string>
+    <string name="titulo">Título</string>
+    <string name="descripcion">Descripción</string>
+    <string name="precio">Precio</string>
+    <string name="calorias">Calorías</string>
+    <string name="guardar">GUARDAR</string>
+
     <!--Tipo de entradas-->
     <string name="nameDigits">"áéíóúÁÉÍÓÚQWERTYUIOPASDFGHJKLÑZXCVBNMqwertyuiopasdfghjklñzxcvbnm "</string>
     <string name="emailDigits">"+QWERTYUIOPASDFGHJKLÑZXCVBNMqwertyuiopasdfghjklñzxcvbnm@.-_0123456789"</string>

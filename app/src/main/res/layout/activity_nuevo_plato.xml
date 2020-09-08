@@ -1,9 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".NuevoPlatoActivity">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".NuevoPlatoActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarNuevoPlato"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            app:navigationIcon="?attr/homeAsUpIndicator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/crearPlato"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="sans-serif-thin"
+            android:text="@string/crearPlato"
+            android:textAllCaps="false"
+            android:textColor="@color/azulOscuro"
+            android:textSize="@dimen/dim32"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbarNuevoPlato" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutIdPlato"
+            android:layout_width="@dimen/dim0"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dim16"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="@dimen/dim16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/crearPlato">
+
+            <EditText
+                android:id="@+id/idPlato"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dim16"
+                android:layout_marginTop="@dimen/dim16"
+                android:layout_marginEnd="@dimen/dim16"
+                android:backgroundTint="@color/azulOscuro"
+                android:ems="10"
+                android:hint="@string/idPlato"
+                android:inputType="numberSigned" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutTitulo"
+            android:layout_width="@dimen/dim0"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dim16"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/dim16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutIdPlato">
+
+            <EditText
+                android:id="@+id/titulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dim16"
+                android:layout_marginTop="@dimen/dim8"
+                android:layout_marginEnd="@dimen/dim16"
+                android:backgroundTint="@color/azulOscuro"
+                android:ems="10"
+                android:hint="@string/titulo"
+                android:inputType="textPersonName"
+                android:textSize="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layoutIdPlato" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutDescripcion"
+            android:layout_width="@dimen/dim0"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dim16"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/dim16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutTitulo">
+
+            <EditText
+                android:id="@+id/descripcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dim16"
+                android:layout_marginEnd="@dimen/dim16"
+                android:backgroundTint="@color/azulOscuro"
+                android:ems="10"
+                android:hint="@string/descripcion"
+                android:maxLength="25"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layoutTitulo" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutPrecio"
+            android:layout_width="@dimen/dim0"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dim16"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/dim16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutDescripcion">
+
+            <EditText
+                android:id="@+id/precio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dim16"
+                android:layout_marginEnd="@dimen/dim16"
+                android:backgroundTint="@color/azulOscuro"
+                android:ems="10"
+                android:hint="@string/precio"
+                android:maxLength="25"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layoutDescripcion" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutCalorias"
+            android:layout_width="@dimen/dim0"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dim16"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/dim16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutPrecio">
+
+            <EditText
+                android:id="@+id/calorias"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dim16"
+                android:layout_marginEnd="@dimen/dim16"
+                android:backgroundTint="@color/azulOscuro"
+                android:ems="10"
+                android:hint="@string/calorias"
+                android:maxLength="25"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layoutPrecio" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/guardarPlato"
+            android:layout_width="@dimen/dim0"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/guardar"
+            android:textColor="@color/blanco"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutCalorias" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
