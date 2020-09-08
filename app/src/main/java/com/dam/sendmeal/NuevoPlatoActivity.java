@@ -22,6 +22,8 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class NuevoPlatoActivity extends AppCompatActivity {
 
@@ -95,7 +97,7 @@ public class NuevoPlatoActivity extends AppCompatActivity {
             }
         });
 
-        inputDescripcion.addTextChangedListener(new TextWatcher() { //listener descripcion
+        /*inputDescripcion.addTextChangedListener(new TextWatcher() { //listener descripcion
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
 
@@ -111,7 +113,7 @@ public class NuevoPlatoActivity extends AppCompatActivity {
                 }
                 toggleTextInputLayoutError(layoutInputDescripcion, errorDescripcion);
             }
-        });
+        });*/
 
         inputPrecio.addTextChangedListener(new TextWatcher() { //listener precio
             @Override
@@ -175,31 +177,9 @@ public class NuevoPlatoActivity extends AppCompatActivity {
         if(!camposObligatoriosCompletos()) {
             check = false;
         }
-        /*if(!inputEmail.getText().toString().isEmpty() && !ingresoEmailValido()) { //primero m fijo si ya no tiene la etiqueta de
-            check = false; //campo obligatorio, si se cumple la primera condicion recien dp ve si el email es valido o no
+        if(!inputPrecio.getText().toString().isEmpty() && !ingresoPrecioValido()) { //primero m fijo si ya no tiene la etiqueta de
+            check = false; //campo obligatorio, si se cumple la primera condicion recien dp ve si el precio es valido o no
         }
-        if(!inputcontrasenaRepetida.getText().toString().isEmpty() && !contrasenasCoinciden()){ //primero me fijo si no tiene la etiqueta
-            check = false; //de campo obligatorio, valido antes si el campo no es nulo
-        }
-        if(!montoValido()) { //comprueba que si el switch esta activado, el monto no sea nulo
-            check = false;
-        }
-        if(mesSeleccionado.equals(getString(R.string.mes))) {
-            ((TextView) spinnerMes.getSelectedView()).setError("Error message");
-            errorFechaVencimiento.setVisibility(View.VISIBLE);
-            check = false;
-        }
-        if(anoSeleccionado.equals(getString(R.string.ano))) {
-            ((TextView) spinnerAno.getSelectedView()).setError("Error message");
-            errorFechaVencimiento.setVisibility(View.VISIBLE);
-            check = false;
-        }
-        if(!mesSeleccionado.equals(getString(R.string.mes)) && !anoSeleccionado.equals(getString(R.string.ano)) && !vencimientoValido(anoSeleccionado,mesSeleccionado)) {
-            ((TextView) spinnerMes.getSelectedView()).setError("Error message");
-            ((TextView) spinnerAno.getSelectedView()).setError("Error message");
-            errorFechaVencimiento.setVisibility(View.VISIBLE);
-            check = false;
-        }*/
         return check;
     }
 
@@ -220,12 +200,12 @@ public class NuevoPlatoActivity extends AppCompatActivity {
         }
         toggleTextInputLayoutError(layoutInputTitulo, errorTitulo);
         //descripcion
-        String errorDescripcion = null;
+        /*String errorDescripcion = null;
         if (TextUtils.isEmpty(inputDescripcion.getText())) {
             errorDescripcion = getString(R.string.campoObligatorio);
             check = false;
         }
-        toggleTextInputLayoutError(layoutInputDescripcion, errorDescripcion);
+        toggleTextInputLayoutError(layoutInputDescripcion, errorDescripcion);*/
         //precio
         String errorPrecio = null;
         if (TextUtils.isEmpty(inputPrecio.getText())) {
@@ -242,6 +222,21 @@ public class NuevoPlatoActivity extends AppCompatActivity {
         toggleTextInputLayoutError(layoutInputCalorias, errorCalorias);
 
         return check;
+    }
+
+    public boolean ingresoPrecioValido() {
+        Pattern precioPattern = Pattern.compile(getString(R.string.entidadRegularPrecio)); //indica como deberia ser el precio
+        String precio = inputPrecio.getText().toString();
+        Matcher matcherPrecio = precioPattern.matcher(precio); //lo va a comparar con lo ingresado en precio
+        String errorPatronPrecio = null;
+        boolean check = true;
+        if(!precio.isEmpty() && !matcherPrecio.find()) { //analiza si el precio ingresado tiene hasta dos decimales
+            errorPatronPrecio = getString(R.string.precioInvalido);
+            check = false;
+        }
+        toggleTextInputLayoutError(layoutInputPrecio, errorPatronPrecio);
+        return check;
+
     }
 
     private static void toggleTextInputLayoutError(@NonNull TextInputLayout textInputLayout, String msg) {
