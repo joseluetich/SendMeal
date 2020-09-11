@@ -4,18 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context=".HomeActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarHome"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/powderBlue"
         android:elevation="@dimen/dim32"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:popupTheme="@style/Theme.AppCompat.Light"
+        android:theme="@style/AppTheme.Toolbar"
+        app:title="@string/menu"
+        app:popupTheme="@style/AppTheme.Toolbar.Popup"
+        app:titleTextAppearance="@style/AppTheme.Toolbar.Title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="283dp"
+        android:layout_height="282dp"
+        android:layout_marginTop="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarHome"
+        app:srcCompat="@drawable/logo6_removebg_preview" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="350dp"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/sendMeal"
+        android:textColor="@color/colorPrimaryLight"
+        android:textSize="64sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarHome" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

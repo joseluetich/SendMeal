@@ -7,6 +7,8 @@
     <color name="colorSecondaryVariant">#FFD571</color>
     <color name="colorBackground">#FFFFFF</color>
     <color name="colorOnPrimary">#FFFFFF</color>
-
+    <color name="colorPrimaryLight">#F8F2F2</color>
+    <color name="colorAccent">#FFD571</color>
+    <color name="colorError">#C62828</color>
 
 </resources>

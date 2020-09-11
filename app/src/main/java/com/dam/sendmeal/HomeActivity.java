@@ -21,8 +21,6 @@ public class HomeActivity extends AppCompatActivity {
 
         toolbarHome = findViewById(R.id.toolbarHome);
         setSupportActionBar(toolbarHome); //ver si no se define en las demas activity
-        getSupportActionBar().setTitle("Menú"); //titulo
-
     }
 
     @Override
