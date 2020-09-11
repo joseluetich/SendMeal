@@ -55,7 +55,6 @@ public class NuevoPlatoActivity extends AppCompatActivity {
         layoutInputDescripcion = findViewById(R.id.layoutDescripcion);
         layoutInputPrecio = findViewById(R.id.layoutPrecio);
         layoutInputCalorias = findViewById(R.id.layoutCalorias);
-
         guardar = findViewById(R.id.guardarPlato);
 
         toolbarNuevoPlato = findViewById(R.id.toolbarNuevoPlato);
@@ -156,16 +155,17 @@ public class NuevoPlatoActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(cumpleRequisitos()) {
                     //creo la tarjeta registrada
-                    Integer id = Integer.valueOf(inputId.getText().toString());
+                    int id = Integer.parseInt(inputId.getText().toString());
                     String titulo = inputTitulo.getText().toString();
                     String descripcion = inputDescripcion.getText().toString();
-                    Double precio = Double.valueOf(inputPrecio.getText().toString());
-                    Integer calorias = Integer.valueOf(inputCalorias.getText().toString());
+                    double precio = Double.parseDouble(inputPrecio.getText().toString());
+                    int calorias = Integer.parseInt(inputCalorias.getText().toString());
 
                     Plato plato = new Plato(id, titulo, descripcion, precio, calorias);
+                    plato.agregarALista();
 
-                    Toast aviso = Toast.makeText(NuevoPlatoActivity.this, "Nuevo plato creado", Toast.LENGTH_LONG); //aviso al usuario
-                    aviso.show();
+                    Toast aviso2 = Toast.makeText(NuevoPlatoActivity.this, "Nuevo plato creado.", Toast.LENGTH_LONG); //aviso al usuario
+                    aviso2.show();
                 }
             }
         });
