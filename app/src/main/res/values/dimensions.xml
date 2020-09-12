@@ -3,9 +3,10 @@
     <dimen name="dim162">162dp</dimen>
     <dimen name="dim125">125dp</dimen>
     <dimen name="dim48">48dp</dimen>
-    <dimen name="dim32">32dp</dimen>
+    <dimen name="dim32">32sp</dimen>
     <dimen name="dim24">24dp</dimen>
-    <dimen name="dim16">16dp</dimen>
+    <dimen name="dim18">18sp</dimen>
+    <dimen name="dim16">16sp</dimen>
     <dimen name="dim14">14dp</dimen>
     <dimen name="dim8">8dp</dimen>
     <dimen name="dim6">6dp</dimen>

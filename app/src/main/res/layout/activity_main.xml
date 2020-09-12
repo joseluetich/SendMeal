@@ -3,458 +3,699 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent">
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/ConstraintLayout"
+        android:id="@+id/parentConstraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         tools:context=".MainActivity">
 
         <TextView
-            android:id="@+id/crearCuenta"
+            android:id="@+id/createAccountTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
-            android:fontFamily="sans-serif-thin"
-            android:text="@string/crearCuenta"
+            android:text="@string/createAccount"
             android:textAllCaps="false"
-            android:textColor="@color/azulOscuro"
+            android:textFontWeight="600"
             android:textSize="@dimen/dim32"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutNombre"
-            android:layout_width="@dimen/dim0"
+            android:id="@+id/nameTextField"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dim16"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="@dimen/dim16"
+            android:layout_marginEnd="24dp"
+            android:digits="@string/nameDigits"
+            android:ems="10"
+            android:hint="@string/nameHint"
+            android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/crearCuenta">
+            app:layout_constraintTop_toBottomOf="@+id/createAccountTextView">
 
-            <EditText
-                android:id="@+id/nombre"
+            <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-
-                android:layout_marginStart="@dimen/dim16"
-                android:layout_marginTop="@dimen/dim16"
-                android:layout_marginEnd="@dimen/dim16"
-                android:backgroundTint="@color/azulOscuro"
-                android:digits="@string/digitosNombre"
-                android:ems="10"
-                android:hint="@string/nombre"
-                android:inputType="textPersonName" />
+                android:layout_height="wrap_content" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            android:id="@+id/layoutNombre"-->
+        <!--            android:layout_width="@dimen/dim0"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="@dimen/dim16"-->
+        <!--            android:layout_marginTop="8dp"-->
+        <!--            android:layout_marginEnd="@dimen/dim16"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/crearCuenta"-->
+        <!--            android:label="@string/nombre"-->
+        <!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">-->
+
+        <!--            <com.google.android.material.textfield.TextInputEditText-->
+        <!--                android:id="@+id/nombre"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="match_parent"-->
+        <!--                android:textFontWeight="600"-->
+        <!--                android:label="@string/nombre"-->
+        <!--                android:layout_marginStart="@dimen/dim16"-->
+        <!--                android:layout_marginTop="@dimen/dim16"-->
+        <!--                android:layout_marginEnd="@dimen/dim16"-->
+        <!--                android:digits="@string/digitosNombre"-->
+        <!--                android:ems="10"-->
+        <!--                android:inputType="textPersonName" />-->
+        <!--            -->
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
+
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutEmail"
-            android:layout_width="@dimen/dim0"
+            android:id="@+id/emailTextField"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dim16"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="@dimen/dim16"
+            android:layout_marginEnd="24dp"
+            android:digits="@string/emailDigits"
+            android:ems="10"
+            android:hint="@string/emailHint"
+            android:inputType="textEmailAddress"
+            android:textSize="@dimen/dim16"
+            app:errorEnabled="true"
+            app:helperText="@string/obligatoryFieldHelper"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutNombre">
+            app:layout_constraintTop_toBottomOf="@+id/nameTextField">
 
-            <EditText
-                android:id="@+id/email"
+            <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dim16"
-                android:layout_marginTop="@dimen/dim8"
-                android:layout_marginEnd="@dimen/dim16"
-                android:backgroundTint="@color/azulOscuro"
-                android:digits="@string/digitosEmail"
-                android:ems="10"
-                android:hint="@string/email"
-                android:inputType="textEmailAddress"
-                android:textSize="18dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layoutNombre" />
+                android:layout_height="wrap_content" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            android:id="@+id/layoutEmail"-->
+        <!--            android:layout_width="@dimen/dim0"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="@dimen/dim16"-->
+        <!--            android:layout_marginTop="16dp"-->
+        <!--            android:layout_marginEnd="@dimen/dim16"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/nombre">-->
+
+        <!--            <EditText-->
+        <!--                android:id="@+id/email"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginStart="@dimen/dim16"-->
+        <!--                android:layout_marginTop="@dimen/dim8"-->
+        <!--                android:layout_marginEnd="@dimen/dim16"-->
+
+        <!--                android:digits="@string/digitosEmail"-->
+        <!--                android:ems="10"-->
+        <!--                android:hint="@string/email"-->
+        <!--                android:inputType="textEmailAddress"-->
+        <!--                android:textSize="18dp"-->
+        <!--                app:layout_constraintEnd_toEndOf="parent"-->
+        <!--                app:layout_constraintStart_toStartOf="parent"-->
+        <!--                app:layout_constraintTop_toBottomOf="@+id/layoutNombre" />-->
+        <!--&lt;!&ndash;            android:backgroundTint="@color/azulOscuro"&ndash;&gt;-->
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
+
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutContrasena"
-            android:layout_width="@dimen/dim0"
+            android:id="@+id/passwordTextField"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dim16"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="@dimen/dim16"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/passwordHint"
+            app:errorEnabled="true"
+            app:endIconMode="password_toggle"
+            app:helperText="@string/obligatoryFieldHelper"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutEmail">
+            app:layout_constraintTop_toBottomOf="@+id/emailTextField">
 
-            <EditText
-                android:id="@+id/contrasena"
+            <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dim16"
-                android:layout_marginEnd="@dimen/dim16"
-                android:backgroundTint="@color/azulOscuro"
-                android:ems="10"
-                android:hint="@string/contrasena"
                 android:inputType="textPassword"
                 android:maxLength="25"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layoutEmail" />
+                android:ems="10" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            android:id="@+id/layoutContrasena"-->
+        <!--            android:layout_width="@dimen/dim0"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="@dimen/dim16"-->
+        <!--            android:layout_marginTop="16dp"-->
+        <!--            android:layout_marginEnd="@dimen/dim16"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/emailTextField">-->
+
+        <!--            <EditText-->
+        <!--                android:id="@+id/contrasena"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginStart="@dimen/dim16"-->
+        <!--                android:layout_marginEnd="@dimen/dim16"-->
+
+        <!--                android:ems="10"-->
+        <!--                android:hint="@string/contrasena"-->
+        <!--                android:inputType="textPassword"-->
+        <!--                android:maxLength="25"-->
+        <!--                app:layout_constraintEnd_toEndOf="parent"-->
+        <!--                app:layout_constraintStart_toStartOf="parent"-->
+        <!--                app:layout_constraintTop_toBottomOf="@+id/layoutEmail" />-->
+        <!--&lt;!&ndash;            android:backgroundTint="@color/azulOscuro"&ndash;&gt;-->
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutContrasenaRepetida"
-            android:layout_width="@dimen/dim0"
+            android:id="@+id/repeatedPasswordTextField"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dim16"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="@dimen/dim16"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/repeatPasswordHint"
+            app:endIconMode="password_toggle"
+            app:errorEnabled="true"
+            app:helperText="@string/obligatoryFieldHelper"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutContrasena">
+            app:layout_constraintTop_toBottomOf="@+id/passwordTextField">
 
-            <EditText
-                android:id="@+id/contrasenaRepetida"
+            <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dim16"
-                android:layout_marginEnd="@dimen/dim16"
-                android:backgroundTint="@color/azulOscuro"
-                android:ems="10"
-                android:hint="@string/contrasenaRepetida"
                 android:inputType="textPassword"
-                android:maxLength="25"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layoutContrasena" />
+                android:ems="10"
+                android:maxLength="25" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            android:id="@+id/layoutContrasenaRepetida"-->
+        <!--            android:layout_width="@dimen/dim0"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="@dimen/dim16"-->
+        <!--            android:layout_marginTop="16dp"-->
+        <!--            android:layout_marginEnd="@dimen/dim16"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/passwordTextField">-->
+
+        <!--            <EditText-->
+        <!--                android:id="@+id/contrasenaRepetida"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginStart="@dimen/dim16"-->
+        <!--                android:layout_marginEnd="@dimen/dim16"-->
+
+        <!--                android:ems="10"-->
+        <!--                android:hint="@string/contrasenaRepetida"-->
+        <!--                android:inputType="textPassword"-->
+        <!--                android:maxLength="25"-->
+        <!--                app:layout_constraintEnd_toEndOf="parent"-->
+        <!--                app:layout_constraintStart_toStartOf="parent"-->
+        <!--                app:layout_constraintTop_toBottomOf="@+id/layoutContrasena" />-->
+        <!--&lt;!&ndash;            android:backgroundTint="@color/azulOscuro"&ndash;&gt;-->
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
 
         <TextView
-            android:id="@+id/tipoDeTarjeta"
+            android:id="@+id/cardTypeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dim32"
             android:layout_marginTop="16dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/tipoDeTarjeta"
-            android:textColor="@color/azulOscuro"
-            android:textSize="18dp"
+            android:text="@string/cardType"
+            android:textSize="@dimen/dim18"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutContrasenaRepetida" />
+            app:layout_constraintTop_toBottomOf="@+id/repeatedPasswordTextField" />
 
         <RadioGroup
-            android:id="@+id/tarjetas"
+            android:id="@+id/cardsRadioGroup"
             android:layout_width="@dimen/dim0"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dim32"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="@dimen/dim32"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tipoDeTarjeta">
+            app:layout_constraintTop_toBottomOf="@+id/cardTypeTextView">
 
             <RadioButton
-                android:id="@+id/credito"
+                android:id="@+id/creditRadioButton"
                 android:layout_width="@dimen/dim162"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="@string/credito"
-                android:textSize="18dp" />
+                android:text="@string/creditRadioButtonText"
+                android:textSize="@dimen/dim16" />
 
             <RadioButton
-                android:id="@+id/debito"
+                android:id="@+id/debitRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="false"
-                android:text="@string/debito"
-                android:textSize="18dp" />
+                android:text="@string/debitRadioButtonText"
+                android:textSize="@dimen/dim16" />
 
         </RadioGroup>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutNumeroTarjeta"
-            android:layout_width="wrap_content"
+            android:id="@+id/cardNumberTextField"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dim16"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="@dimen/dim4"
-            app:layout_constraintEnd_toStartOf="@+id/layoutCcv"
+            android:layout_marginEnd="8dp"
+            android:hint="@string/cardNumberHint"
+            app:errorEnabled="true"
+            app:endIconMode="custom"
+            app:endIconDrawable="@drawable/ic_baseline_credit_card_24"
+            app:helperText="@string/obligatoryFieldHelper"
+            app:layout_constraintEnd_toStartOf="@+id/ccvTextField"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tarjetas">
+            app:layout_constraintTop_toBottomOf="@+id/cardsRadioGroup">
 
-            <EditText
-                android:id="@+id/numeroTarjeta"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dim16"
-                android:layout_marginTop="@dimen/dim8"
-                android:layout_marginEnd="@dimen/dim8"
-                android:backgroundTint="@color/azulOscuro"
-                android:ems="10"
-                android:hint="@string/numeroTarjeta"
-                android:inputType="numberSigned"
-                android:maxLength="16"
-                app:layout_constraintEnd_toStartOf="@+id/ccv"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tarjetas" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutCcv"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="@dimen/dim16"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tarjetas">
-
-            <EditText
-                android:id="@+id/ccv"
+            <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dim8"
-                android:layout_marginTop="@dimen/dim8"
-                android:layout_marginEnd="@dimen/dim16"
-                android:backgroundTint="@color/azulOscuro"
-                android:ems="10"
-                android:enabled="false"
-                android:hint="@string/ccv"
-                android:inputType="number"
-                android:maxLength="3"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/layoutNumeroTarjeta"
-                app:layout_constraintTop_toBottomOf="@+id/tarjetas" />
+                android:inputType="phone"
+                android:maxLength="19"
+                android:ems="10" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            android:id="@+id/layoutNumeroTarjeta"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="@dimen/dim16"-->
+        <!--            android:layout_marginTop="8dp"-->
+        <!--            android:layout_marginEnd="@dimen/dim4"-->
+        <!--            app:layout_constraintEnd_toStartOf="@+id/layoutCcv"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/cardsRadioGroup">-->
+
+        <!--            <EditText-->
+        <!--                android:id="@+id/numeroTarjeta"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginStart="@dimen/dim16"-->
+        <!--                android:layout_marginTop="@dimen/dim8"-->
+        <!--                android:layout_marginEnd="@dimen/dim8"-->
+
+        <!--                android:ems="10"-->
+        <!--                android:hint="@string/numeroTarjeta"-->
+        <!--                android:inputType="numberSigned"-->
+        <!--                android:maxLength="16"-->
+        <!--                app:layout_constraintEnd_toStartOf="@+id/ccv"-->
+        <!--                app:layout_constraintHorizontal_bias="0.5"-->
+        <!--                app:layout_constraintStart_toStartOf="parent"-->
+        <!--                app:layout_constraintTop_toBottomOf="@+id/cardsRadioGroup" />-->
+
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ccvTextField"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="@dimen/dim16"
+            android:enabled="false"
+            android:hint="@string/ccvHint"
+            app:endIconMode="custom"
+            app:endIconDrawable="@drawable/ic_baseline_lock_24"
+            app:errorEnabled="true"
+            app:helperText="@string/obligatoryFieldHelper"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cardNumberTextField"
+            app:layout_constraintTop_toBottomOf="@+id/cardsRadioGroup">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minEms="7"
+                android:inputType="number"
+                android:maxLength="3"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            android:id="@+id/layoutCcv"-->
+        <!--            android:layout_width="130dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="8dp"-->
+        <!--            android:layout_marginEnd="@dimen/dim16"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/cardsRadioGroup">-->
+
+        <!--            <EditText-->
+        <!--                android:id="@+id/ccv"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginStart="@dimen/dim8"-->
+        <!--                android:layout_marginTop="@dimen/dim8"-->
+        <!--                android:layout_marginEnd="@dimen/dim16"-->
+
+        <!--                android:ems="10"-->
+        <!--                android:enabled="false"-->
+        <!--                android:hint="@string/ccv"-->
+        <!--                android:inputType="number"-->
+        <!--                android:maxLength="3"-->
+        <!--                app:layout_constraintEnd_toEndOf="parent"-->
+        <!--                app:layout_constraintHorizontal_bias="0.5"-->
+        <!--                app:layout_constraintStart_toEndOf="@+id/layoutNumeroTarjeta"-->
+        <!--                app:layout_constraintTop_toBottomOf="@+id/cardsRadioGroup" />-->
+        <!--&lt;!&ndash;            android:backgroundTint="@color/azulOscuro"&ndash;&gt;-->
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
+
         <TextView
-            android:id="@+id/fechaVencimiento"
-            android:layout_width="@dimen/dim0"
+            android:id="@+id/dueDateTextView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dim32"
             android:layout_marginTop="16dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/fechaVencimiento"
-            android:textColor="@color/azulOscuro"
-            android:textSize="18dp"
+            android:text="@string/dueDate"
+            android:textSize="@dimen/dim18"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutNumeroTarjeta" />
+            app:layout_constraintTop_toBottomOf="@+id/cardNumberTextField" />
 
         <Spinner
-            android:id="@+id/spinnerMes"
-            android:layout_width="175dp"
+            android:id="@+id/monthSpinner"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginEnd="8dp"
             android:entries="@array/meses"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            android:enabled="false"
+            app:layout_constraintEnd_toStartOf="@+id/yearSpinner"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fechaVencimiento" />
+            app:layout_constraintTop_toBottomOf="@+id/dueDateTextView" />
 
         <Spinner
-            android:id="@+id/spinnerAno"
-            android:layout_width="0dp"
+            android:id="@+id/yearSpinner"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
+            android:enabled="false"
             android:entries="@array/anos"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/spinnerMes"
-            app:layout_constraintTop_toBottomOf="@+id/fechaVencimiento" />
+            app:layout_constraintStart_toEndOf="@+id/monthSpinner"
+            app:layout_constraintTop_toBottomOf="@+id/dueDateTextView" />
 
         <TextView
-            android:id="@+id/errorFechaVencimiento"
+            android:id="@+id/errorDueDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
-            android:text="@string/errorFechaVencimiento"
-            android:textColor="@color/rojo"
+            android:text="@string/errorDueDate"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerAno" />
+            app:layout_constraintTop_toBottomOf="@+id/yearSpinner" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutCbu"
-            android:layout_width="@dimen/dim0"
+            android:id="@+id/cbuTextField"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dim16"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="@dimen/dim16"
+            android:layout_marginEnd="24dp"
+            android:ems="10"
+            android:hint="@string/cbuHint"
+            android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/errorFechaVencimiento">
+            app:layout_constraintTop_toBottomOf="@+id/errorDueDate">
 
-            <EditText
-                android:id="@+id/cbu"
+            <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dim16"
-                android:layout_marginTop="@dimen/dim8"
-                android:layout_marginEnd="@dimen/dim16"
-                android:backgroundTint="@color/azulOscuro"
-                android:ems="10"
-                android:hint="@string/cbu"
-                android:inputType="textPersonName"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinnerMes" />
+                android:layout_height="wrap_content" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            android:id="@+id/layoutCbu"-->
+        <!--            android:layout_width="@dimen/dim0"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="@dimen/dim16"-->
+        <!--            android:layout_marginTop="16dp"-->
+        <!--            android:layout_marginEnd="@dimen/dim16"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/errorFechaVencimiento">-->
+
+        <!--            <EditText-->
+        <!--                android:id="@+id/cbu"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginStart="@dimen/dim16"-->
+        <!--                android:layout_marginTop="@dimen/dim8"-->
+        <!--                android:layout_marginEnd="@dimen/dim16"-->
+
+        <!--                android:ems="10"-->
+        <!--                android:hint="@string/cbu"-->
+        <!--                android:inputType="textPersonName"-->
+        <!--                app:layout_constraintEnd_toEndOf="parent"-->
+        <!--                app:layout_constraintStart_toStartOf="parent"-->
+        <!--                app:layout_constraintTop_toBottomOf="@+id/spinnerMes" />-->
+
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
+
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutAliasCbu"
-            android:layout_width="@dimen/dim0"
+            android:id="@+id/aliasCbuTextField"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dim16"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="@dimen/dim16"
+            android:layout_marginEnd="24dp"
+            android:ems="10"
+            android:hint="@string/aliasCbuHint"
+            android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutCbu">
+            app:layout_constraintTop_toBottomOf="@+id/cbuTextField">
 
-            <EditText
-                android:id="@+id/aliasCbu"
+            <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dim16"
-                android:layout_marginTop="@dimen/dim8"
-                android:layout_marginEnd="@dimen/dim16"
-                android:backgroundTint="@color/azulOscuro"
-                android:ems="10"
-                android:hint="@string/aliasCbu"
-                android:inputType="textPersonName"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layoutCbu" />
+                android:layout_height="wrap_content" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Switch
-            android:id="@+id/realizarCarga"
-            android:layout_width="@dimen/dim0"
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            android:id="@+id/layoutAliasCbu"-->
+        <!--            android:layout_width="@dimen/dim0"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="@dimen/dim16"-->
+        <!--            android:layout_marginTop="16dp"-->
+        <!--            android:layout_marginEnd="@dimen/dim16"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/layoutCbu">-->
+
+        <!--            <EditText-->
+        <!--                android:id="@+id/aliasCbu"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginStart="@dimen/dim16"-->
+        <!--                android:layout_marginTop="@dimen/dim8"-->
+        <!--                android:layout_marginEnd="@dimen/dim16"-->
+
+        <!--                android:ems="10"-->
+        <!--                android:hint="@string/aliasCbu"-->
+        <!--                android:inputType="textPersonName"-->
+        <!--                app:layout_constraintEnd_toEndOf="parent"-->
+        <!--                app:layout_constraintStart_toStartOf="parent"-->
+        <!--                app:layout_constraintTop_toBottomOf="@+id/layoutCbu" />-->
+
+
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/addInitialAmountSwitch"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dim32"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="@dimen/dim32"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/realizarCarga"
-            android:textColor="@color/azulOscuro"
-            android:textSize="18dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:checked="false"
+            android:text="@string/addInitialAmountLabel"
+            android:textSize="@dimen/dim18"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutAliasCbu"
+            app:layout_constraintTop_toBottomOf="@+id/aliasCbuTextField"
             tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-        <TextView
-            android:id="@+id/creditoInicial"
-            android:layout_width="@dimen/dim0"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            android:visibility="gone"
-            android:text="@string/creditoInicial"
-            android:textSize="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/errorCargaInicial" />
+        <!--        <Switch-->
+        <!--            android:id="@+id/realizarCarga"-->
+        <!--            android:layout_width="@dimen/dim0"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="@dimen/dim32"-->
+        <!--            android:layout_marginTop="16dp"-->
+        <!--            android:layout_marginEnd="@dimen/dim32"-->
+        <!--            android:text="@string/realizarCarga"-->
+        <!--            android:textSize="18dp"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/layoutAliasCbu"-->
+        <!--            tools:ignore="UseSwitchCompatOrMaterialXml" />-->
 
-        <SeekBar
-            android:id="@+id/montoCredito"
-            android:layout_width="@dimen/dim0"
+        <TextView
+            android:id="@+id/initialCreditTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="@string/initialCredit"
+            android:textSize="@dimen/dim16"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addInitialAmountSwitch" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/initialCreditAmountSlider"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dim24"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="@dimen/dim24"
+            android:layout_marginEnd="32dp"
+            android:stepSize="50"
+            android:value="100"
+            android:valueFrom="50"
+            android:valueTo="1500"
             android:visibility="gone"
-            android:max="1500"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/monto" />
+            app:layout_constraintTop_toBottomOf="@+id/initialCreditAmountTextView" />
+
+        <!--        <SeekBar-->
+        <!--            android:id="@+id/montoCredito"-->
+        <!--            android:layout_width="@dimen/dim0"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="@dimen/dim24"-->
+        <!--            android:layout_marginTop="16dp"-->
+        <!--            android:layout_marginEnd="@dimen/dim24"-->
+        <!--            android:visibility="gone"-->
+        <!--            android:max="1500"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/initialCreditAmountTextView" />-->
 
         <TextView
-            android:id="@+id/monto"
+            android:id="@+id/initialCreditAmountTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="48dp"
-            android:text="@string/monto"
-            android:textColor="@color/azulOscuro"
-            android:visibility="gone"
+            android:text="@string/amountLabel"
             android:textSize="@dimen/dim16"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/errorCargaInicial" />
-
-        <TextView
-            android:id="@+id/errorCargaInicial"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="40dp"
-            android:text="@string/errorCargaInicial"
-            android:textColor="@color/rojo"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/realizarCarga" />
+            app:layout_constraintTop_toBottomOf="@+id/addInitialAmountSwitch" />
+
+<!--        <TextView-->
+<!--            android:id="@+id/errorInitialAmount"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="4dp"-->
+<!--            android:layout_marginEnd="40dp"-->
+<!--            android:text="@string/errorInitialCredit"-->
+<!--            android:textSize="14sp"-->
+<!--            android:visibility="gone"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/addInitialAmountSwitch" />-->
+
 
         <CheckBox
-            android:id="@+id/terminos"
+            android:id="@+id/termsAndConditionsCheckBox"
             android:layout_width="@dimen/dim0"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dim32"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="@dimen/dim32"
+            android:layout_marginEnd="24dp"
             android:checked="false"
-            android:textSize="18dp"
-            android:text="@string/terminos"
+            android:text="@string/termsAndConditions"
+            android:textSize="@dimen/dim18"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/montoCredito" />
+            app:layout_constraintTop_toBottomOf="@+id/initialCreditAmountSlider" />
 
         <Button
-            android:id="@+id/registrar"
-            android:layout_width="@dimen/dim0"
+            android:id="@+id/registerButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/colorPrimary"
+            android:layout_marginBottom="20dp"
             android:enabled="false"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/registrar"
-            android:textColor="@color/blanco"
-            android:textSize="18dp"
+            android:paddingHorizontal="40dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/registerButtonText"
+            android:textAllCaps="true"
+            android:textFontWeight="600"
+            android:textSize="@dimen/dim18"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/terminos" />
+            app:layout_constraintTop_toBottomOf="@+id/termsAndConditionsCheckBox" />
 
-        <ImageView
-            android:id="@+id/imagenUsuario"
-            android:layout_width="43dp"
-            android:layout_height="43dp"
-            android:layout_marginTop="18dp"
-            android:layout_marginEnd="120dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/user" />
+        <!--        <Button-->
+        <!--            android:id="@+id/registrar"-->
+
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="32dp"-->
+        <!--            android:layout_marginTop="16dp"-->
+        <!--            android:layout_marginEnd="32dp"-->
+        <!--            android:layout_marginBottom="16dp"-->
+        <!--            android:background="@color/colorSecondary"-->
+        <!--            android:enabled="false"-->
+        <!--            android:text="@string/registrar"-->
+        <!--            android:textAlignment="center"-->
+
+        <!--            android:textColor="?attr/colorOnPrimary"-->
+        <!--            android:textSize="18dp"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintHorizontal_bias="0.0"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/terminos" />-->
+        <!--            android:textColor="@color/blanco"
+                    android:background="@color/colorPrimaryDesable" -->
+        <!--        <ImageView-->
+        <!--            android:id="@+id/imagenUsuario"-->
+        <!--            android:layout_width="43dp"-->
+        <!--            android:layout_height="43dp"-->
+        <!--            android:layout_marginTop="18dp"-->
+        <!--            android:layout_marginEnd="120dp"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent"-->
+        <!--            app:srcCompat="@drawable/user" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
