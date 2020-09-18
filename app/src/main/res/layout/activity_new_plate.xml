@@ -7,10 +7,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".NuevoPlatoActivity">
+        tools:context=".NewPlateActivity">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbarNuevoPlato"
+            android:id="@+id/newPlateToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/crearPlato"
+            android:id="@+id/createPlateTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -33,35 +33,10 @@
             android:textSize="@dimen/dim32"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbarNuevoPlato" />
+            app:layout_constraintTop_toBottomOf="@+id/newPlateToolbar" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutIdPlato"
-            android:layout_width="@dimen/dim0"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dim16"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="@dimen/dim16"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/crearPlato">
-
-            <EditText
-                android:id="@+id/idPlato"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dim16"
-                android:layout_marginTop="@dimen/dim16"
-                android:layout_marginEnd="@dimen/dim16"
-                android:backgroundTint="@color/colorSecondary"
-                android:ems="10"
-                android:hint="@string/idPlato"
-                android:inputType="numberSigned" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutTitulo"
+            android:id="@+id/titleTextInputLayout"
             android:layout_width="@dimen/dim0"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dim16"
@@ -69,10 +44,10 @@
             android:layout_marginEnd="@dimen/dim16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutIdPlato">
+            app:layout_constraintTop_toBottomOf="@+id/createPlateTextView">
 
             <EditText
-                android:id="@+id/titulo"
+                android:id="@+id/titleEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dim16"
@@ -85,12 +60,12 @@
                 android:textSize="18dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layoutIdPlato" />
+                app:layout_constraintTop_toBottomOf="@+id/createPlateTextView" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutDescripcion"
+            android:id="@+id/descriptionTextInputLayout"
             android:layout_width="@dimen/dim0"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dim16"
@@ -98,10 +73,10 @@
             android:layout_marginEnd="@dimen/dim16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutTitulo">
+            app:layout_constraintTop_toBottomOf="@+id/titleTextInputLayout">
 
             <EditText
-                android:id="@+id/descripcion"
+                android:id="@+id/descriptionEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dim16"
@@ -112,12 +87,12 @@
                 android:maxLength="25"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layoutTitulo" />
+                app:layout_constraintTop_toBottomOf="@+id/titleTextInputLayout" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutPrecio"
+            android:id="@+id/priceTextInputLayout"
             android:layout_width="@dimen/dim0"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dim16"
@@ -125,10 +100,10 @@
             android:layout_marginEnd="@dimen/dim16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutDescripcion">
+            app:layout_constraintTop_toBottomOf="@+id/descriptionTextInputLayout">
 
             <EditText
-                android:id="@+id/precio"
+                android:id="@+id/priceEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dim16"
@@ -140,12 +115,12 @@
                 android:inputType="numberDecimal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layoutDescripcion" />
+                app:layout_constraintTop_toBottomOf="@+id/descriptionTextInputLayout" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutCalorias"
+            android:id="@+id/caloriesTextInputLayout"
             android:layout_width="@dimen/dim0"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dim16"
@@ -153,10 +128,10 @@
             android:layout_marginEnd="@dimen/dim16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutPrecio">
+            app:layout_constraintTop_toBottomOf="@+id/priceTextInputLayout">
 
             <EditText
-                android:id="@+id/calorias"
+                android:id="@+id/caloriesEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dim16"
@@ -168,12 +143,12 @@
                 android:inputType="numberDecimal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layoutPrecio" />
+                app:layout_constraintTop_toBottomOf="@+id/priceTextInputLayout" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/guardarPlato"
+            android:id="@+id/savePlateButton"
             android:layout_width="@dimen/dim0"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -189,7 +164,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutCalorias" />
+            app:layout_constraintTop_toBottomOf="@+id/caloriesTextInputLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

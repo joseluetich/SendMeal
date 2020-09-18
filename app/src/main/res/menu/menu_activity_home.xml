@@ -5,17 +5,20 @@
     tools:context=".HomeActivity">
 
     <item
-        android:id="@+id/opcionRegistrarse"
+        android:id="@+id/createAccountOption"
+        android:icon="@drawable/ic_round_person_add_24"
+        android:iconTint="@color/colorPrimary"
         android:title="@string/crearCuenta"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/opcionCrearPlato"
+        android:id="@+id/createPlateOption"
         android:title="@string/crearPlato"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/opcionListaDePlatos"
+        android:id="@+id/listPlatesOption"
         android:title="@string/listaDePlatos"
         app:showAsAction="never" />
+
 </menu>

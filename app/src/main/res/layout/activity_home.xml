@@ -8,7 +8,7 @@
     tools:context=".HomeActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarHome"
+        android:id="@+id/homeToolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:elevation="@dimen/dim32"
@@ -21,28 +21,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <ImageView
-        android:id="@+id/logo"
-        android:layout_width="283dp"
-        android:layout_height="282dp"
-        android:layout_marginTop="100dp"
+        android:id="@+id/logoImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="200dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarHome"
-        app:srcCompat="@drawable/logo6_removebg_preview" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/sendMealTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="350dp"
-        android:fontFamily="@font/montserrat"
+        android:layout_marginTop="16dp"
         android:text="@string/sendMeal"
         android:textColor="@color/colorPrimaryLight"
-        android:textSize="64sp"
+        android:textSize="48sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarHome" />
+        app:layout_constraintTop_toBottomOf="@+id/logoImageView" />
+
+    <TextView
+        android:id="@+id/welcomeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="@string/bienvenida"
+        android:textColor="@color/colorPrimaryLight"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sendMealTextView" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

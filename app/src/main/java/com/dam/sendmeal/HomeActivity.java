@@ -8,19 +8,18 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.EditText;
 
 public class HomeActivity extends AppCompatActivity {
 
-    Toolbar toolbarHome;
+    Toolbar homeToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        toolbarHome = findViewById(R.id.toolbarHome);
-        setSupportActionBar(toolbarHome); //ver si no se define en las demas activity
+        homeToolbar = findViewById(R.id.homeToolbar);
+        setSupportActionBar(homeToolbar); //ver si no se define en las demas activity
     }
 
     @Override
@@ -33,17 +32,17 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.opcionRegistrarse:
-                Intent irARegistrarse = new Intent(this, MainActivity.class);
-                startActivity(irARegistrarse);
+            case R.id.createAccountOption:
+                Intent createAccount = new Intent(this, MainActivity.class);
+                startActivity(createAccount);
                 return true;
-            case R.id.opcionCrearPlato:
-                Intent irACrearPlato = new Intent(this, NuevoPlatoActivity.class);
-                startActivity(irACrearPlato);
+            case R.id.createPlateOption:
+                Intent createPlate = new Intent(this, NewPlateActivity.class);
+                startActivity(createPlate);
                 return true;
-            case R.id.opcionListaDePlatos:
-                /*Intent irAListaDePlatos = new Intent(this, ListaDePlatosActivity.class);
-                startActivity(irAListaDePlatos);*/
+            case R.id.listPlatesOption:
+                /*Intent listPlates = new Intent(this, ListaDePlatosActivity.class);
+                startActivity(listPlates);*/
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

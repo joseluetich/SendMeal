@@ -25,7 +25,7 @@
                 android:value=".HomeActivity" />
         </activity>
         <activity
-            android:name=".NuevoPlatoActivity"
+            android:name=".NewPlateActivity"
             android:parentActivityName=".HomeActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->

@@ -1,78 +1,64 @@
 package com.dam.sendmeal.model;
 
-import android.widget.Toast;
-
-import com.dam.sendmeal.NuevoPlatoActivity;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Plato {
-    private int id;
-    private String titulo;
-    private String descripcion;
-    private double precio;
-    private int calorias;
-    private static List<Plato> listaPlatos = new ArrayList<>();
+    private String title;
+    private String description;
+    private double price;
+    private int calories;
+    private static List<Plato> plates = new ArrayList<>();
 
-    public Plato(int id, String titulo, String descripcion, double precio, int calorias) {
-        this.id = id;
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.precio = precio;
-        this.calorias = calorias;
+    public Plato(String title, String description, double price, int calories) {
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.calories = calories;
     }
 
-    public int getId() {
-        return id;
+    public String getTitle() {
+        return title;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getTitulo() {
-        return titulo;
+    public String getDescription() {
+        return description;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public double getPrice() {
+        return price;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
-    public double getPrecio() {
-        return precio;
+    public int getCalories() {
+        return calories;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
+    public void setCalories(int calories) {
+        this.calories = calories;
     }
 
-    public int getCalorias() {
-        return calorias;
+    public static List<Plato> getLisaPlates() {
+        return plates;
     }
 
-    public void setCalorias(int calorias) {
-        this.calorias = calorias;
+    public static void setLisaPlates(List<Plato> lisaPlates) {
+        Plato.plates = lisaPlates;
     }
 
-    public List<Plato> getListaPlatos() {
-        return listaPlatos;
-    }
-
-    public void setListaPlatos(List<Plato> listaPlatos) {
-        this.listaPlatos = listaPlatos;
-    }
-
-    public void agregarALista() {
-        listaPlatos.add(this);
+    public void addToPlates() {
+        plates.add(this);
     }
 
     /*public static String getStringListaPlatos() {
