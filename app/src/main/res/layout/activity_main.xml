@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
             android:minHeight="?attr/actionBarSize"
-            android:theme="@style/AppTheme.Toolbar"
+            android:theme="@style/Theme.App.Toolbar"
             app:title=" "
             app:navigationIcon="?attr/homeAsUpIndicator"
             app:layout_constraintEnd_toEndOf="parent"

@@ -56,7 +56,7 @@ public class NewPlateActivity extends AppCompatActivity {
 
                 String titleError = null; //verifica que el campo obligatorio sea completado
                 if (TextUtils.isEmpty(titleEditText.getText())) {
-                    titleError = getString(R.string.campoObligatorio);
+                    titleError = getString(R.string.errorObligatoryField);
                 }
                 toggleTextInputLayoutError(titleTextInputLayout, titleError);
             }
@@ -92,7 +92,7 @@ public class NewPlateActivity extends AppCompatActivity {
 
                 String priceError = null; //verifica que el campo obligatorio sea completado
                 if (TextUtils.isEmpty(priceEditText.getText())) {
-                    priceError = getString(R.string.campoObligatorio);
+                    priceError = getString(R.string.errorObligatoryField);
                 }
                 toggleTextInputLayoutError(priceTextInputLayout, priceError);
             }
@@ -110,7 +110,7 @@ public class NewPlateActivity extends AppCompatActivity {
 
                 String caloriesError = null; //verifica que el campo obligatorio sea completado
                 if (TextUtils.isEmpty(caloriesEditText.getText())) {
-                    caloriesError = getString(R.string.campoObligatorio);
+                    caloriesError = getString(R.string.errorObligatoryField);
                 }
                 toggleTextInputLayoutError(caloriesTextInputLayout, caloriesError);
             }
@@ -153,28 +153,28 @@ public class NewPlateActivity extends AppCompatActivity {
         //titulo
         String titleError = null;
         if (TextUtils.isEmpty(titleEditText.getText())) {
-            titleError = getString(R.string.campoObligatorio);
+            titleError = getString(R.string.errorObligatoryField);
             check = false;
         }
         toggleTextInputLayoutError(titleTextInputLayout, titleError);
         //descripcion
         /*String descriptionError = null;
         if (TextUtils.isEmpty(descriptionEditText.getText())) {
-            descriptionError = getString(R.string.campoObligatorio);
+            descriptionError = getString(R.string.errorObligatoryField);
             check = false;
         }
         toggleTextInputLayoutError(descriptionTextInputLayout, descriptionError);*/
         //precio
         String priceError = null;
         if (TextUtils.isEmpty(priceEditText.getText())) {
-            priceError = getString(R.string.campoObligatorio);
+            priceError = getString(R.string.errorObligatoryField);
             check = false;
         }
         toggleTextInputLayoutError(priceTextInputLayout, priceError);
         //calorias
         String caloriesError = null;
         if (TextUtils.isEmpty(caloriesEditText.getText())) {
-            caloriesError = getString(R.string.campoObligatorio);
+            caloriesError = getString(R.string.errorObligatoryField);
             check = false;
         }
         toggleTextInputLayoutError(caloriesTextInputLayout, caloriesError);
