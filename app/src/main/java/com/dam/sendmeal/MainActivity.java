@@ -1,370 +1,415 @@
 package com.dam.sendmeal;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.text.method.HideReturnsTransformationMethod;
-import android.text.method.PasswordTransformationMethod;
-import android.view.KeyEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.SeekBar;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.dam.sendmeal.model.CuentaBancaria;
 import com.dam.sendmeal.model.Tarjeta;
 import com.dam.sendmeal.model.Usuario;
+import com.google.android.material.slider.LabelFormatter;
+import com.google.android.material.slider.Slider;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.text.NumberFormat;
 import java.util.Calendar;
+import java.util.Currency;
 import java.util.Date;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText inputNombre;
-    EditText inputContrasena;
-    EditText inputcontrasenaRepetida;
-    String contrasena, contrasenaRepetida; //guarda el contenido de inputContrasena e inputcontrasenaRepetida
-    EditText inputNumeroTarjeta;
-    String numeroTarjeta; //guarda el contenido de inputNumeroTarjeta
-    String email;
-    EditText inputCcv;
-    RadioGroup tarjetas;
-    RadioButton credito;
-    RadioButton debito;
-    SeekBar montoCredito;
-    TextView monto;
-    Switch realizarCarga;
-    TextView creditoInicial;
-    CheckBox terminos;
-    Button registrar;
-    EditText inputEmail;
-    EditText inputCbu;
-    EditText inputAliasCbu;
-    TextInputLayout layoutEmail;
-    TextInputLayout layoutContrasena;
-    TextInputLayout layoutContrasenaRepetida;
-    TextInputLayout layoutNumeroTarjeta;
-    TextInputLayout layoutCcv;
-    TextView errorCargaInicial;
-    Spinner spinnerMes;
-    String mesSeleccionado;
-    Spinner spinnerAno;
-    String anoSeleccionado;
-    TextView errorFechaVencimiento;
-
-    int idTarjetas=0; //falta asignar un id para guardar en la clase tarjeta
+    final String DEBIT_TYPE = "debit";
+    final String CREDIT_TYPE = "credit";
+    TextInputLayout nameTextField, emailTextField, passwordTextField, repeatedPasswordTextField,
+            cardNumberTextField, ccvTextField, cbuTextField, aliasCbuTextField;
+    RadioGroup cardsRadioGroup;
+    RadioButton creditRadioButton, debitRadioButton;
+    Spinner monthSpinner, yearSpinner;
+    SwitchMaterial addInitialAmountSwitch;
+    Slider initialCreditAmountSlider;
+    CheckBox termsAndConditionsCheckBox;
+    Button registerButton;
+    TextView initialCreditTextView, initialCreditAmountTextView;
+    Usuario user;
+    Tarjeta card;
+    CuentaBancaria bankAccount;
+    Boolean passwordMatch = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //obtengo las entidades por id
-        inputNombre = findViewById(R.id.nombre);
-        inputContrasena = findViewById(R.id.contrasena);
-        inputcontrasenaRepetida = findViewById(R.id.contrasenaRepetida);
-        inputNumeroTarjeta = findViewById(R.id.numeroTarjeta);
-        inputCcv = findViewById(R.id.ccv);
-        tarjetas = findViewById(R.id.tarjetas);
-        credito = findViewById(R.id.credito);
-        debito = findViewById(R.id.debito);
-        montoCredito = findViewById(R.id.montoCredito);
-        monto = findViewById(R.id.monto);
-        realizarCarga = findViewById(R.id.realizarCarga);
-        creditoInicial = findViewById(R.id.creditoInicial);
-        terminos = findViewById(R.id.terminos);
-        registrar = findViewById(R.id.registrar);
-        inputEmail = findViewById(R.id.email);
-        inputCbu = findViewById(R.id.cbu);
-        inputAliasCbu = findViewById(R.id.aliasCbu);
-        layoutEmail = findViewById(R.id.layoutEmail);
-        layoutContrasena = findViewById(R.id.layoutContrasena);
-        layoutContrasenaRepetida = findViewById(R.id.layoutContrasenaRepetida);
-        layoutNumeroTarjeta = findViewById(R.id.layoutNumeroTarjeta);
-        layoutCcv = findViewById(R.id.layoutCcv);
-        errorCargaInicial = findViewById(R.id.errorCargaInicial);
-        spinnerMes = findViewById(R.id.spinnerMes);
-        spinnerAno = findViewById(R.id.spinnerAno);
-        errorFechaVencimiento = findViewById(R.id.errorFechaVencimiento);
+        nameTextField = findViewById(R.id.nameTextField);
+        emailTextField = findViewById(R.id.emailTextField);
+        passwordTextField = findViewById(R.id.passwordTextField);
+        repeatedPasswordTextField = findViewById(R.id.repeatedPasswordTextField);
+        cardNumberTextField = findViewById(R.id.cardNumberTextField);
+        ccvTextField = findViewById(R.id.ccvTextField);
+        cardsRadioGroup = findViewById(R.id.cardsRadioGroup);
+        creditRadioButton = findViewById(R.id.creditRadioButton);
+        debitRadioButton = findViewById(R.id.debitRadioButton);
+        monthSpinner = findViewById(R.id.monthSpinner);
+        yearSpinner = findViewById(R.id.yearSpinner);
+        cbuTextField = findViewById(R.id.cbuTextField);
+        aliasCbuTextField = findViewById(R.id.aliasCbuTextField);
+        addInitialAmountSwitch = findViewById(R.id.addInitialAmountSwitch);
+        initialCreditTextView = findViewById(R.id.initialCreditTextView);
+        initialCreditAmountTextView = findViewById(R.id.initialCreditAmountTextView);
+        initialCreditAmountSlider = findViewById(R.id.initialCreditAmountSlider);
+        termsAndConditionsCheckBox = findViewById(R.id.termsAndConditionsCheckBox);
+        registerButton = findViewById(R.id.registerButton);
 
-        contrasena=""; //para que no ocurra errror en el .isEmpty() de la linea 101
-        contrasenaRepetida="";
-        spinnerMes.setEnabled(false);
-        spinnerAno.setEnabled(false);
-        registrar.setBackgroundColor(ContextCompat.getColor(getBaseContext(),R.color.colorPrimaryDesable));
+        user = new Usuario();
+        card = new Tarjeta();
+        bankAccount = new CuentaBancaria();
 
-        inputEmail.addTextChangedListener(new TextWatcher() { //si no ingreso el email la primera vez, reconoce que se agrega texto para sacar el error
+        user.setCuentaBancaria(bankAccount);
+        user.setTarjeta(card);
+
+
+        monthSpinner.setEnabled(false);
+        yearSpinner.setEnabled(false);
+
+        mandatoryFieldValidation(emailTextField);
+        mandatoryFieldValidation(passwordTextField);
+        mandatoryFieldValidation(repeatedPasswordTextField);
+        mandatoryFieldValidation(cardNumberTextField);
+        mandatoryFieldValidation(ccvTextField);
+
+        Objects.requireNonNull(nameTextField.getEditText()).setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                String errorEmail = null;
-                if (TextUtils.isEmpty(inputEmail.getText())) {
-                    errorEmail = getString(R.string.campoObligatorio);
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (!hasFocus) {
+                    String name = nameTextField.getEditText().getText().toString();
+                    user.setNombre(name);
                 }
-                toggleTextInputLayoutError(layoutEmail, errorEmail);
             }
         });
 
-        inputContrasena.addTextChangedListener(new TextWatcher() { //listener de la contrasena
+        Objects.requireNonNull(emailTextField.getEditText()).setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-
-            @Override
-            public void afterTextChanged(Editable editable) { //por si lo ultimo en modificarse fue contrasena
-                String campoObligatorio = null; //verifica si todavia no se escribio nada
-                if (TextUtils.isEmpty(inputContrasena.getText())) { //si ya se escribio dejara de mostrar el error
-                    campoObligatorio = getString(R.string.campoObligatorio);
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (!hasFocus) {
+                    String email = emailTextField.getEditText().getText().toString();
+                    if (!TextUtils.isEmpty(email)) {
+                        if (!emailValidation(email)) {
+                            emailTextField.setHelperTextEnabled(false);
+                            emailTextField.setError(getString(R.string.invalidEmail));
+                        }
+                        user.setEmail(email);
+                    } else {
+                        user.setEmail(null);
+                    }
                 }
-                toggleTextInputLayoutError(layoutContrasena, campoObligatorio);
             }
         });
 
-        inputcontrasenaRepetida.addTextChangedListener(new TextWatcher() { //listener de repetir contrasena
+        Objects.requireNonNull(passwordTextField.getEditText()).setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-
-            @Override
-            public void afterTextChanged(Editable editable) { //por si lo ultimo en modificarse fue repetir contrasena
-                String campoObligatorio = null; //se verifica que se hayan completado caracteres para sacar el error
-                if (TextUtils.isEmpty(inputcontrasenaRepetida.getText())) {
-                    campoObligatorio = getString(R.string.campoObligatorio);
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (!hasFocus) {
+                    String password = passwordTextField.getEditText().getText().toString();
+                    String repeatedPassword = Objects.requireNonNull(repeatedPasswordTextField.getEditText()).getText().toString();
+                    if (!TextUtils.isEmpty(password)) {
+                        if (!TextUtils.isEmpty(repeatedPassword)) {
+                            if (!passwordMatchValidation(password, repeatedPassword)) {
+                                repeatedPasswordTextField.setHelperTextEnabled(false);
+                                repeatedPasswordTextField.setError(" ");
+                                passwordTextField.setHelperTextEnabled(false);
+                                passwordTextField.setError(getString(R.string.errorPasswordMatch));
+                            } else {
+                                repeatedPasswordTextField.setHelperTextEnabled(true);
+                                repeatedPasswordTextField.setHelperText(getString(R.string.obligatoryFieldHelper));
+                                repeatedPasswordTextField.setError(null);
+                                user.setClave(password);
+                            }
+                        }
+                    }
                 }
-                toggleTextInputLayoutError(layoutContrasenaRepetida, campoObligatorio);
             }
         });
 
-        tarjetas.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        Objects.requireNonNull(repeatedPasswordTextField.getEditText()).setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (!hasFocus) {
+                    String password = passwordTextField.getEditText().getText().toString();
+                    String repeatedPassword = repeatedPasswordTextField.getEditText().getText().toString();
+                    if (!TextUtils.isEmpty(repeatedPassword)) {
+                        if (!passwordMatchValidation(password, repeatedPassword)) {
+                            repeatedPasswordTextField.setHelperTextEnabled(false);
+                            repeatedPasswordTextField.setError(" ");
+                            passwordTextField.setHelperTextEnabled(false);
+                            passwordTextField.setError(getString(R.string.errorPasswordMatch));
+                        } else {
+                            passwordTextField.setHelperTextEnabled(true);
+                            passwordTextField.setHelperText(getString(R.string.obligatoryFieldHelper));
+                            passwordTextField.setError(null);
+                            if (user.getClave() == null ||
+                                    !user.getClave().equals(password)) user.setClave(password);
+                        }
+                    }
+                }
+            }
+        });
+
+        cardsRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int id) { //listener radiogroup tipo de tarjeta
-                if(id == R.id.credito) { //si esta marcado credito
-                    credito.setChecked(true); //queda marcado credito
-                    debito.setChecked(false); //y desmarcado debito
-                } //de esta manera me aseguro que una opcion se elija si o si
-                else { //si no
-                    credito.setChecked(false); //queda desmarcado credito
-                    debito.setChecked(true); //y marcado debito
+                if (id == R.id.creditRadioButton) {
+                    user.getTarjeta().setEsCredito(true);
+                } else {
+                    user.getTarjeta().setEsCredito(false);
                 }
             }
         });
 
-        inputNumeroTarjeta.addTextChangedListener(new TextWatcher() { //listener numero de tarjeta
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+        Objects.requireNonNull(cardNumberTextField.getEditText()).addTextChangedListener(new TextWatcher() {
+            //listener numero de tarjeta
+
+            private static final int TOTAL_SYMBOLS = 19; // size of pattern 0000 0000 0000 0000
+            private static final int TOTAL_DIGITS = 16; // max numbers of digits in pattern: 0000 x 4
+            private static final int DIVIDER_MODULO = 5; // means divider position is every 5th symbol beginning with 1
+            private static final int DIVIDER_POSITION = DIVIDER_MODULO - 1; // means divider position is every 4th symbol beginning with 0
+            private static final char DIVIDER = ' ';
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void afterTextChanged(Editable editable) {
-                numeroTarjeta = inputNumeroTarjeta.getText().toString(); //almacena el string del campo numero de tarjeta
-                if(!numeroTarjeta.isEmpty()) { //si el campo no esta vacio
-                    inputCcv.setEnabled(true); //se habilita el ccv el mes y el anio
-                    spinnerMes.setEnabled(true);
-                    spinnerAno.setEnabled(true);
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!TextUtils.isEmpty(cardNumberTextField.getEditText().getText())) {
+                    ccvTextField.setEnabled(true);
+                    monthSpinner.setEnabled(true);
+                    yearSpinner.setEnabled(true);
+                } else {
+                    ccvTextField.setEnabled(false);
+                    monthSpinner.setEnabled(false);
+                    yearSpinner.setEnabled(false);
                 }
-                else { //si el campo esta vacio
-                    inputCcv.setEnabled(false); //permanecen deshabilitados el ccv el mes y el anio
-                    spinnerAno.setEnabled(false);
-                    spinnerMes.setEnabled(false);
+                if (!isInputCorrect(s, TOTAL_SYMBOLS, DIVIDER_MODULO, DIVIDER)) {
+                    s.replace(0, s.length(), buildCorrectString(getDigitArray(s, TOTAL_DIGITS), DIVIDER_POSITION, DIVIDER));
                 }
-                String errorNumeroTarjeta = null; //verifica que el campo obligatorio sea completado
-                if (TextUtils.isEmpty(inputNumeroTarjeta.getText())) {
-                    errorNumeroTarjeta = getString(R.string.campoObligatorio);
-                }
-                toggleTextInputLayoutError(layoutNumeroTarjeta, errorNumeroTarjeta);
             }
         });
 
-        inputCcv.addTextChangedListener(new TextWatcher() { //listener Ccv
+        Objects.requireNonNull(cardNumberTextField.getEditText()).setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-                String errorCcv = null; //verifica que el campo obligatorio sea completado
-                if (TextUtils.isEmpty(inputCcv.getText())) {
-                    errorCcv = getString(R.string.campoObligatorioCorto);
-                }
-                toggleTextInputLayoutError(layoutCcv, errorCcv);
-            }
-        });
-
-        spinnerMes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                mesSeleccionado = spinnerMes.getSelectedItem().toString();
-                if(!mesSeleccionado.equals(getString(R.string.mes))) {
-                    ((TextView)spinnerMes.getSelectedView()).setError(null);
-                    ((TextView)spinnerAno.getSelectedView()).setError(null);
-                    errorFechaVencimiento.setVisibility(View.GONE);
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (!hasFocus) {
+                    String cardNumber = cardNumberTextField.getEditText().getText().toString();
+                    user.getTarjeta().setNumero(cardNumber);
                 }
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
         });
 
-        spinnerAno.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        Objects.requireNonNull(ccvTextField.getEditText()).setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                anoSeleccionado = spinnerAno.getSelectedItem().toString();
-                if(!anoSeleccionado.equals(getString(R.string.ano))) {
-                    ((TextView)spinnerAno.getSelectedView()).setError(null);
-                    ((TextView)spinnerMes.getSelectedView()).setError(null);
-                    errorFechaVencimiento.setVisibility(View.GONE);
+            public void onFocusChange(View view, boolean hasFocus) {
+                String ccv = ccvTextField.getEditText().getText().toString();
+                if (!hasFocus) {
+                    if (!TextUtils.isEmpty(ccv)) {
+                        if (ccv.length() < 3) {
+                            ccvTextField.setHelperTextEnabled(false);
+                            ccvTextField.setError(getString(R.string.errorCCV));
+                        }
+                    }
+                    user.getTarjeta().setCcv(ccv);
                 }
             }
+        });
 
+
+        monthSpinner.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (!hasFocus) {
+                    String selectedMonth = monthSpinner.getSelectedItem().toString();
+                    if (!selectedMonth.equals(getString(R.string.mes))) {
+                        ((TextView) monthSpinner.getSelectedView()).setError(null);
+                    } else {
+                        ((TextView) monthSpinner.getSelectedView()).setError(" ");
+                    }
+                }
             }
         });
 
-        montoCredito.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() { //listener de la seekbar
+
+        yearSpinner.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                monto.setText(String.valueOf(i)); //le asigno al texto de encima de la barra el valor que marca la barra
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (!hasFocus) {
+                    String selectedYear = yearSpinner.getSelectedItem().toString();
+                    if (!selectedYear.equals(getString(R.string.mes))) {
+                        ((TextView) yearSpinner.getSelectedView()).setError(null);
+                    } else {
+                        ((TextView) yearSpinner.getSelectedView()).setError(" ");
+                    }
+                }
             }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) { }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) { }
         });
 
-        realizarCarga.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+        addInitialAmountSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) { //listener del switch
-                if(b) { //si esta activado
-                    monto.setVisibility(View.VISIBLE); //muestro el texto del monto
-                    montoCredito.setVisibility(View.VISIBLE); //y muestro la seekbar
-                    creditoInicial.setVisibility(View.VISIBLE);
-                }
-                else { //si esta desactivado
-                    monto.setVisibility(View.GONE); //desaparece el texto del monto
-                    montoCredito.setVisibility(View.GONE); //y desaparece la seekbar
-                    creditoInicial.setVisibility(View.GONE);
+                if (b) { //si esta activado
+                    initialCreditTextView.setVisibility(View.VISIBLE); //muestro el texto del monto
+                    initialCreditAmountSlider.setVisibility(View.VISIBLE); //y muestro la seekbar
+                    initialCreditAmountTextView.setVisibility(View.VISIBLE);
+                } else { //si esta desactivado
+                    initialCreditTextView.setVisibility(View.GONE); //desaparece el texto del monto
+                    initialCreditAmountSlider.setVisibility(View.GONE); //y desaparece la seekbar
+                    initialCreditAmountTextView.setVisibility(View.GONE);
                 }
             }
         });
 
-        terminos.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        initialCreditAmountSlider.setLabelFormatter(new LabelFormatter() {
+            @NonNull
+            @Override
+            public String getFormattedValue(float value) {
+                NumberFormat format = NumberFormat.getCurrencyInstance();
+                format.setMaximumFractionDigits(0);
+                format.setCurrency(Currency.getInstance("ARS"));
+                return format.format(value);
+            }
+        });
+
+        initialCreditAmountSlider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
+            @Override
+            public void onStartTrackingTouch(@NonNull Slider slider) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(@NonNull Slider slider) {
+                NumberFormat format = NumberFormat.getCurrencyInstance();
+                format.setMaximumFractionDigits(0);
+                format.setCurrency(Currency.getInstance("ARS"));
+                initialCreditAmountTextView.setText(format.format(slider.getValue()));
+                user.setCredito((double) slider.getValue());
+            }
+        });
+//
+        termsAndConditionsCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) { //listener del checkbox terminos
-                if(terminos.isChecked()) { //si esta marcado
-                    registrar.setEnabled(true); //puedo habilitar el boton
-                    registrar.setBackgroundColor(ContextCompat.getColor(getBaseContext(),R.color.colorPrimary));
-                }
-                else {
-                    registrar.setEnabled(false);
-                    registrar.setBackgroundColor(ContextCompat.getColor(getBaseContext(),R.color.colorPrimaryDesable));
+                if (termsAndConditionsCheckBox.isChecked()) { //si esta marcado
+                    registerButton.setEnabled(true); //puedo habilitar el boton
+                } else {
+                    registerButton.setEnabled(false);
                 }
             }
         });
-
-        registrar.setOnClickListener(new View.OnClickListener() { //listener del boton registrar
+//
+        registerButton.setOnClickListener(new View.OnClickListener() { //listener del boton registrar
             @Override
             public void onClick(View view) {
-                if(cumpleRequisitos()) { //si cumple con todos los requisitos
-                    //creo la tarjeta registrada
-                    String ccv = inputCcv.getText().toString();
-                    Calendar vencimiento = Calendar.getInstance();
-                    int numeroMesSeleccionado = transformarMes(mesSeleccionado);
-                    vencimiento.set(Calendar.YEAR, Integer.parseInt(anoSeleccionado)); //no deberia hacer dos veces lo mismo
-                    vencimiento.set(Calendar.MONTH, numeroMesSeleccionado);
-                    Date fechaVencimiento = vencimiento.getTime();
-                    boolean esCredito = credito.isChecked();
-                    Tarjeta tarjeta = new Tarjeta(numeroTarjeta, ccv, fechaVencimiento, esCredito);
-                    //creo la cuenta bancaria registrada
-                    String cbu = inputCbu.getText().toString();
-                    String aliasCbu = inputAliasCbu.getText().toString();
-                    CuentaBancaria cuenta = new CuentaBancaria(cbu, aliasCbu);
-                    //creo al usuario registrado
-                    String nombre = inputNombre.getText().toString();
-                    String clave = inputContrasena.getText().toString();
-                    String mail = inputEmail.getText().toString();
-                    Double credito = Double.valueOf(monto.getText().toString());
-                    Usuario user = new Usuario(idTarjetas+1, nombre, clave, mail, credito, tarjeta, cuenta);
+                if (validateForm()) {
+
+                    Calendar calendar = Calendar.getInstance();
+                    int idSelectedMonth = transformarMes(monthSpinner.getSelectedItem().toString());
+                    calendar.set(Calendar.YEAR, Integer.parseInt(yearSpinner.getSelectedItem().toString())); //no deberia hacer dos veces lo mismo
+                    calendar.set(Calendar.MONTH, idSelectedMonth);
+                    Date dueDate = calendar.getTime();
+                    user.getTarjeta().setVencimiento(dueDate);
+
+                    String accountCBU = Objects.requireNonNull(cbuTextField.getEditText()).getText().toString();
+                    String accountAliasCBU = Objects.requireNonNull(aliasCbuTextField.getEditText()).getText().toString();
+                    user.getCuentaBancaria().setCbu(accountCBU);
+                    user.getCuentaBancaria().setAlias(accountAliasCBU);
+
+                    String name = Objects.requireNonNull(nameTextField.getEditText()).getText().toString();
+                    user.setNombre(name);
+
+
                     Toast aviso = Toast.makeText(MainActivity.this, "Registro exitoso", Toast.LENGTH_LONG); //aviso al usuario
                     aviso.show();
+                } else {
+                    Toast aviso = Toast.makeText(MainActivity.this, "ERROOOOR", Toast.LENGTH_LONG); //aviso al usuario
+                    aviso.show();
                 }
+
             }
         });
     }
 
-    public boolean cumpleRequisitos() {
-        boolean check = true;
 
-        if(!camposObligatoriosCompletos()) {
-            check = false;
+    public boolean validateForm() {
+
+        boolean formValid = true;
+
+        if (!validateAllMandatoryFields()) {
+            formValid = false;
         }
-        if(!inputEmail.getText().toString().isEmpty() && !ingresoEmailValido()) { //primero m fijo si ya no tiene la etiqueta de
-            check = false; //campo obligatorio, si se cumple la primera condicion recien dp ve si el email es valido o no
+        if (emailTextField.getError() != null &&
+                !Objects.requireNonNull(emailTextField.getError()).toString().isEmpty()) {
+            formValid = false;
         }
-        if(!inputcontrasenaRepetida.getText().toString().isEmpty() && !contrasenasCoinciden()){ //primero me fijo si no tiene la etiqueta
-            check = false; //de campo obligatorio, valido antes si el campo no es nulo
+
+        if (passwordTextField.getError() != null &&
+                !Objects.requireNonNull(passwordTextField.getError()).toString().isEmpty()) {
+            formValid = false;
         }
-        if(!montoValido()) { //comprueba que si el switch esta activado, el monto no sea nulo
-            check = false;
+
+        if (repeatedPasswordTextField.getError() != null &&
+                !Objects.requireNonNull(repeatedPasswordTextField.getError()).toString().isEmpty()) {
+            formValid = false;
         }
-        if(mesSeleccionado.equals(getString(R.string.mes))) {
-            ((TextView) spinnerMes.getSelectedView()).setError("Error message");
-            errorFechaVencimiento.setVisibility(View.VISIBLE);
-            check = false;
+
+        if (cardNumberTextField.getError() != null &&
+                !Objects.requireNonNull(cardNumberTextField.getError()).toString().isEmpty()) {
+            formValid = false;
         }
-        if(anoSeleccionado.equals(getString(R.string.ano))) {
-            ((TextView) spinnerAno.getSelectedView()).setError("Error message");
-            errorFechaVencimiento.setVisibility(View.VISIBLE);
-            check = false;
+
+        if (ccvTextField.getError() != null &&
+                !Objects.requireNonNull(ccvTextField.getError()).toString().isEmpty()) {
+            formValid = false;
         }
-        if(!mesSeleccionado.equals(getString(R.string.mes)) && !anoSeleccionado.equals(getString(R.string.ano)) && !vencimientoValido(anoSeleccionado,mesSeleccionado)) {
-            ((TextView) spinnerMes.getSelectedView()).setError("Error message");
-            ((TextView) spinnerAno.getSelectedView()).setError("Error message");
-            errorFechaVencimiento.setVisibility(View.VISIBLE);
-            check = false;
+
+        if (!monthSpinner.getSelectedItem().equals(getString(R.string.mes))
+                && !yearSpinner.getSelectedItem().equals(getString(R.string.ano))) {
+            if (!vencimientoValido(yearSpinner.getSelectedItem().toString(), monthSpinner.getSelectedItem().toString())) {
+                ((TextView) monthSpinner.getSelectedView()).setError("Error message");
+                ((TextView) yearSpinner.getSelectedView()).setError("Error message");
+                formValid = false;
+            }
+        } else {
+            if (monthSpinner.getSelectedItem().equals(getString(R.string.mes)))
+                ((TextView) monthSpinner.getSelectedView()).setError("Error message");
+            if (yearSpinner.getSelectedItem().equals(getString(R.string.ano)))
+                ((TextView) yearSpinner.getSelectedView()).setError("Error message");
+            formValid = false;
         }
-        return check;
+
+
+        return formValid;
     }
 
     public boolean vencimientoValido(String ano, String mes) {
@@ -377,116 +422,158 @@ public class MainActivity extends AppCompatActivity {
         Calendar hoy = Calendar.getInstance(); //obtiene fecha actual
         hoy.add(Calendar.MONTH, 3); //le suma tres meses
 
-        if(!vencimiento.after(hoy)) { //analiza si el vencimiento ingresado es por lo menos tres meses despues de la fecha actual
+        if (!vencimiento.after(hoy)) { //analiza si el vencimiento ingresado es por lo menos tres meses despues de la fecha actual
             check = false;
         }
         return check;
     }
 
-    public boolean camposObligatoriosCompletos() {
-        boolean check = true;
-        //email
-        String errorEmail = null;
-        if (TextUtils.isEmpty(inputEmail.getText())) {
-            errorEmail = getString(R.string.campoObligatorio);
-            check = false;
-        }
-        toggleTextInputLayoutError(layoutEmail, errorEmail);
-        //contrasena
-        String errorContrasena = null;
-        if (TextUtils.isEmpty(inputContrasena.getText())) {
-            errorContrasena = getString(R.string.campoObligatorio);
-            check = false;
-        }
-        toggleTextInputLayoutError(layoutContrasena, errorContrasena);
-        //contrasenaRepetida
-        String errorContrasenaRepetida = null;
-        if (TextUtils.isEmpty(inputcontrasenaRepetida.getText())) {
-            errorContrasenaRepetida = getString(R.string.campoObligatorio);
-            check = false;
-        }
-        toggleTextInputLayoutError(layoutContrasenaRepetida, errorContrasenaRepetida);
-        //numeroTarjeta
-        String errorNumeroTarjeta = null;
-        if (TextUtils.isEmpty(inputNumeroTarjeta.getText())) {
-            errorNumeroTarjeta = getString(R.string.campoObligatorio);
-            check = false;
-        }
-        toggleTextInputLayoutError(layoutNumeroTarjeta, errorNumeroTarjeta);
-        //ccv
-        String errorCcv = null;
-        if (TextUtils.isEmpty(inputCcv.getText())) {
-            errorCcv = getString(R.string.campoObligatorioCorto);
-            check = false;
-        }
-        toggleTextInputLayoutError(layoutCcv, errorCcv);
+    public boolean validateAllMandatoryFields() {
+        boolean allCompleted = true;
 
-        return check;
+        if (user.getEmail() == null || user.getEmail().isEmpty()) {
+            emailTextField.setHelperTextEnabled(false);
+            emailTextField.setError(getString(R.string.errorObligatoryField));
+            allCompleted = false;
+        }
+
+        if (user.getClave() == null || (user.getClave().isEmpty() &&
+                Objects.requireNonNull(passwordTextField.getEditText()).getText().toString().isEmpty())) {
+            passwordTextField.setHelperTextEnabled(false);
+            passwordTextField.setError(getString(R.string.errorObligatoryField));
+            allCompleted = false;
+        }
+
+        if (user.getClave() == null || (user.getClave().isEmpty() &&
+                Objects.requireNonNull(repeatedPasswordTextField.getEditText()).getText().toString().isEmpty())) {
+            repeatedPasswordTextField.setHelperTextEnabled(false);
+            repeatedPasswordTextField.setError(getString(R.string.errorObligatoryField));
+            allCompleted = false;
+        }
+
+        if (user.getTarjeta().getNumero() == null || user.getTarjeta().getNumero().isEmpty()) {
+            cardNumberTextField.setHelperTextEnabled(false);
+            cardNumberTextField.setError(getString(R.string.errorObligatoryField));
+            allCompleted = false;
+        }
+
+        if (user.getTarjeta().getCcv() == null || user.getTarjeta().getCcv().isEmpty()) {
+            ccvTextField.setHelperTextEnabled(false);
+            ccvTextField.setError(getString(R.string.errorObligatoryField));
+            allCompleted = false;
+        }
+
+
+        return allCompleted;
     }
 
-    public boolean ingresoEmailValido() {
-        Pattern emailPattern = Pattern.compile(getString(R.string.entidadRegularEmail)); //indica como deberia ser el email
-        email = inputEmail.getText().toString();
-        Matcher matcherEmail = emailPattern.matcher(email); //lo va a comparar con lo ingresado en email
-        String errorPatronEmail = null;
-        boolean check = true;
-        if(!email.isEmpty() && !matcherEmail.find()) { //analiza si el email ingresado tiene un arroba y tres letras detras
-            errorPatronEmail = getString(R.string.emailInvalido);
-            check = false;
-        }
-        toggleTextInputLayoutError(layoutEmail, errorPatronEmail);
-        return check;
-    }
-
-    public boolean contrasenasCoinciden() {
-        contrasena = inputContrasena.getText().toString(); //obtengo el string de inputContrasena
-        contrasenaRepetida = inputcontrasenaRepetida.getText().toString(); //obtengo el string de inputContrasenaRepetida
-        String errorContrasena = null; //verifica que las contrasenias coincida
-        boolean check = true;
-        if (!contrasena.isEmpty() && !contrasenaRepetida.isEmpty() && !contrasena.equals(contrasenaRepetida)) {
-            errorContrasena = getString(R.string.errorContrasena);
-            check = false;
-        }
-        toggleTextInputLayoutError(layoutContrasenaRepetida, errorContrasena);
-        return check;
-    }
-
-    public boolean montoValido() {
-        boolean check = true;
-        if(realizarCarga.isChecked() && monto.getText().toString().equals("0")){ //verifica que si el switch esta activo, hay monto mayor a 0
-            errorCargaInicial.setVisibility(View.VISIBLE); //se muestra el error
-            check = false;
-        }
-        else {
-            errorCargaInicial.setVisibility(View.GONE);
-        }
-        return check;
-    }
-
-    public int transformarMes(String mesSeleccionado){
-        switch (mesSeleccionado){
-            case "Enero": return 0;
-            case "Febrero": return 1;
-            case "Marzo": return 2;
-            case "Abril": return 3;
-            case "Mayo": return 4;
-            case "Junio": return 5;
-            case "Julio": return 6;
-            case "Agosto": return 7;
-            case "Septiembre": return 8;
-            case "Octubre": return 9;
-            case "Noviembre": return 10;
-            case "Diciembre": return 11;
+    public int transformarMes(String mesSeleccionado) {
+        switch (mesSeleccionado) {
+            case "Enero":
+                return 0;
+            case "Febrero":
+                return 1;
+            case "Marzo":
+                return 2;
+            case "Abril":
+                return 3;
+            case "Mayo":
+                return 4;
+            case "Junio":
+                return 5;
+            case "Julio":
+                return 6;
+            case "Agosto":
+                return 7;
+            case "Septiembre":
+                return 8;
+            case "Octubre":
+                return 9;
+            case "Noviembre":
+                return 10;
+            case "Diciembre":
+                return 11;
         }
         return -1;
     }
 
-    private static void toggleTextInputLayoutError(@NonNull TextInputLayout textInputLayout, String msg) {
-        textInputLayout.setError(msg);
-        if (msg == null) {
-            textInputLayout.setErrorEnabled(false);
-        } else {
-            textInputLayout.setErrorEnabled(true);
+
+    public void mandatoryFieldValidation(final TextInputLayout field) {
+        Objects.requireNonNull(field.getEditText()).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (!TextUtils.isEmpty(field.getEditText().getText())) {
+                    // Clear error text
+                    field.setHelperTextEnabled(true);
+                    field.setHelperText(getString(R.string.obligatoryFieldHelper));
+                    field.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (TextUtils.isEmpty(field.getEditText().getText())) {
+                    field.setHelperTextEnabled(false);
+                    field.setError(getString(R.string.errorObligatoryField));
+                }
+            }
+        });
+    }
+
+    public boolean emailValidation(String email) {
+        Pattern emailPattern = Pattern.compile(getString(R.string.entidadRegularEmail)); //indica como deberia ser el email
+        Matcher matcherEmail = emailPattern.matcher(email); //lo va a comparar con lo ingresado en email
+
+        //analiza si el email ingresado tiene un arroba y tres letras detras
+        return matcherEmail.find();
+    }
+
+    public boolean passwordMatchValidation(String password, String repeatedPassword) {
+        passwordMatch = (password != null && repeatedPassword != null
+                && !password.isEmpty() && !repeatedPassword.isEmpty() && password.equals(repeatedPassword));
+        return passwordMatch;
+    }
+
+    private char[] getDigitArray(final Editable s, final int size) {
+        char[] digits = new char[size];
+        int index = 0;
+        for (int i = 0; i < s.length() && index < size; i++) {
+            char current = s.charAt(i);
+            if (Character.isDigit(current)) {
+                digits[index] = current;
+                index++;
+            }
         }
+        return digits;
+    }
+
+    private String buildCorrectString(char[] digits, int dividerPosition, char divider) {
+        final StringBuilder formatted = new StringBuilder();
+
+        for (int i = 0; i < digits.length; i++) {
+            if (digits[i] != 0) {
+                formatted.append(digits[i]);
+                if ((i > 0) && (i < (digits.length - 1)) && (((i + 1) % dividerPosition) == 0)) {
+                    formatted.append(divider);
+                }
+            }
+        }
+        return formatted.toString();
+    }
+
+    private boolean isInputCorrect(Editable s, int totalSymbols, int dividerModulo, char divider) {
+        boolean isCorrect = s.length() <= totalSymbols; // check size of entered string
+        for (int i = 0; i < s.length(); i++) { // check that every element is right
+            if (i > 0 && (i + 1) % dividerModulo == 0) {
+                isCorrect &= divider == s.charAt(i);
+            } else {
+                isCorrect &= Character.isDigit(s.charAt(i));
+            }
+        }
+        return isCorrect;
     }
 }
