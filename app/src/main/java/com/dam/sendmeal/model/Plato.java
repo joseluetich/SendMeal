@@ -6,11 +6,11 @@ import java.util.List;
 public class Plato {
     private String title;
     private String description;
-    private double price;
-    private int calories;
+    private Double price;
+    private Integer calories;
     private static List<Plato> plates = new ArrayList<>();
 
-    public Plato(String title, String description, double price, int calories) {
+    public Plato(String title, String description, Double price, Integer calories) {
         this.title = title;
         this.description = description;
         this.price = price;
@@ -33,40 +33,43 @@ public class Plato {
         this.description = description;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public int getCalories() {
+    public String getStringPrice() {
+        return ("Precio $ "+this.price);
+    }
+    public Integer getCalories() {
         return calories;
     }
 
-    public void setCalories(int calories) {
+    public void setCalories(Integer calories) {
         this.calories = calories;
     }
 
-    public static List<Plato> getLisaPlates() {
+    public static List<Plato> getListPlates() {
         return plates;
     }
 
-    public static void setLisaPlates(List<Plato> lisaPlates) {
-        Plato.plates = lisaPlates;
+    public static void setListPlates(List<Plato> listPlates) {
+        Plato.plates = listPlates;
     }
 
     public void addToPlates() {
         plates.add(this);
     }
 
-    /*public static String getStringListaPlatos() {
+    public static String getStringListaPlatos() {
         String plato = "";
 
-        for (Plato p : listaPlatos) {
-            plato = (plato+" "+p.getTitulo());
+        for (Plato p : plates) {
+            plato = (plato+" "+p.getTitle());
         }
         return plato;
-    }*/
+    }
 }

@@ -9,12 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.App">
-
-        <activity android:name=".MenuActivity"
+        <activity
+            android:name=".MenuActivity"
             android:label="@string/title_activity_menu"
             android:theme="@style/Theme.App.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -38,6 +39,15 @@
         </activity>
         <activity
             android:name=".NewPlateActivity"
+            android:parentActivityName=".MenuActivity">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity" />
+        </activity>
+        <activity
+            android:name=".PlatesListActivity"
             android:parentActivityName=".MenuActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->

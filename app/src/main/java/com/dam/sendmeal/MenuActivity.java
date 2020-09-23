@@ -61,8 +61,8 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(createPlate);
                 return true;
             case R.id.listPlatesOption:
-                /*Intent listPlates = new Intent(this, ListaDePlatosActivity.class);
-                startActivity(listPlates);*/
+                Intent listPlates = new Intent(this, PlatesListActivity.class);
+                startActivity(listPlates);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
