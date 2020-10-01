@@ -15,7 +15,7 @@
         tools:context=".MainActivity">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbarRegistro"
+            android:id="@+id/newAccountToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
@@ -38,7 +38,7 @@
             android:textFontWeight="600"
             android:textSize="@dimen/dim32"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbarRegistro" />
+            app:layout_constraintTop_toBottomOf="@+id/newAccountToolbar" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/nameTextField"

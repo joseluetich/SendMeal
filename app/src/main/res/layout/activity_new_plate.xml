@@ -1,173 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-    <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_height="wrap_content"
+    tools:context=".NewPlateActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/newPlateToolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".NewPlateActivity">
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/Theme.App.Toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:title=" " />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/newPlateToolbar"
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newPlateToolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="@style/Theme.App.Toolbar"
-            app:title=" "
-            app:navigationIcon="?attr/homeAsUpIndicator"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/createPlateTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:fontFamily="sans-serif-thin"
-            android:text="@string/crearPlato"
-            android:textAllCaps="false"
-            android:textColor="@color/colorSecondary"
-            android:textSize="@dimen/dim32"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/newPlateToolbar" />
+            <TextView
+                android:id="@+id/createPlateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="sans-serif-thin"
+                android:text="@string/crearPlato"
+                android:textAllCaps="false"
+                android:textColor="@color/colorSecondary"
+                android:textSize="@dimen/dim32"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/titleTextInputLayout"
-            android:layout_width="@dimen/dim0"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dim16"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="@dimen/dim16"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/createPlateTextView">
-
-            <EditText
-                android:id="@+id/titleEditText"
-                android:layout_width="match_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/titleTextInputLayout"
+                android:layout_width="@dimen/dim0"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dim16"
-                android:layout_marginTop="@dimen/dim8"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="@dimen/dim16"
-                android:backgroundTint="@color/colorSecondary"
-                android:ems="10"
-                android:hint="@string/titulo"
-                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/createPlateTextView">
+
+                <EditText
+                    android:id="@+id/titleEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dim16"
+                    android:layout_marginTop="@dimen/dim8"
+                    android:layout_marginEnd="@dimen/dim16"
+                    android:backgroundTint="@color/colorSecondary"
+                    android:ems="10"
+                    android:hint="@string/titulo"
+                    android:inputType="textPersonName"
+                    android:textSize="18dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/createPlateTextView" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/descriptionTextInputLayout"
+                android:layout_width="@dimen/dim0"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dim16"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="@dimen/dim16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titleTextInputLayout">
+
+                <EditText
+                    android:id="@+id/descriptionEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dim16"
+                    android:layout_marginEnd="@dimen/dim16"
+                    android:backgroundTint="@color/colorSecondary"
+                    android:ems="10"
+                    android:hint="@string/descripcion"
+                    android:maxLength="25"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/titleTextInputLayout" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/priceTextInputLayout"
+                android:layout_width="@dimen/dim0"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dim16"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="@dimen/dim16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionTextInputLayout">
+
+                <EditText
+                    android:id="@+id/priceEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dim16"
+                    android:layout_marginEnd="@dimen/dim16"
+                    android:backgroundTint="@color/colorSecondary"
+                    android:ems="10"
+                    android:hint="@string/precio"
+                    android:inputType="numberDecimal"
+                    android:maxLength="25"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/descriptionTextInputLayout" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/caloriesTextInputLayout"
+                android:layout_width="@dimen/dim0"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dim16"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="@dimen/dim16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/priceTextInputLayout">
+
+                <EditText
+                    android:id="@+id/caloriesEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dim16"
+                    android:layout_marginEnd="@dimen/dim16"
+                    android:backgroundTint="@color/colorSecondary"
+                    android:ems="10"
+                    android:hint="@string/calorias"
+                    android:inputType="numberDecimal"
+                    android:maxLength="25"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/priceTextInputLayout" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/savePlateButton"
+                android:layout_width="@dimen/dim0"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="24dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/guardar"
+                android:textColor="@color/colorPrimaryLight"
                 android:textSize="18dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/createPlateTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/caloriesTextInputLayout" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/descriptionTextInputLayout"
-            android:layout_width="@dimen/dim0"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dim16"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="@dimen/dim16"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titleTextInputLayout">
+    </ScrollView>
 
-            <EditText
-                android:id="@+id/descriptionEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dim16"
-                android:layout_marginEnd="@dimen/dim16"
-                android:backgroundTint="@color/colorSecondary"
-                android:ems="10"
-                android:hint="@string/descripcion"
-                android:maxLength="25"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/titleTextInputLayout" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/priceTextInputLayout"
-            android:layout_width="@dimen/dim0"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dim16"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="@dimen/dim16"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/descriptionTextInputLayout">
-
-            <EditText
-                android:id="@+id/priceEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dim16"
-                android:layout_marginEnd="@dimen/dim16"
-                android:backgroundTint="@color/colorSecondary"
-                android:ems="10"
-                android:hint="@string/precio"
-                android:maxLength="25"
-                android:inputType="numberDecimal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/descriptionTextInputLayout" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/caloriesTextInputLayout"
-            android:layout_width="@dimen/dim0"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dim16"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="@dimen/dim16"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/priceTextInputLayout">
-
-            <EditText
-                android:id="@+id/caloriesEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dim16"
-                android:layout_marginEnd="@dimen/dim16"
-                android:backgroundTint="@color/colorSecondary"
-                android:ems="10"
-                android:hint="@string/calorias"
-                android:maxLength="25"
-                android:inputType="numberDecimal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/priceTextInputLayout" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/savePlateButton"
-            android:layout_width="@dimen/dim0"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="24dp"
-            android:backgroundTint="@color/colorPrimary"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/guardar"
-            android:textColor="@color/colorPrimaryLight"
-            android:textSize="18dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/caloriesTextInputLayout" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</ScrollView>

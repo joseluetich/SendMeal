@@ -29,7 +29,7 @@
                 android:value=".MenuActivity" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".NewAccountActivity"
             android:parentActivityName=".MenuActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->

@@ -3,7 +3,6 @@ package com.dam.sendmeal;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -19,9 +18,6 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.dam.sendmeal.model.CuentaBancaria;
 import com.dam.sendmeal.model.Tarjeta;
@@ -39,7 +35,7 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class MainActivity extends AppCompatActivity {
+public class NewAccountActivity extends AppCompatActivity {
 
     final String DEBIT_TYPE = "debit";
     final String CREDIT_TYPE = "credit";
@@ -62,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_new_account);
 
         nameTextField = findViewById(R.id.nameTextField);
         emailTextField = findViewById(R.id.emailTextField);
@@ -91,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         user.setCuentaBancaria(bankAccount);
         user.setTarjeta(card);
 
-        toolbarRegistro = findViewById(R.id.toolbarRegistro);
+        toolbarRegistro = findViewById(R.id.newAccountToolbar);
         setSupportActionBar(toolbarRegistro);//configuro la toolbar
 
         monthSpinner.setEnabled(false);
@@ -357,10 +353,10 @@ public class MainActivity extends AppCompatActivity {
                     user.setNombre(name);
 
 
-                    Toast aviso = Toast.makeText(MainActivity.this, "Registro exitoso", Toast.LENGTH_LONG); //aviso al usuario
+                    Toast aviso = Toast.makeText(NewAccountActivity.this, "Registro exitoso", Toast.LENGTH_LONG); //aviso al usuario
                     aviso.show();
                 } else {
-                    Toast aviso = Toast.makeText(MainActivity.this, "ERROOOOR", Toast.LENGTH_LONG); //aviso al usuario
+                    Toast aviso = Toast.makeText(NewAccountActivity.this, "ERROOOOR", Toast.LENGTH_LONG); //aviso al usuario
                     aviso.show();
                 }
 
