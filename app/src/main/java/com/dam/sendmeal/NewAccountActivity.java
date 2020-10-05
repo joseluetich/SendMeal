@@ -352,7 +352,6 @@ public class NewAccountActivity extends AppCompatActivity {
                     String name = Objects.requireNonNull(nameTextField.getEditText()).getText().toString();
                     user.setNombre(name);
 
-
                     Toast aviso = Toast.makeText(NewAccountActivity.this, "Registro exitoso", Toast.LENGTH_LONG); //aviso al usuario
                     aviso.show();
                 } else {

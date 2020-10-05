@@ -71,7 +71,6 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
-            android:digits="@string/emailDigits"
             android:ems="10"
             android:hint="@string/emailHint"
             android:inputType="textEmailAddress"
@@ -84,7 +83,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:digits="@string/emailDigits"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 

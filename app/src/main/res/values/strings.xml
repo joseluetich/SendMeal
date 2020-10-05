@@ -29,19 +29,19 @@
     <string name="registerButtonText">Registrar</string>
     <string name="bienvenida">Bienvenido!</string>
 
-    <string name="idPlato">Id  *</string>
-    <string name="titulo">Título  *</string>
-    <string name="descripcion">Descripción</string>
-    <string name="precio">Precio  *</string>
-    <string name="calorias">Calorías (kcal)  *</string>
-    <string name="guardar">GUARDAR</string>
+    <!--Create new plate-->
+    <string name="titleHint">Título</string>
+    <string name="descriptionHint">Descripción</string>
+    <string name="priceHint">Precio</string>
+    <string name="caloriesHint">Calorías</string>
+    <string name="save">GUARDAR</string>
 
     <!--Tipo de entradas-->
     <string name="nameDigits">"áéíóúÁÉÍÓÚQWERTYUIOPASDFGHJKLÑZXCVBNMqwertyuiopasdfghjklñzxcvbnm "</string>
     <string name="emailDigits">"+QWERTYUIOPASDFGHJKLÑZXCVBNMqwertyuiopasdfghjklñzxcvbnm@.-_0123456789"</string>
     <string name="entidadRegularEmail">"@[a-z][a-z][a-z]"</string>
     <string name="digitosPrecio">",0123456789"</string>
-    <string name="entidadRegularPrecio">"^[0-9]+(,[0-9]{1,2})?$"</string>
+    <string name="entidadRegularPrecio">"^[0-9]+(.[0-9]{1,2})?$"</string>
 
     <!--Helpers-->
     <string name="obligatoryFieldHelper">"*Campo obligatorio"</string>
@@ -53,7 +53,7 @@
     <string name="errorInitialCredit">Carga inicial inválida</string>
     <string name="errorDueDate">Fecha de vencimiento inválida</string>
     <string name="errorCCV">Debe poseer 3 dígitos</string>
-    <string name="precioInvalido">"        Precio invalido: Solo se permiten dos decimales"</string>
+    <string name="precioInvalido">"Precio invalido: Solo se permiten dos decimales"</string>
 
     <!--Arrays-->
     <string-array name="meses">
@@ -105,6 +105,7 @@
         <item>2049</item>
         <item>2050</item>
     </string-array>
+
     <string name="title_activity_menu">menuActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

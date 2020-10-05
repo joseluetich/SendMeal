@@ -10,6 +10,10 @@ public class Plato {
     private Integer calories;
     private static List<Plato> plates = new ArrayList<>();
 
+    public Plato() {
+
+    }
+
     public Plato(String title, String description, Double price, Integer calories) {
         this.title = title;
         this.description = description;
