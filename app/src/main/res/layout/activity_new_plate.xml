@@ -95,9 +95,9 @@
             android:layout_marginTop="16dp"
             android:ems="10"
             android:hint="@string/priceHint"
-            app:startIconDrawable="@drawable/ic_baseline_attach_money_24"
             android:maxLength="25"
             android:layout_marginEnd="@dimen/dim16"
+            app:prefixText="@string/moneySign"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/descriptionTextInputLayout">
@@ -106,7 +106,7 @@
                 android:id="@+id/priceEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"/>
+                android:inputType="numberDecimal" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

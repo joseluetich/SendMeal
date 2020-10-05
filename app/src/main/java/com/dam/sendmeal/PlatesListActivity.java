@@ -21,7 +21,7 @@ public class PlatesListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_plates);
 
-        platesListToolbar = findViewById(R.id.newPlateToolbar);
+        platesListToolbar = findViewById(R.id.platesListToolbar);
         setSupportActionBar(platesListToolbar);
 
         platesListRecyclerView = (RecyclerView) findViewById(R.id.platesRecyclerView);

@@ -33,6 +33,7 @@
     <string name="titleHint">Título</string>
     <string name="descriptionHint">Descripción</string>
     <string name="priceHint">Precio</string>
+    <string name="moneySign">"$ "</string>
     <string name="caloriesHint">Calorías</string>
     <string name="save">GUARDAR</string>
 
