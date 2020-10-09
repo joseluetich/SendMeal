@@ -4,9 +4,30 @@
     <color name="colorPrimary">#383E56</color>
     <color name="colorPrimaryVariant">#383E56</color>
     <color name="colorSecondary">#FFD571</color>
+    <color name="amarillo">#C94747</color>
     <color name="colorSecondaryVariant">#FFD571</color>
     <color name="colorBackground">#FFFFFF</color>
     <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorPrimaryLight">#F8F2F2</color>
+    <color name="colorAccent">#FFD571</color>
+    <color name="colorError">#C62828</color>
 
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <color name="whiteCreamGreen">#EFF6EF</color>
+
+    <color name="greenBasil_400">#7FD480</color>
+    <color name="greenBasil">#6FC971</color>
+    <color name="greenBasil_600">#6BB36C</color>
+
+    <color name="orangeBrick_400">#FF9673</color>
+    <color name="orangeBrick">#FE8359</color>
+    <color name="orangeBrick_600">#E67650</color>
+
+    <color name="blackDeepBlue_400">#3A3E45</color>
+    <color name="blackDeepBlue">#292E34</color>
+    <color name="blackDeepBlue_600">#1E2226</color>
 
 </resources>
