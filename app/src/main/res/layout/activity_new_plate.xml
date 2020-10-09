@@ -95,7 +95,6 @@
             android:layout_marginTop="16dp"
             android:ems="10"
             android:hint="@string/priceHint"
-            android:maxLength="25"
             android:layout_marginEnd="@dimen/dim16"
             app:prefixText="@string/moneySign"
             app:layout_constraintEnd_toEndOf="parent"
@@ -106,7 +105,8 @@
                 android:id="@+id/priceEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal" />
+                android:inputType="numberDecimal"
+                android:maxLength="25"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -119,7 +119,6 @@
             android:layout_marginTop="16dp"
             android:ems="10"
             android:hint="@string/caloriesHint"
-            android:inputType="numberDecimal"
             android:maxLength="25"
             android:layout_marginEnd="@dimen/dim16"
             app:layout_constraintEnd_toEndOf="parent"
@@ -129,7 +128,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/caloriesEditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
