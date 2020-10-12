@@ -25,37 +25,46 @@
                 android:id="@+id/plateTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:gravity="center_vertical"
                 android:textColor="@color/colorPrimary"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/plateImageView"
                 tools:text="@tools:sample/lorem" />
 
             <ImageView
                 android:id="@+id/plateImageView"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="338dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/plateTitleTextView"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/pizza_image" />
 
             <TextView
                 android:id="@+id/platePriceTextView"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/plateTitleTextView" />
+
+            <Button
+                android:id="@+id/orderButton"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginEnd="8dp"
-                android:text="@string/precioPlato"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/plateImageView" />
+                android:visibility="invisible"
+                android:drawableLeft="@drawable/ic_round_add_24"
+                android:text="@string/order"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

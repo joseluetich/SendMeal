@@ -1,13 +1,13 @@
 package com.dam.sendmeal.model;
 
-public class CuentaBancaria {
+public class BankAccount {
     private String cbu;
     private String alias;
 
-    public CuentaBancaria() {
+    public BankAccount() {
     }
 
-    public CuentaBancaria(String cbu, String alias) {
+    public BankAccount(String cbu, String alias) {
         this.cbu = cbu;
         this.alias = alias;
     }
