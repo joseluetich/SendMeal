@@ -35,7 +35,7 @@ public class PlatesListActivity extends AppCompatActivity {
         platesListToolbar = findViewById(R.id.platesListToolbar);
         setSupportActionBar(platesListToolbar);
 
-        platesListRecyclerView = (RecyclerView) findViewById(R.id.platesRecyclerView);
+        platesListRecyclerView = findViewById(R.id.platesRecyclerView);
         platesListRecyclerView.setHasFixedSize(true);
 
         platesListLayoutManager = new LinearLayoutManager(this);
@@ -44,7 +44,7 @@ public class PlatesListActivity extends AppCompatActivity {
         platesListAdapter = new PlatesListAdapter(Plate.getListPlates(),this,selectedPlates);
         platesListRecyclerView.setAdapter(platesListAdapter);
 
-        orderFloatingActionButton = (ExtendedFloatingActionButton) findViewById(R.id.orderFloatingActionButton);
+        orderFloatingActionButton = findViewById(R.id.orderFloatingActionButton);
 
         if (getIntent().getStringExtra("from").equals("NewOrderActivity")) {
             orderFloatingActionButton.show();

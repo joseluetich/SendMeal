@@ -1,18 +1,20 @@
 package com.dam.sendmeal.model;
 
+import java.util.ArrayList;
+
 public class Order {
     private String email;
     private Address address;
     private Boolean toShip;
-    private Plate plate;
+    private ArrayList<Plate> plates = new ArrayList<>();
 
     public Order() {
     }
 
-    public Order(String email, Boolean toShip, Plate plate) {
+    public Order(String email, Boolean toShip, ArrayList<Plate> plates) {
         this.email = email;
         this.toShip = toShip;
-        this.plate = plate;
+        this.plates = plates;
     }
 
     public String getEmail() {
@@ -31,19 +33,19 @@ public class Order {
         this.toShip = toShip;
     }
 
-    public Plate getPlate() {
-        return plate;
-    }
-
-    public void setPlate(Plate plate) {
-        this.plate = plate;
-    }
-
     public Address getAddress() {
         return address;
     }
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public ArrayList<Plate> getPlates() {
+        return plates;
+    }
+
+    public void setPlates(ArrayList<Plate> plates) {
+        this.plates = plates;
     }
 }

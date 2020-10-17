@@ -8,6 +8,7 @@ public class Plate {
     private String description;
     private Double price;
     private Integer calories;
+    private Integer quantity;
     private static List<Plate> plates = new ArrayList<>();
 
     public Plate() {
@@ -48,6 +49,7 @@ public class Plate {
     public String getStringPrice() {
         return ("Precio $ "+this.price);
     }
+
     public Integer getCalories() {
         return calories;
     }
@@ -77,12 +79,12 @@ public class Plate {
         return plato;
     }
 
-    public static List<Plate> getPlates() {
-        return plates;
+
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public static void setPlates(List<Plate> plates) {
-        Plate.plates = plates;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
-
 }

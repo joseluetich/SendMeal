@@ -46,11 +46,14 @@
     <string name="newOrderLower">Nuevo Pedido</string>
     <string name="streetHint">Calle</string>
     <string name="numberHint">Numero</string>
+    <string name="floorHint">Piso</string>
+    <string name="apartmentHint">Dpto</string>
     <string name="takeAway">Take Away</string>
-    <string name="shipping">Envio</string>
+    <string name="shipping">Delivery</string>
     <string name="addPlate">Agregar Platos</string>
-    <string name="platesQuantity">CANTIDAD DE PLATOS: </string>
-    <string name="totalPrice">TOTAL: </string>
+    <string name="editPlate">Editar Platos</string>
+    <string name="platesQuantity">Cantidad de Platos</string>
+    <string name="totalPrice">TOTAL</string>
     <string name="confirmOrder">CONFIRMAR PEDIDO</string>
 
     <!--Tipo de entradas-->
