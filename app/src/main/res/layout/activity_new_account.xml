@@ -76,6 +76,8 @@
             android:inputType="textEmailAddress"
             android:textSize="@dimen/dim16"
             app:errorEnabled="true"
+            app:endIconDrawable="@drawable/ic_round_email_24"
+            app:endIconMode="custom"
             app:helperText="@string/obligatoryFieldHelper"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

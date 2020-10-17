@@ -9,6 +9,8 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.dam.sendmeal.model.Plate;
@@ -37,6 +39,7 @@ public class NewPlateActivity extends AppCompatActivity {
         savePlateButton = findViewById(R.id.savePlateButton);
 
         plate = new Plate();
+        plate.setQuantity(0);
 
         newPlateToolbar = findViewById(R.id.newPlateToolbar);
         setSupportActionBar(newPlateToolbar);

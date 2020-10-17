@@ -3,6 +3,7 @@ package com.dam.sendmeal;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dam.sendmeal.model.Address;
 import com.dam.sendmeal.model.Order;
@@ -30,7 +32,7 @@ import java.util.regex.Pattern;
 public class NewOrderActivity extends AppCompatActivity {
 
     Toolbar newOrderToolbar;
-    TextInputLayout emailOrderTextField, streetTextField, numberTextField;
+    TextInputLayout emailOrderTextField, streetTextField, numberTextField, floorTextField, apartmentTextField;
     RadioGroup deliverRadioGroup;
     RadioButton shippingRadioButton, takeAwayRadioButton;
     Address address;
@@ -39,10 +41,10 @@ public class NewOrderActivity extends AppCompatActivity {
     ArrayList<Plate> orderPlates = new ArrayList<>();
     RecyclerView orderPlatesListRecyclerView;
     RecyclerView.Adapter orderPlatesListAdapter;
+    //CardView orderDescriptionCardView;
+    ConstraintLayout orderDescriptionConstraintLayout;
     RecyclerView.LayoutManager orderPlatesListLayoutManager;
-    TextView orderPriceTextView, platesQuantityTextView;//, orderPriceDescriptionTextView, orderDescriptionTextView;
-    CardView orderDescriptionCardView;
-    Double totalPrice = 0.0;
+    TextView orderPriceTextView, platesQuantityTextView, platesListTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +64,13 @@ public class NewOrderActivity extends AppCompatActivity {
         addPlateButton = findViewById(R.id.addPlateButton);
         orderPriceTextView = findViewById(R.id.orderPriceTextView);
         platesQuantityTextView = findViewById(R.id.platesQuantityTextView);
-        orderDescriptionCardView = findViewById(R.id.orderDescriptionCardView);
+        //orderDescriptionCardView = findViewById(R.id.orderDescriptionCardView);
         confirmOrderButton = findViewById(R.id.confirmOrderButton);
+        floorTextField = findViewById(R.id.floorTextField);
+        apartmentTextField = findViewById(R.id.apartmentTextField);
+        platesListTextView = findViewById(R.id.platesListTextView);
+        //orderListCardView = findViewById(R.id.orderDescriptionCardView);
+        orderDescriptionConstraintLayout = findViewById(R.id.orderDescriptionConstraintLayout);
 
         address = new Address();
         order = new Order();
@@ -138,6 +145,36 @@ public class NewOrderActivity extends AppCompatActivity {
             }
         });
 
+        Objects.requireNonNull(floorTextField.getEditText()).setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (!hasFocus) {
+                    String floor = floorTextField.getEditText().getText().toString();
+                    if (!TextUtils.isEmpty(floor)) {
+                        order.getAddress().setFloor(Integer.valueOf(floor));
+                    } else {
+                        order.getAddress().setFloor(null);
+                    }
+                }
+
+            }
+        });
+
+        Objects.requireNonNull(apartmentTextField.getEditText()).setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (!hasFocus) {
+                    String apartment = apartmentTextField.getEditText().getText().toString();
+                    if (!TextUtils.isEmpty(apartment)) {
+                        order.getAddress().setApartment(apartment);
+                    } else {
+                        order.getAddress().setApartment(null);
+                    }
+                }
+
+            }
+        });
+
         deliverRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int id) { //listener radiogroup
@@ -163,18 +200,23 @@ public class NewOrderActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // check if the request code is same as what is passed  here it is 2
+        Double totalPrice = 0.0;
+        Integer totalPlates = 0;
+
         if(resultCode==RESULT_OK) {
             if (requestCode == 2) {
                 ArrayList<String> selectedPlates = data.getStringArrayListExtra("PLATE");
                 if(selectedPlates != null) {
                     for (String title : selectedPlates) {
                         for (Plate plate : Plate.getListPlates()) {
-                            if (title.toLowerCase().equals(plate.getTitle().toLowerCase())) {
-                                orderPlates.add(plate);
-                                totalPrice += plate.getPrice();
+                            if (title.toLowerCase().equals(plate.getTitle().toLowerCase()) && plate.getQuantity()>0) {
+                                if(!orderPlates.contains(plate)){
+                                    orderPlates.add(plate);
+                                }
                             }
                         }
                     }
+
                     orderPlatesListRecyclerView = findViewById(R.id.orderPlatesRecyclerView);
                     orderPlatesListRecyclerView.setHasFixedSize(true);
 
@@ -184,12 +226,38 @@ public class NewOrderActivity extends AppCompatActivity {
                     orderPlatesListAdapter = new OrderPlatesListAdapter(orderPlates);
                     orderPlatesListRecyclerView.setAdapter(orderPlatesListAdapter);
 
-                    orderDescriptionCardView.setVisibility(View.VISIBLE);
+                    //orderDescriptionCardView.setVisibility(View.VISIBLE);
+                    //orderListCardView.setVisibility(View.VISIBLE);
+                    orderDescriptionConstraintLayout.setVisibility(View.VISIBLE);
                     confirmOrderButton.setVisibility(View.VISIBLE);
+                    platesListTextView.setVisibility(View.VISIBLE);
+
+                    ArrayList<Plate> nullPlates = new ArrayList<>();
+                    for(Plate plate : orderPlates) {
+                        if(plate.getQuantity().equals(0)) {
+                            nullPlates.add(plate);
+                        }
+                        totalPlates += plate.getQuantity();
+                        totalPrice += plate.getPrice()*plate.getQuantity();
+                    }
+                    orderPlates.removeAll(nullPlates);
+                    if(orderPlates.size()==0) {
+                        //orderDescriptionCardView.setVisibility(View.INVISIBLE);
+                        confirmOrderButton.setVisibility(View.INVISIBLE);
+                        platesListTextView.setVisibility(View.INVISIBLE);
+                        //orderListCardView.setVisibility(View.INVISIBLE);
+                        orderDescriptionConstraintLayout.setVisibility(View.INVISIBLE);
+                        addPlateButton.setText(R.string.addPlate);
+                    }
+                    else {
+                        addPlateButton.setText(R.string.editPlate);
+                    }
+
+                    order.setPlates(orderPlates);
 
                     String price = totalPrice.toString();
-                    String quantity = Integer.toString(orderPlates.size());
                     orderPriceTextView.setText("$ "+price);
+                    String quantity = Integer.toString(totalPlates);
                     platesQuantityTextView.setText(quantity);
                 }
             }

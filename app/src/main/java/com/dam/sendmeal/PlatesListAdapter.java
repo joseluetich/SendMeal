@@ -9,9 +9,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,7 +26,7 @@ public class PlatesListAdapter extends RecyclerView.Adapter<PlatesListAdapter.Pl
 
     private List<Plate> plates;
     Activity platesListActivity;
-    ArrayList<String> selectedPlates = new ArrayList<>();
+    ArrayList<String> selectedPlates;
 
     public PlatesListAdapter(List<Plate> listPlates, Activity activity, ArrayList<String> selectedPlates) {
         this.plates = listPlates;
@@ -48,15 +50,19 @@ public class PlatesListAdapter extends RecyclerView.Adapter<PlatesListAdapter.Pl
         holder.plateImageView.setTag(position);
         holder.plateTitleString.setTag(position);
         holder.platePriceDouble.setTag(position);
-        holder.orderButton.setTag(position);
+        //holder.orderButton.setTag(position);
+        holder.minusImageView.setTag(position);
+        holder.plusImageView.setTag(position);
+        holder.numberPickerTextView.setTag(position);
+        holder.numberPickerConstraintLayout.setTag(position);
 
         Plate plate = plates.get(position);
 
         holder.plateImageView.setImageResource(R.drawable.pizza_image);
         holder.plateTitleString.setText(plate.getTitle().toUpperCase());
         holder.platePriceDouble.setText(plate.getStringPrice());
-
-
+        String quantity = plate.getQuantity().toString();
+        holder.numberPickerTextView.setText(quantity);
     }
 
     @Override
@@ -66,10 +72,10 @@ public class PlatesListAdapter extends RecyclerView.Adapter<PlatesListAdapter.Pl
 
     public class PlatesViewHolder extends RecyclerView.ViewHolder {
         CardView plateCardView;
-        TextView plateTitleString;
-        TextView platePriceDouble;
-        ImageView plateImageView;
-        Button orderButton;
+        TextView plateTitleString, platePriceDouble, numberPickerTextView;
+        ImageView plateImageView, minusImageView, plusImageView;
+        ConstraintLayout numberPickerConstraintLayout;
+        //int number;
 
         public PlatesViewHolder(@NonNull View itemView, final Activity platesListActivity) {
             super(itemView);
@@ -77,26 +83,62 @@ public class PlatesListAdapter extends RecyclerView.Adapter<PlatesListAdapter.Pl
             plateImageView = itemView.findViewById(R.id.plateImageView);
             plateTitleString = itemView.findViewById(R.id.plateTitleTextView);
             platePriceDouble = itemView.findViewById(R.id.platePriceTextView);
-            orderButton = itemView.findViewById(R.id.orderButton);
-
+            minusImageView = itemView.findViewById(R.id.minusImageView);
+            plusImageView = itemView.findViewById(R.id.plusImageView);
+            numberPickerTextView = itemView.findViewById(R.id.numberPickerTextView);
+            numberPickerConstraintLayout = itemView.findViewById(R.id.numberPickerConstraintLayout);
 
             if (platesListActivity.getIntent().getStringExtra("from").equals("NewOrderActivity")) {
-                orderButton.setVisibility(View.VISIBLE);
+                numberPickerConstraintLayout.setVisibility(View.VISIBLE);
             }
             else {
-                orderButton.setVisibility(View.GONE);
+                numberPickerConstraintLayout.setVisibility(View.INVISIBLE);
+                for(Plate plate: Plate.getListPlates()){
+                    plate.setQuantity(0);
+                }
             }
 
-            orderButton.setOnClickListener(new View.OnClickListener() {
+            minusImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    for(Plate plate: Plate.getListPlates()) {
+                    int num = Integer.parseInt(numberPickerTextView.getText().toString());
+                    if(num>0) {
+                        num--;
+                    }
+                    numberPickerTextView.setText(num+"");
+                    for(Plate plate: plates) {
                         if(plate.getTitle().toLowerCase().equals(plateTitleString.getText().toString().toLowerCase())) {
-                            selectedPlates.add(plate.getTitle());
+                            selectedPlates.remove(plate.getTitle());
+                            plate.setQuantity(num);
+                            if(plate.getQuantity()==0){
+                                platePriceDouble.setText(plate.getStringPrice());
+                            }
+                            else {
+                                String totalPrice = Double.toString(plate.getPrice() * plate.getQuantity());
+                                platePriceDouble.setText("$ " + totalPrice);
+                            }
                         }
                     }
                 }
             });
+
+            plusImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int num = Integer.parseInt(numberPickerTextView.getText().toString());
+                    num++;
+                    numberPickerTextView.setText(num+"");
+                    for(Plate plate: plates) {
+                        if(plate.getTitle().toLowerCase().equals(plateTitleString.getText().toString().toLowerCase())) {
+                            selectedPlates.add(plate.getTitle());
+                            plate.setQuantity(num);
+                            String totalPrice = Double.toString(plate.getPrice()*plate.getQuantity());
+                            platePriceDouble.setText("$ "+totalPrice);
+                        }
+                    }
+                }
+            });
+
         }
     }
 
