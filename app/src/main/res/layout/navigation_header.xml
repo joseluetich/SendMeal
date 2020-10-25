@@ -5,7 +5,7 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorSecondary"
+    android:background="?attr/colorPrimary"
     android:gravity="bottom"
     android:orientation="vertical"
     android:paddingLeft="@dimen/dim16"
@@ -16,21 +16,23 @@
 
     <ImageView
         android:id="@+id/navigationHeaderImageView"
-        android:layout_width="159dp"
-        android:layout_height="112dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="140dp"
+        android:layout_height="142dp"
         android:contentDescription="@string/nav_header_desc"
         android:paddingTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.206"
+        app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/ic_sendmeal_logo" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="34dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="89dp"
+        android:layout_height="79dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="44dp"
         android:paddingTop="8dp"
         android:text="@string/app_name"
         android:textAlignment="center"
@@ -38,8 +40,6 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/navigationHeaderImageView" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

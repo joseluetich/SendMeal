@@ -12,7 +12,7 @@
     <string name="emailHint">Email</string>
     <string name="passwordHint">Contraseña</string>
     <string name="repeatPasswordHint">Repetir Contraseña</string>
-    <string name="cardType">Tipo de tarjeta</string>
+    <string name="cardType">Tipo de Tarjeta</string>
     <string name="debitRadioButtonText">Débito</string>
     <string name="creditRadioButtonText">Crédito</string>
     <string name="cardNumberHint">Número de Tarjeta</string>
@@ -37,6 +37,25 @@
     <string name="caloriesHint">Calorías</string>
     <string name="save">GUARDAR</string>
 
+    <!--Plates list-->
+    <string name="newOrder">NUEVO PEDIDO</string>
+    <string name="order">PEDIR</string>
+    <string name="finishOrder">Finalizar pedido</string>
+
+    <!--New Order-->
+    <string name="newOrderLower">Nuevo Pedido</string>
+    <string name="streetHint">Calle</string>
+    <string name="numberHint">Numero</string>
+    <string name="floorHint">Piso</string>
+    <string name="apartmentHint">Dpto</string>
+    <string name="takeAway">Take Away</string>
+    <string name="shipping">Delivery</string>
+    <string name="addPlate">Agregar Platos</string>
+    <string name="editPlate">Editar Platos</string>
+    <string name="platesQuantity">Cantidad de Platos</string>
+    <string name="totalPrice">TOTAL</string>
+    <string name="confirmOrder">CONFIRMAR PEDIDO</string>
+
     <!--Tipo de entradas-->
     <string name="nameDigits">"áéíóúÁÉÍÓÚQWERTYUIOPASDFGHJKLÑZXCVBNMqwertyuiopasdfghjklñzxcvbnm "</string>
     <string name="emailDigits">"+QWERTYUIOPASDFGHJKLÑZXCVBNMqwertyuiopasdfghjklñzxcvbnm@.-_0123456789"</string>
@@ -54,7 +73,8 @@
     <string name="errorInitialCredit">Carga inicial inválida</string>
     <string name="errorDueDate">Fecha de vencimiento inválida</string>
     <string name="errorCCV">Debe poseer 3 dígitos</string>
-    <string name="precioInvalido">"Precio invalido: Solo se permiten dos decimales"</string>
+    <string name="invalidPrice">"Precio invalido: Solo se permiten dos decimales"</string>
+    <string name="invalidTitle">El titulo ingresado ya existe</string>
 
     <!--Arrays-->
     <string-array name="meses">
@@ -118,6 +138,5 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
-    <string name="pizza">PIZZA</string>
-    <string name="precioPlato">Precio $</string>
+
 </resources>

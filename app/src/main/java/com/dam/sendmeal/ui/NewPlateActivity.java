@@ -1,6 +1,5 @@
-package com.dam.sendmeal;
+package com.dam.sendmeal.ui;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -10,16 +9,14 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.dam.sendmeal.model.Plato;
+import com.dam.sendmeal.R;
+import com.dam.sendmeal.model.Plate;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.nio.DoubleBuffer;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,7 +26,7 @@ public class NewPlateActivity extends AppCompatActivity {
     Toolbar newPlateToolbar;
     TextInputLayout titleTextField, descriptionTextField, priceTextField, caloriesTextField;
     Button savePlateButton;
-    Plato plate;
+    Plate plate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +39,8 @@ public class NewPlateActivity extends AppCompatActivity {
         caloriesTextField = findViewById(R.id.caloriesTextInputLayout);
         savePlateButton = findViewById(R.id.savePlateButton);
 
-        plate = new Plato();
+        plate = new Plate();
+        plate.setQuantity(0);
 
         newPlateToolbar = findViewById(R.id.newPlateToolbar);
         setSupportActionBar(newPlateToolbar);
@@ -57,6 +55,14 @@ public class NewPlateActivity extends AppCompatActivity {
                 if (!hasFocus) {
                     String title = titleTextField.getEditText().getText().toString();
                     if (!TextUtils.isEmpty(title)) {
+                        if(!enteredValidTitle()) {
+                            titleTextField.setHelperTextEnabled(false);
+                            titleTextField.setError(getString(R.string.invalidTitle));
+                        }
+                        else {
+                            titleTextField.setHelperTextEnabled(true);
+                            titleTextField.setError(null);
+                        }
                         plate.setTitle(title);
                     } else {
                         plate.setTitle(null);
@@ -88,7 +94,7 @@ public class NewPlateActivity extends AppCompatActivity {
                     if (!TextUtils.isEmpty(price)) {
                         if(!enteredValidPrice()) {
                             priceTextField.setHelperTextEnabled(false);
-                            priceTextField.setError(getString(R.string.precioInvalido));
+                            priceTextField.setError(getString(R.string.invalidPrice));
                         }
                         else {
                             priceTextField.setHelperTextEnabled(true);
@@ -120,15 +126,12 @@ public class NewPlateActivity extends AppCompatActivity {
         savePlateButton.setOnClickListener(new View.OnClickListener() { //listener del boton registrar
             @Override
             public void onClick(View view) {
-                if (validateAllMandatoryFields() && !plate.getPrice().toString().isEmpty() && enteredValidPrice()) {
+                if (validateForm()) {
                     plate.addToPlates();
                     Toast aviso = Toast.makeText(NewPlateActivity.this, "Plato creado correctamente", Toast.LENGTH_LONG); //aviso al usuario
                     aviso.show();
-                } else {
-                    //Toast aviso = Toast.makeText(NewPlateActivity.this, "error", Toast.LENGTH_LONG); //aviso al usuario
-                    //aviso.show();
+                    finish();
                 }
-
             }
         });
     }
@@ -183,23 +186,52 @@ public class NewPlateActivity extends AppCompatActivity {
         });
     }
 
+    public boolean validateForm() {
+        boolean validForm = true;
+        if(!validateAllMandatoryFields()) {
+            validForm = false;
+        }
+        else if(!enteredValidPrice()) {
+            validForm = false;
+        }
+        else if(!enteredValidTitle()) {
+            validForm = false;
+        }
+        return validForm;
+    }
+    public boolean enteredValidTitle() {
+        boolean validTitle = true;
+        String title = titleTextField.getEditText().getText().toString();
+        for(Plate plate: Plate.getListPlates()) {
+            if(plate.getTitle().toLowerCase().equals(title.toLowerCase())) {
+                validTitle = false;
+            }
+        }
+        if(!validTitle) {
+            titleTextField.setHelperTextEnabled(false);
+            titleTextField.setError(getString(R.string.invalidTitle));
+        }
+        else {
+            titleTextField.setHelperTextEnabled(true);
+            titleTextField.setError(null);
+        }
+        return validTitle;
+    }
     public boolean enteredValidPrice() {
         Pattern pricePattern = Pattern.compile(getString(R.string.entidadRegularPrecio)); //indica como deberia ser el precio
         String price = priceTextField.getEditText().getText().toString();
         Matcher priceMatcher = pricePattern.matcher(price); //lo va a comparar con lo ingresado en precio
         String pricePatternError = null;
-        boolean check = true;
+        boolean validPrice = true;
         if(!price.isEmpty() && !priceMatcher.find()) { //analiza si el precio ingresado tiene hasta dos decimales
-            Toast aviso2 = Toast.makeText(NewPlateActivity.this, price, Toast.LENGTH_SHORT); //aviso al usuario
-            aviso2.show();
             priceTextField.setHelperTextEnabled(false);
-            pricePatternError = getString(R.string.precioInvalido);
-            check = false;
+            pricePatternError = getString(R.string.invalidPrice);
+            validPrice = false;
         }
         else {
             priceTextField.setHelperTextEnabled(true);
         }
         priceTextField.setError(pricePatternError);
-        return check;
+        return validPrice;
     }
 }

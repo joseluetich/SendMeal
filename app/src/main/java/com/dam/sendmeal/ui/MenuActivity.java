@@ -1,10 +1,11 @@
-package com.dam.sendmeal;
+package com.dam.sendmeal.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Menu;
 
+import com.dam.sendmeal.R;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -53,7 +54,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(createPlate);
                 return true;
             case R.id.listPlatesOption:
-                Intent listPlates = new Intent(this, PlatesListActivity.class);
+                Intent listPlates = new Intent(this, PlatesListActivity.class).putExtra("from","MenuActivity");
                 startActivity(listPlates);
                 return true;
             default:

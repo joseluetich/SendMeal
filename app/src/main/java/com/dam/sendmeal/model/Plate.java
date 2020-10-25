@@ -3,18 +3,19 @@ package com.dam.sendmeal.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Plato {
+public class Plate {
     private String title;
     private String description;
     private Double price;
     private Integer calories;
-    private static List<Plato> plates = new ArrayList<>();
+    private Integer quantity;
+    private static List<Plate> plates = new ArrayList<>();
 
-    public Plato() {
+    public Plate() {
 
     }
 
-    public Plato(String title, String description, Double price, Integer calories) {
+    public Plate(String title, String description, Double price, Integer calories) {
         this.title = title;
         this.description = description;
         this.price = price;
@@ -48,6 +49,7 @@ public class Plato {
     public String getStringPrice() {
         return ("Precio $ "+this.price);
     }
+
     public Integer getCalories() {
         return calories;
     }
@@ -56,12 +58,12 @@ public class Plato {
         this.calories = calories;
     }
 
-    public static List<Plato> getListPlates() {
+    public static List<Plate> getListPlates() {
         return plates;
     }
 
-    public static void setListPlates(List<Plato> listPlates) {
-        Plato.plates = listPlates;
+    public static void setListPlates(List<Plate> listPlates) {
+        Plate.plates = listPlates;
     }
 
     public void addToPlates() {
@@ -71,9 +73,18 @@ public class Plato {
     public static String getStringListaPlatos() {
         String plato = "";
 
-        for (Plato p : plates) {
+        for (Plate p : plates) {
             plato = (plato+" "+p.getTitle());
         }
         return plato;
+    }
+
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }

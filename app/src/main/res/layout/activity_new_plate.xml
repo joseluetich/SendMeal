@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context=".NewPlateActivity">
+    tools:context=".ui.NewPlateActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/parentConstraintLayout"
@@ -14,7 +14,7 @@
         android:clickable="true"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        tools:context=".NewPlateActivity">
+        tools:context=".ui.NewPlateActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/newPlateToolbar"
@@ -35,6 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
+            android:textFontWeight="600"
             android:text="@string/crearPlato"
             android:textAllCaps="false"
             android:textSize="@dimen/dim32"
@@ -47,12 +48,12 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="@dimen/dim0"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dim16"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
             android:ems="10"
             android:hint="@string/titleHint"
             android:digits="@string/nameDigits"
-            android:layout_marginEnd="@dimen/dim16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/createPlateTextView">
@@ -69,12 +70,12 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="@dimen/dim0"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dim16"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
             android:ems="10"
             android:hint="@string/descriptionHint"
             android:digits="@string/nameDigits"
-            android:layout_marginEnd="@dimen/dim16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titleTextInputLayout">
@@ -91,11 +92,11 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="@dimen/dim0"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dim16"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
             android:ems="10"
             android:hint="@string/priceHint"
-            android:layout_marginEnd="@dimen/dim16"
             app:prefixText="@string/moneySign"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -115,12 +116,12 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="@dimen/dim0"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dim16"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
             android:ems="10"
             android:hint="@string/caloriesHint"
             android:maxLength="25"
-            android:layout_marginEnd="@dimen/dim16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/priceTextInputLayout">
@@ -146,6 +147,7 @@
             android:paddingBottom="10dp"
             android:text="@string/save"
             android:textSize="18dp"
+            android:textFontWeight="600"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -1,4 +1,4 @@
-package com.dam.sendmeal;
+package com.dam.sendmeal.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,9 +19,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dam.sendmeal.model.CuentaBancaria;
-import com.dam.sendmeal.model.Tarjeta;
-import com.dam.sendmeal.model.Usuario;
+import com.dam.sendmeal.R;
+import com.dam.sendmeal.model.BankAccount;
+import com.dam.sendmeal.model.User;
+import com.dam.sendmeal.model.Card;
 import com.google.android.material.slider.LabelFormatter;
 import com.google.android.material.slider.Slider;
 import com.google.android.material.switchmaterial.SwitchMaterial;
@@ -49,9 +50,9 @@ public class NewAccountActivity extends AppCompatActivity {
     CheckBox termsAndConditionsCheckBox;
     Button registerButton;
     TextView initialCreditTextView, initialCreditAmountTextView;
-    Usuario user;
-    Tarjeta card;
-    CuentaBancaria bankAccount;
+    User user;
+    Card card;
+    BankAccount bankAccount;
     Boolean passwordMatch = true;
     Toolbar toolbarRegistro;
 
@@ -80,12 +81,12 @@ public class NewAccountActivity extends AppCompatActivity {
         termsAndConditionsCheckBox = findViewById(R.id.termsAndConditionsCheckBox);
         registerButton = findViewById(R.id.registerButton);
 
-        user = new Usuario();
-        card = new Tarjeta();
-        bankAccount = new CuentaBancaria();
+        user = new User();
+        card = new Card();
+        bankAccount = new BankAccount();
 
-        user.setCuentaBancaria(bankAccount);
-        user.setTarjeta(card);
+        user.setBankAccount(bankAccount);
+        user.setCard(card);
 
         toolbarRegistro = findViewById(R.id.newAccountToolbar);
         setSupportActionBar(toolbarRegistro);//configuro la toolbar
@@ -104,7 +105,7 @@ public class NewAccountActivity extends AppCompatActivity {
             public void onFocusChange(View view, boolean hasFocus) {
                 if (!hasFocus) {
                     String name = nameTextField.getEditText().getText().toString();
-                    user.setNombre(name);
+                    user.setName(name);
                 }
             }
         });
@@ -144,7 +145,7 @@ public class NewAccountActivity extends AppCompatActivity {
                                 repeatedPasswordTextField.setHelperTextEnabled(true);
                                 repeatedPasswordTextField.setHelperText(getString(R.string.obligatoryFieldHelper));
                                 repeatedPasswordTextField.setError(null);
-                                user.setClave(password);
+                                user.setPassword(password);
                             }
                         }
                     }
@@ -168,8 +169,8 @@ public class NewAccountActivity extends AppCompatActivity {
                             passwordTextField.setHelperTextEnabled(true);
                             passwordTextField.setHelperText(getString(R.string.obligatoryFieldHelper));
                             passwordTextField.setError(null);
-                            if (user.getClave() == null ||
-                                    !user.getClave().equals(password)) user.setClave(password);
+                            if (user.getPassword() == null ||
+                                    !user.getPassword().equals(password)) user.setPassword(password);
                         }
                     }
                 }
@@ -180,9 +181,9 @@ public class NewAccountActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int id) { //listener radiogroup tipo de tarjeta
                 if (id == R.id.creditRadioButton) {
-                    user.getTarjeta().setEsCredito(true);
+                    user.getCard().setIsCredit(true);
                 } else {
-                    user.getTarjeta().setEsCredito(false);
+                    user.getCard().setIsCredit(false);
                 }
             }
         });
@@ -226,7 +227,7 @@ public class NewAccountActivity extends AppCompatActivity {
             public void onFocusChange(View view, boolean hasFocus) {
                 if (!hasFocus) {
                     String cardNumber = cardNumberTextField.getEditText().getText().toString();
-                    user.getTarjeta().setNumero(cardNumber);
+                    user.getCard().setNumero(cardNumber);
                 }
             }
         });
@@ -242,11 +243,10 @@ public class NewAccountActivity extends AppCompatActivity {
                             ccvTextField.setError(getString(R.string.errorCCV));
                         }
                     }
-                    user.getTarjeta().setCcv(ccv);
+                    user.getCard().setCcv(ccv);
                 }
             }
         });
-
 
         monthSpinner.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -261,7 +261,6 @@ public class NewAccountActivity extends AppCompatActivity {
                 }
             }
         });
-
 
         yearSpinner.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -316,7 +315,7 @@ public class NewAccountActivity extends AppCompatActivity {
                 format.setMaximumFractionDigits(0);
                 format.setCurrency(Currency.getInstance("ARS"));
                 initialCreditAmountTextView.setText(format.format(slider.getValue()));
-                user.setCredito((double) slider.getValue());
+                user.setCredit((double) slider.getValue());
             }
         });
 //
@@ -342,15 +341,15 @@ public class NewAccountActivity extends AppCompatActivity {
                     calendar.set(Calendar.YEAR, Integer.parseInt(yearSpinner.getSelectedItem().toString())); //no deberia hacer dos veces lo mismo
                     calendar.set(Calendar.MONTH, idSelectedMonth);
                     Date dueDate = calendar.getTime();
-                    user.getTarjeta().setVencimiento(dueDate);
+                    user.getCard().setExpiration(dueDate);
 
                     String accountCBU = Objects.requireNonNull(cbuTextField.getEditText()).getText().toString();
                     String accountAliasCBU = Objects.requireNonNull(aliasCbuTextField.getEditText()).getText().toString();
-                    user.getCuentaBancaria().setCbu(accountCBU);
-                    user.getCuentaBancaria().setAlias(accountAliasCBU);
+                    user.getBankAccount().setCbu(accountCBU);
+                    user.getBankAccount().setAlias(accountAliasCBU);
 
                     String name = Objects.requireNonNull(nameTextField.getEditText()).getText().toString();
-                    user.setNombre(name);
+                    user.setName(name);
 
                     Toast aviso = Toast.makeText(NewAccountActivity.this, "Registro exitoso", Toast.LENGTH_LONG); //aviso al usuario
                     aviso.show();
@@ -440,27 +439,27 @@ public class NewAccountActivity extends AppCompatActivity {
             allCompleted = false;
         }
 
-        if (user.getClave() == null || (user.getClave().isEmpty() &&
+        if (user.getPassword() == null || (user.getPassword().isEmpty() &&
                 Objects.requireNonNull(passwordTextField.getEditText()).getText().toString().isEmpty())) {
             passwordTextField.setHelperTextEnabled(false);
             passwordTextField.setError(getString(R.string.errorObligatoryField));
             allCompleted = false;
         }
 
-        if (user.getClave() == null || (user.getClave().isEmpty() &&
+        if (user.getPassword() == null || (user.getPassword().isEmpty() &&
                 Objects.requireNonNull(repeatedPasswordTextField.getEditText()).getText().toString().isEmpty())) {
             repeatedPasswordTextField.setHelperTextEnabled(false);
             repeatedPasswordTextField.setError(getString(R.string.errorObligatoryField));
             allCompleted = false;
         }
 
-        if (user.getTarjeta().getNumero() == null || user.getTarjeta().getNumero().isEmpty()) {
+        if (user.getCard().getNumero() == null || user.getCard().getNumero().isEmpty()) {
             cardNumberTextField.setHelperTextEnabled(false);
             cardNumberTextField.setError(getString(R.string.errorObligatoryField));
             allCompleted = false;
         }
 
-        if (user.getTarjeta().getCcv() == null || user.getTarjeta().getCcv().isEmpty()) {
+        if (user.getCard().getCcv() == null || user.getCard().getCcv().isEmpty()) {
             ccvTextField.setHelperTextEnabled(false);
             ccvTextField.setError(getString(R.string.errorObligatoryField));
             allCompleted = false;

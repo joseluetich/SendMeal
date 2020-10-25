@@ -14,6 +14,7 @@
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/Theme.App.Toolbar"
+        app:popupTheme="@style/Theme.App.Toolbar.Popup"
         app:title=" "
         app:navigationIcon="?attr/homeAsUpIndicator"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,8 +27,8 @@
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:text="Lista de Platos"
-        android:textColor="@color/colorPrimary"
+        android:text="@string/listaDePlatos"
+        android:textFontWeight="600"
         android:textSize="32sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,9 +41,29 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="4dp"
+        android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/listPlatesTextView" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/orderFloatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/order"
+        android:drawableEnd="@drawable/ic_baseline_double_arrow_24"
+        android:visibility="gone"
+        android:text="@string/finishOrder"
+        android:textAlignment="gravity"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimaryLight"
+        android:textFontWeight="600"
+        android:textSize="@dimen/dim18"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
