@@ -1,4 +1,4 @@
-package com.dam.sendmeal;
+package com.dam.sendmeal.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.dam.sendmeal.R;
 import com.dam.sendmeal.model.Plate;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 

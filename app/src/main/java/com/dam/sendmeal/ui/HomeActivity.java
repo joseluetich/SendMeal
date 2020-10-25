@@ -1,4 +1,4 @@
-package com.dam.sendmeal;
+package com.dam.sendmeal.ui;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+
+import com.dam.sendmeal.R;
 
 public class HomeActivity extends AppCompatActivity {
 

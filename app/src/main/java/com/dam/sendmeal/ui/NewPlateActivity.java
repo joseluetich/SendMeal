@@ -1,4 +1,4 @@
-package com.dam.sendmeal;
+package com.dam.sendmeal.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.dam.sendmeal.R;
 import com.dam.sendmeal.model.Plate;
 import com.google.android.material.textfield.TextInputLayout;
 
