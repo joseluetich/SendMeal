@@ -1,10 +1,11 @@
-package com.dam.sendmeal;
+package com.dam.sendmeal.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Menu;
 
+import com.dam.sendmeal.R;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;

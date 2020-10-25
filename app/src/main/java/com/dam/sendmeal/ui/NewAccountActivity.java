@@ -1,4 +1,4 @@
-package com.dam.sendmeal;
+package com.dam.sendmeal.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +19,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dam.sendmeal.R;
 import com.dam.sendmeal.model.BankAccount;
 import com.dam.sendmeal.model.User;
 import com.dam.sendmeal.model.Card;

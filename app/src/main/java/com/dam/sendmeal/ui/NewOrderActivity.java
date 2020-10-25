@@ -1,4 +1,4 @@
-package com.dam.sendmeal;
+package com.dam.sendmeal.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -8,10 +8,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -19,11 +21,14 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dam.sendmeal.R;
 import com.dam.sendmeal.model.Address;
 import com.dam.sendmeal.model.Order;
 import com.dam.sendmeal.model.Plate;
+import com.dam.sendmeal.utils.NotificationPublisher;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -194,6 +199,18 @@ public class NewOrderActivity extends AppCompatActivity {
             }
         });
 
+        confirmOrderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(validateForm() && orderPlates.size() >= 1){
+                    new SimpleAsyncTask(confirmOrderButton).execute();
+                    Intent intent = new Intent(NewOrderActivity.this, MenuActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+            }
+        });
+
     }
 
     @Override
@@ -330,6 +347,41 @@ public class NewOrderActivity extends AppCompatActivity {
         }
 
         return formValid;
+    }
+
+    private static class SimpleAsyncTask extends AsyncTask <Void, Void, String>{
+
+        private WeakReference<Button> mButton;
+
+        SimpleAsyncTask(Button button) {
+            mButton = new WeakReference<>(button);
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+
+            final int SLEEP_TIME = 5000;
+
+
+            // Sleep for the random amount of time
+            try {
+                Log.println(Log.INFO, "G", "Going to sleep for " + SLEEP_TIME + " milliseconds!");
+                Thread.sleep(SLEEP_TIME);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            // Return a String result
+            Log.println(Log.INFO, "G", "Awake at last after sleeping for " + SLEEP_TIME + " milliseconds!");
+            return null;
+        }
+
+        protected void onPostExecute(String result) {
+            Log.println(Log.INFO, "G","Awaking");
+            NotificationPublisher notificationPublisher = NotificationPublisher.getInstance();
+            Intent intent = new Intent();
+            notificationPublisher.onReceive(mButton.get().getContext(),intent);
+        }
     }
 
 }
