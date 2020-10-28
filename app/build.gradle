@@ -62,4 +62,9 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:24.2.0'
     //noinspection GradleCompatible
     implementation 'com.android.support:design:24.2.0'
+
+    //Room components
+    implementation "androidx.room:room-runtime:2.2.5"
+    annotationProcessor "androidx.room:room-compiler:2.2.5"
+    androidTestImplementation "androidx.room:room-testing:2.2.5"
 }

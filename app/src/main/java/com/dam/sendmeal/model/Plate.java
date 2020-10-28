@@ -1,9 +1,15 @@
 package com.dam.sendmeal.model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Plate {
+    @PrimaryKey(autoGenerate = true)
+    Long id;
     private String title;
     private String description;
     private Double price;
