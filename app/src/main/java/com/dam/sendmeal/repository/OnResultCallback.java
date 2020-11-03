@@ -4,6 +4,6 @@ import com.dam.sendmeal.model.Plate;
 
 import java.util.List;
 
-public interface OnPlateResultCallback {
-    void onResult(List<Plate> plates);
+public interface OnResultCallback {
+    void onResult(Object object);
 }

@@ -1,22 +1,14 @@
 package com.dam.sendmeal.repository;
 
 import android.app.Application;
-import android.content.Context;
-import android.util.Log;
-
-import androidx.room.Database;
-import androidx.room.Room;
-import androidx.room.RoomDatabase;
+import android.os.AsyncTask;
 
 import com.dam.sendmeal.dao.PlateDAO;
 import com.dam.sendmeal.model.Plate;
 
 import java.util.List;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
-public class AppRepository {
+public class AppRepository implements OnResultCallback {
     private PlateDAO plateDAO;
     private OnResultCallback callback;
 
@@ -62,12 +54,53 @@ public class AppRepository {
     }
 
     @Override
-    public void onResult(List<Plate> plates) {
-        Log.d("DEBUG", "Plate found");
-        callback.onResult(plates);
+    public void onResult(Object object) {
+        callback.onResult(object);
     }
 
-    public interface OnResultCallback<T> {
-        void onResult(List<T> result);
+    public class SearchPlateById extends AsyncTask<String, Void, Plate> {
+
+        private PlateDAO plateDAO;
+        private OnResultCallback callback;
+
+        public SearchPlateById(PlateDAO plateDAO, OnResultCallback context) {
+            this.plateDAO = plateDAO;
+            this.callback = context;
+        }
+
+        @Override
+        protected Plate doInBackground(String... id) {
+            Plate plate = plateDAO.search(id[0]);
+            return plate;
+        }
+
+        @Override
+        protected void onPostExecute(Plate plate) {
+            super.onPostExecute(plate);
+            callback.onResult(plate);
+        }
+    }
+
+    public class SearchPlates extends AsyncTask<String, Void, List<Plate>> {
+
+        private PlateDAO plateDAO;
+        private OnResultCallback callback;
+
+        public SearchPlates(PlateDAO plateDAO, OnResultCallback context) {
+            this.plateDAO = plateDAO;
+            this.callback = context;
+        }
+
+        @Override
+        protected List<Plate> doInBackground(String... strings) {
+            List<Plate> plates = plateDAO.searchAll();
+            return plates;
+        }
+
+        @Override
+        protected void onPostExecute(List<Plate> plates) {
+            super.onPostExecute(plates);
+            callback.onResult(plates);
+        }
     }
 }

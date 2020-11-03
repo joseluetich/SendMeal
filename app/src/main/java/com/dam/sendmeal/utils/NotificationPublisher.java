@@ -60,15 +60,13 @@ public class NotificationPublisher extends BroadcastReceiver {
 
     private void showNotification(Context context) {
 
-
-
         Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_sendmeal_logo);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, ORDER_CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_sendmeal_logo)
                 .setLargeIcon(icon)
-                .setContentTitle("Tu plato esta en preparacion")
-                .setContentText("El local esta preparando tu plato!")
+                .setContentTitle("Tu pedido esta en preparacion")
+                .setContentText("El local esta preparando tu pedido!")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 //        builder.setContentIntent(contentIntent);
         builder.setAutoCancel(true);
@@ -77,7 +75,6 @@ public class NotificationPublisher extends BroadcastReceiver {
         notificationManager.notify(ORDER_NOTIFICATION_ID, builder.build());
 
         //context.sendBroadcast(intent);
-
 
     }
 }

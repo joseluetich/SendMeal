@@ -6,7 +6,7 @@ import com.dam.sendmeal.dao.PlateDAO;
 import com.dam.sendmeal.model.Plate;
 
 import java.util.List;
-
+/*
 public class SearchPlates extends AsyncTask<String, Void, List<Plate>> {
 
     private PlateDAO plateDAO;
@@ -28,4 +28,4 @@ public class SearchPlates extends AsyncTask<String, Void, List<Plate>> {
         super.onPostExecute(plates);
         callback.onResult(plates);
     }
-}
+}*/

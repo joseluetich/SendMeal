@@ -7,6 +7,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.dam.sendmeal.dao.PlateDAO;
+import com.dam.sendmeal.model.Order;
 import com.dam.sendmeal.model.Plate;
 
 import java.util.concurrent.ExecutorService;
@@ -28,7 +29,7 @@ public abstract class AppDatabase extends RoomDatabase {
             synchronized (AppDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            AppDatabase.class, "user_database")
+                            AppDatabase.class, "plate_database")
                             .build();
                 }
             }
