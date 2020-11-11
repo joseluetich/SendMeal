@@ -1,18 +1,15 @@
-package com.dam.sendmeal.ui;
+package com.dam.sendmeal.activities;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dam.sendmeal.R;
@@ -26,6 +23,7 @@ public class PlatesListAdapter extends RecyclerView.Adapter<PlatesListAdapter.Pl
     private List<Plate> plates;
     Activity platesListActivity;
     ArrayList<String> selectedPlates;
+
 
     public PlatesListAdapter(List<Plate> listPlates, Activity activity, ArrayList<String> selectedPlates) {
         this.plates = listPlates;
@@ -62,6 +60,7 @@ public class PlatesListAdapter extends RecyclerView.Adapter<PlatesListAdapter.Pl
         holder.platePriceDouble.setText(plate.getStringPrice());
         String quantity = plate.getQuantity().toString();
         holder.numberPickerTextView.setText(quantity);
+
     }
 
     @Override

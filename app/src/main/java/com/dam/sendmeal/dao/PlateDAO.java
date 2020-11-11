@@ -27,4 +27,6 @@ public interface PlateDAO {
     @Query("SELECT * FROM plate")
     List<Plate> searchAll();
 
+    @Query("DELETE FROM plate")
+    void deletePlates();
 }

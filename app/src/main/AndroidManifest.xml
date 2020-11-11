@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App">
         <activity
-            android:name=".ui.MenuActivity"
+            android:name=".activities.MenuActivity"
             android:theme="@style/Theme.App.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,49 +19,49 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.HomeActivity"
-            android:parentActivityName=".ui.MenuActivity">
+            android:name=".activities.HomeActivity"
+            android:parentActivityName=".activities.MenuActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.MenuActivity" />
+                android:value=".activities.MenuActivity" />
         </activity>
         <activity
-            android:name=".ui.NewAccountActivity"
-            android:parentActivityName=".ui.MenuActivity">
+            android:name=".activities.NewAccountActivity"
+            android:parentActivityName=".activities.MenuActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.MenuActivity" />
+                android:value=".activities.MenuActivity" />
         </activity>
         <activity
-            android:name=".ui.NewPlateActivity"
-            android:parentActivityName=".ui.MenuActivity">
+            android:name=".activities.NewPlateActivity"
+            android:parentActivityName=".activities.MenuActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.MenuActivity" />
+                android:value=".activities.MenuActivity" />
         </activity>
         <activity
-            android:name=".ui.PlatesListActivity"
-            android:parentActivityName=".ui.MenuActivity">
+            android:name=".activities.PlatesListActivity"
+            android:parentActivityName=".activities.MenuActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.MenuActivity" />
+                android:value=".activities.MenuActivity" />
         </activity>
         <activity
-            android:name=".ui.NewOrderActivity"
-            android:parentActivityName=".ui.MenuActivity">
+            android:name=".activities.NewOrderActivity"
+            android:parentActivityName=".activities.MenuActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.MenuActivity" />
+                android:value=".activities.MenuActivity" />
         </activity>
     </application>
 

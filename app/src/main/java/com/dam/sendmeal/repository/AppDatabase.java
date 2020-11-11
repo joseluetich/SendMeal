@@ -6,6 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.dam.sendmeal.dao.OrderDAO;
 import com.dam.sendmeal.dao.PlateDAO;
 import com.dam.sendmeal.model.Order;
 import com.dam.sendmeal.model.Plate;
@@ -13,23 +14,23 @@ import com.dam.sendmeal.model.Plate;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Plate.class}, version = 1)
+@Database(entities = {Plate.class, Order.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
-    public abstract PlateDAO platoDao();
+    public abstract PlateDAO plateDao();
+    public abstract OrderDAO orderDao();
 
-    //add
-    private static volatile AppDatabase INSTANCE;
-    private static final int NUMBER_OF_THREADS = 1;
-    static final ExecutorService databaseWriteExecutor =
-            Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+    private static AppDatabase INSTANCE = null;
+
+    public static ExecutorService databaseWriteExecutor =
+            Executors.newFixedThreadPool(4);
 
     static AppDatabase getInstance(final Context context) {
         if (INSTANCE == null) {
             synchronized (AppDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            AppDatabase.class, "plate_database")
+                            AppDatabase.class, "send_meal_database")
                             .build();
                 }
             }

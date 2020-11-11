@@ -1,4 +1,4 @@
-package com.dam.sendmeal.ui;
+package com.dam.sendmeal.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -13,17 +13,19 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.dam.sendmeal.R;
-import com.dam.sendmeal.model.Plate;
+import com.dam.sendmeal.repository.PlateRepository;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class PlatesListActivity extends AppCompatActivity {
+public class PlatesListActivity extends AppCompatActivity implements PlateRepository.OnResultCallback {
 
     private RecyclerView platesListRecyclerView;
     private RecyclerView.Adapter platesListAdapter;
     private RecyclerView.LayoutManager platesListLayoutManager;
     Toolbar platesListToolbar;
+    PlateRepository repository;
 
     ExtendedFloatingActionButton orderFloatingActionButton;
     ArrayList<String> selectedPlates = new ArrayList<>();
@@ -42,8 +44,11 @@ public class PlatesListActivity extends AppCompatActivity {
         platesListLayoutManager = new LinearLayoutManager(this);
         platesListRecyclerView.setLayoutManager(platesListLayoutManager);
 
-        platesListAdapter = new PlatesListAdapter(Plate.getListPlates(),this,selectedPlates);
-        platesListRecyclerView.setAdapter(platesListAdapter);
+        repository = new PlateRepository(this.getApplication(), this);
+        repository.searchAll();
+
+        //platesListAdapter = new PlatesListAdapter(Plate.getListPlates(),this,selectedPlates);
+        //platesListRecyclerView.setAdapter(platesListAdapter);
 
         orderFloatingActionButton = findViewById(R.id.orderFloatingActionButton);
 
@@ -86,5 +91,16 @@ public class PlatesListActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onResult(List result) {
+        platesListAdapter = new PlatesListAdapter(result,this,selectedPlates);
+        platesListRecyclerView.setAdapter(platesListAdapter);
+    }
+
+    @Override
+    public void onInsert() {
+
     }
 }

@@ -1,4 +1,4 @@
-package com.dam.sendmeal.ui;
+package com.dam.sendmeal.activities;
 
 import android.view.LayoutInflater;
 import android.view.View;

@@ -1,8 +1,7 @@
-package com.dam.sendmeal.ui;
+package com.dam.sendmeal.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,7 +18,6 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dam.sendmeal.R;
 import com.dam.sendmeal.model.Address;
@@ -77,9 +75,7 @@ public class NewOrderActivity extends AppCompatActivity {
         //orderListCardView = findViewById(R.id.orderDescriptionCardView);
         orderDescriptionConstraintLayout = findViewById(R.id.orderDescriptionConstraintLayout);
 
-        address = new Address();
         order = new Order();
-        order.setAddress(address);
 
         mandatoryFieldValidation(emailOrderTextField);
         mandatoryFieldValidation(streetTextField);
@@ -115,9 +111,9 @@ public class NewOrderActivity extends AppCompatActivity {
                 if (!hasFocus) {
                     String street = streetTextField.getEditText().getText().toString();
                     if (!TextUtils.isEmpty(street)) {
-                        order.getAddress().setStreet(street);
+                        order.setStreetAddress(street);
                     } else {
-                        order.getAddress().setStreet(null);
+                        order.setStreetAddress(null);
                     }
                     if (validateForm()) {
                         addPlateButton.setEnabled(true);
@@ -136,9 +132,9 @@ public class NewOrderActivity extends AppCompatActivity {
                 if (!hasFocus) {
                     String number = numberTextField.getEditText().getText().toString();
                     if (!TextUtils.isEmpty(number)) {
-                        order.getAddress().setNumber(Integer.valueOf(number));
+                        order.setNumberAddress(Integer.valueOf(number));
                     } else {
-                        order.getAddress().setNumber(null);
+                        order.setNumberAddress(null);
                     }
                     if (validateForm()) {
                         addPlateButton.setEnabled(true);
@@ -156,9 +152,9 @@ public class NewOrderActivity extends AppCompatActivity {
                 if (!hasFocus) {
                     String floor = floorTextField.getEditText().getText().toString();
                     if (!TextUtils.isEmpty(floor)) {
-                        order.getAddress().setFloor(Integer.valueOf(floor));
+                        order.setFloorAddress(Integer.valueOf(floor));
                     } else {
-                        order.getAddress().setFloor(null);
+                        order.setFloorAddress(null);
                     }
                 }
 
@@ -171,9 +167,9 @@ public class NewOrderActivity extends AppCompatActivity {
                 if (!hasFocus) {
                     String apartment = apartmentTextField.getEditText().getText().toString();
                     if (!TextUtils.isEmpty(apartment)) {
-                        order.getAddress().setApartment(apartment);
+                        order.setApartmentAddress(apartment);
                     } else {
-                        order.getAddress().setApartment(null);
+                        order.setApartmentAddress(null);
                     }
                 }
 
