@@ -1,6 +1,12 @@
 package com.dam.sendmeal.model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Address {
+    @PrimaryKey(autoGenerate = true)
+    private long idAddress;
     private String street;
     private Integer number;
     private Integer floor;
@@ -20,6 +26,14 @@ public class Address {
     public Address(String street, Integer number) {
         this.street = street;
         this.number = number;
+    }
+
+    public long getIdAddress() {
+        return idAddress;
+    }
+
+    public void setIdAddress(long idAddress) {
+        this.idAddress = idAddress;
     }
 
     public String getStreet() {

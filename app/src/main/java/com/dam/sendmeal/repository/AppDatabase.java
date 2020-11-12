@@ -5,16 +5,20 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
+import com.dam.sendmeal.converter.Converters;
 import com.dam.sendmeal.dao.OrderDAO;
 import com.dam.sendmeal.dao.PlateDAO;
+import com.dam.sendmeal.dao.PlateOrderJoinDAO;
 import com.dam.sendmeal.model.Order;
 import com.dam.sendmeal.model.Plate;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Plate.class, Order.class}, version = 1)
+@Database(entities = {Plate.class, Order.class}, version = 2)
+@TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract PlateDAO plateDao();
@@ -30,7 +34,7 @@ public abstract class AppDatabase extends RoomDatabase {
             synchronized (AppDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            AppDatabase.class, "send_meal_database")
+                            AppDatabase.class, "send_meal_database").fallbackToDestructiveMigration()
                             .build();
                 }
             }

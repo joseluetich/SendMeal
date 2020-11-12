@@ -18,21 +18,25 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dam.sendmeal.R;
 import com.dam.sendmeal.model.Address;
 import com.dam.sendmeal.model.Order;
 import com.dam.sendmeal.model.Plate;
+import com.dam.sendmeal.repository.OrderRepository;
+import com.dam.sendmeal.repository.PlateRepository;
 import com.dam.sendmeal.utils.NotificationPublisher;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class NewOrderActivity extends AppCompatActivity {
+public class NewOrderActivity extends AppCompatActivity implements OrderRepository.OnResultCallback{
 
     Toolbar newOrderToolbar;
     TextInputLayout emailOrderTextField, streetTextField, numberTextField, floorTextField, apartmentTextField;
@@ -48,6 +52,7 @@ public class NewOrderActivity extends AppCompatActivity {
     ConstraintLayout orderDescriptionConstraintLayout;
     RecyclerView.LayoutManager orderPlatesListLayoutManager;
     TextView orderPriceTextView, platesQuantityTextView, platesListTextView;
+    OrderRepository repository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +81,8 @@ public class NewOrderActivity extends AppCompatActivity {
         orderDescriptionConstraintLayout = findViewById(R.id.orderDescriptionConstraintLayout);
 
         order = new Order();
+        address = new Address();
+        order.setAddress(address);
 
         mandatoryFieldValidation(emailOrderTextField);
         mandatoryFieldValidation(streetTextField);
@@ -111,9 +118,9 @@ public class NewOrderActivity extends AppCompatActivity {
                 if (!hasFocus) {
                     String street = streetTextField.getEditText().getText().toString();
                     if (!TextUtils.isEmpty(street)) {
-                        order.setStreetAddress(street);
+                        order.getAddress().setStreet(street);
                     } else {
-                        order.setStreetAddress(null);
+                        order.getAddress().setStreet(null);
                     }
                     if (validateForm()) {
                         addPlateButton.setEnabled(true);
@@ -132,9 +139,9 @@ public class NewOrderActivity extends AppCompatActivity {
                 if (!hasFocus) {
                     String number = numberTextField.getEditText().getText().toString();
                     if (!TextUtils.isEmpty(number)) {
-                        order.setNumberAddress(Integer.valueOf(number));
+                        order.getAddress().setNumber(Integer.valueOf(number));
                     } else {
-                        order.setNumberAddress(null);
+                        order.getAddress().setNumber(null);
                     }
                     if (validateForm()) {
                         addPlateButton.setEnabled(true);
@@ -152,9 +159,9 @@ public class NewOrderActivity extends AppCompatActivity {
                 if (!hasFocus) {
                     String floor = floorTextField.getEditText().getText().toString();
                     if (!TextUtils.isEmpty(floor)) {
-                        order.setFloorAddress(Integer.valueOf(floor));
+                        order.getAddress().setFloor(Integer.valueOf(floor));
                     } else {
-                        order.setFloorAddress(null);
+                        order.getAddress().setFloor(null);
                     }
                 }
 
@@ -167,9 +174,9 @@ public class NewOrderActivity extends AppCompatActivity {
                 if (!hasFocus) {
                     String apartment = apartmentTextField.getEditText().getText().toString();
                     if (!TextUtils.isEmpty(apartment)) {
-                        order.setApartmentAddress(apartment);
+                        order.getAddress().setApartment(apartment);
                     } else {
-                        order.setApartmentAddress(null);
+                        order.getAddress().setApartment(null);
                     }
                 }
 
@@ -239,8 +246,6 @@ public class NewOrderActivity extends AppCompatActivity {
                     orderPlatesListAdapter = new OrderPlatesListAdapter(orderPlates);
                     orderPlatesListRecyclerView.setAdapter(orderPlatesListAdapter);
 
-                    //orderDescriptionCardView.setVisibility(View.VISIBLE);
-                    //orderListCardView.setVisibility(View.VISIBLE);
                     orderDescriptionConstraintLayout.setVisibility(View.VISIBLE);
                     confirmOrderButton.setVisibility(View.VISIBLE);
                     platesListTextView.setVisibility(View.VISIBLE);
@@ -255,10 +260,8 @@ public class NewOrderActivity extends AppCompatActivity {
                     }
                     orderPlates.removeAll(nullPlates);
                     if(orderPlates.size()==0) {
-                        //orderDescriptionCardView.setVisibility(View.INVISIBLE);
                         confirmOrderButton.setVisibility(View.INVISIBLE);
                         platesListTextView.setVisibility(View.INVISIBLE);
-                        //orderListCardView.setVisibility(View.INVISIBLE);
                         orderDescriptionConstraintLayout.setVisibility(View.INVISIBLE);
                         addPlateButton.setText(R.string.addPlate);
                     }
@@ -343,6 +346,21 @@ public class NewOrderActivity extends AppCompatActivity {
         }
 
         return formValid;
+    }
+
+    @Override
+    public void onResult(List result) {
+
+    }
+
+    @Override
+    public void onInsert() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(NewOrderActivity.this, "Orden agregada", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private static class SimpleAsyncTask extends AsyncTask <Void, Void, String>{

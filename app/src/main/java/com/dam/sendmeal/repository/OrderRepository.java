@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.dam.sendmeal.dao.OrderDAO;
+import com.dam.sendmeal.dao.PlateOrderJoinDAO;
 import com.dam.sendmeal.model.Order;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.List;
 
 public class OrderRepository implements OnOrderResultCallback {
     private OrderDAO orderDAO;
+    private PlateOrderJoinDAO plateOrderJoinDAO;
     private OnResultCallback callback;
 
     public OrderRepository(Application application, OnResultCallback context){
@@ -61,6 +63,7 @@ public class OrderRepository implements OnOrderResultCallback {
     public void searchAll() {
         new SearchOrders(orderDAO, this).execute();
     }
+
 
     public interface OnResultCallback<T> {
         void onResult(List<T> result);

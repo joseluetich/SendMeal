@@ -21,7 +21,7 @@ public interface PlateDAO {
     @Update
     void update(Plate plate);
 
-    @Query("SELECT * FROM plate WHERE id = :id LIMIT 1")
+    @Query("SELECT * FROM plate WHERE idPlate = :id LIMIT 1")
     Plate search(String id);
 
     @Query("SELECT * FROM plate")

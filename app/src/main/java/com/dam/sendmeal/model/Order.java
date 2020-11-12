@@ -1,7 +1,11 @@
 package com.dam.sendmeal.model;
 
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
+
+import com.dam.sendmeal.converter.Converters;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,12 +13,10 @@ import java.util.List;
 @Entity
 public class Order {
     @PrimaryKey(autoGenerate = true)
-    private Long id;
+    private Long idOrder;
     private String email;
-    private String streetAddress;
-    private Integer numberAddress;
-    private Integer floorAddress;
-    private String apartmentAddress;
+    @Embedded
+    private Address address;
     private Boolean toShip;
     private List<Plate> plates = new ArrayList<>();
 
@@ -27,12 +29,12 @@ public class Order {
         this.plates = plates;
     }
 
-    public Long getId() {
-        return id;
+    public Long getIdOrder() {
+        return idOrder;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdOrder(Long idOrder) {
+        this.idOrder = idOrder;
     }
 
     public String getEmail() {
@@ -51,36 +53,12 @@ public class Order {
         this.toShip = toShip;
     }
 
-    public String getStreetAddress() {
-        return streetAddress;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setStreetAddress(String streetAddress) {
-        this.streetAddress = streetAddress;
-    }
-
-    public Integer getNumberAddress() {
-        return numberAddress;
-    }
-
-    public void setNumberAddress(Integer numberAddress) {
-        this.numberAddress = numberAddress;
-    }
-
-    public Integer getFloorAddress() {
-        return floorAddress;
-    }
-
-    public void setFloorAddress(Integer floorAddress) {
-        this.floorAddress = floorAddress;
-    }
-
-    public String getApartmentAddress() {
-        return apartmentAddress;
-    }
-
-    public void setApartmentAddress(String apartmentAddress) {
-        this.apartmentAddress = apartmentAddress;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public List<Plate> getPlates() {
@@ -90,4 +68,5 @@ public class Order {
     public void setPlates(List<Plate> plates) {
         this.plates = plates;
     }
+
 }

@@ -1,9 +1,12 @@
 package com.dam.sendmeal.model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+@Entity
 public class User {
-
-    private int id;
+    @PrimaryKey(autoGenerate = true)
+    private long idUser;
     private String name;
     private String password;
     private String email;
@@ -15,8 +18,8 @@ public class User {
     public User() {
     }
 
-    public User(int id, String name, String password, String email, Double credit, Card card, BankAccount bankAccount) {
-        this.id = id;
+    public User(long idUser, String name, String password, String email, Double credit, Card card, BankAccount bankAccount) {
+        this.idUser = idUser;
         this.name = name;
         this.password = password;
         this.email = email;
@@ -25,12 +28,12 @@ public class User {
         this.bankAccount = bankAccount;
     }
 
-    public int getId() {
-        return id;
+    public long getIdUser() {
+        return idUser;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdUser(long idUser) {
+        this.idUser = idUser;
     }
 
     public String getName() {

@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 public class Plate {
     @PrimaryKey(autoGenerate = true)
-    private Long id;
+    private Long idPlate;
     private String title;
     private String description;
     private Double price;
@@ -27,12 +27,12 @@ public class Plate {
         this.price = price;
         this.calories = calories;
     }
-    public Long getId() {
-        return id;
+    public Long getIdPlate() {
+        return idPlate;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdPlate(Long id) {
+        this.idPlate = id;
     }
 
     public static List<Plate> getPlates() {

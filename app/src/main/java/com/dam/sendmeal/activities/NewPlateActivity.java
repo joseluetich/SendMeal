@@ -250,7 +250,7 @@ public class NewPlateActivity extends AppCompatActivity implements PlateReposito
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(NewPlateActivity.this, "¡Plato agregado!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NewPlateActivity.this, "Plato agregado", Toast.LENGTH_SHORT).show();
             }
         });
     }

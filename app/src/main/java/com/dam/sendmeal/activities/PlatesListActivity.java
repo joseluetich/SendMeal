@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.dam.sendmeal.R;
+import com.dam.sendmeal.model.Plate;
 import com.dam.sendmeal.repository.PlateRepository;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
@@ -26,6 +27,7 @@ public class PlatesListActivity extends AppCompatActivity implements PlateReposi
     private RecyclerView.LayoutManager platesListLayoutManager;
     Toolbar platesListToolbar;
     PlateRepository repository;
+    List<Plate> plateList = new ArrayList<>();
 
     ExtendedFloatingActionButton orderFloatingActionButton;
     ArrayList<String> selectedPlates = new ArrayList<>();
