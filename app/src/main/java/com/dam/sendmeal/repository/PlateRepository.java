@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.dam.sendmeal.dao.PlateDAO;
+import com.dam.sendmeal.dao.PlateOrderRelationDAO;
 import com.dam.sendmeal.model.Plate;
 
 import java.util.ArrayList;
@@ -12,11 +13,13 @@ import java.util.List;
 
 public class PlateRepository implements OnPlateResultCallback {
     private PlateDAO plateDAO;
+    private PlateOrderRelationDAO plateOrderRelationDAO;
     private OnResultCallback callback;
 
     public PlateRepository(Application application, OnResultCallback context){
         AppDatabase db = AppDatabase.getInstance(application);
         plateDAO = db.plateDao();
+        plateOrderRelationDAO = db.plateOrderRelationDAO();
         callback = context;
     }
 
@@ -50,6 +53,15 @@ public class PlateRepository implements OnPlateResultCallback {
             @Override
             public void run() {
                 plateDAO.update(plate);
+            }
+        });
+    }
+
+    public void getOrdersOfPlate(final long idPlate){
+        AppDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                plateOrderRelationDAO.getOrdersOfPlate(idPlate);
             }
         });
     }

@@ -10,19 +10,20 @@ import androidx.room.TypeConverters;
 import com.dam.sendmeal.converter.Converters;
 import com.dam.sendmeal.dao.OrderDAO;
 import com.dam.sendmeal.dao.PlateDAO;
-import com.dam.sendmeal.dao.PlateOrderJoinDAO;
+import com.dam.sendmeal.dao.PlateOrderRelationDAO;
 import com.dam.sendmeal.model.Order;
 import com.dam.sendmeal.model.Plate;
+import com.dam.sendmeal.model.PlateOrderRelation;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Plate.class, Order.class}, version = 2)
-@TypeConverters({Converters.class})
+@Database(entities = {Plate.class, Order.class, PlateOrderRelation.class}, version = 3)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract PlateDAO plateDao();
     public abstract OrderDAO orderDao();
+    public abstract PlateOrderRelationDAO plateOrderRelationDAO();
 
     private static AppDatabase INSTANCE = null;
 

@@ -84,6 +84,8 @@ public class NewOrderActivity extends AppCompatActivity implements OrderReposito
         address = new Address();
         order.setAddress(address);
 
+        repository = new OrderRepository(this.getApplication(), this);
+
         mandatoryFieldValidation(emailOrderTextField);
         mandatoryFieldValidation(streetTextField);
         mandatoryFieldValidation(numberTextField);
@@ -199,6 +201,7 @@ public class NewOrderActivity extends AppCompatActivity implements OrderReposito
             public void onClick(View view) {
                 Intent intent = new Intent(NewOrderActivity.this, PlatesListActivity.class).putExtra("from","NewOrderActivity");
                 startActivityForResult(intent, 2);
+
             }
         });
 
@@ -210,6 +213,7 @@ public class NewOrderActivity extends AppCompatActivity implements OrderReposito
                     Intent intent = new Intent(NewOrderActivity.this, MenuActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
+
                 }
             }
         });
@@ -269,7 +273,8 @@ public class NewOrderActivity extends AppCompatActivity implements OrderReposito
                         addPlateButton.setText(R.string.editPlate);
                     }
 
-                    order.setPlates(orderPlates);
+                    //order.setPlates(orderPlates);
+
 
                     String price = totalPrice.toString();
                     orderPriceTextView.setText("$ "+price);

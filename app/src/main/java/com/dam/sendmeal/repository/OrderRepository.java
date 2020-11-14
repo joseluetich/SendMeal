@@ -1,24 +1,23 @@
 package com.dam.sendmeal.repository;
 
 import android.app.Application;
-import android.os.AsyncTask;
 import android.util.Log;
 
 import com.dam.sendmeal.dao.OrderDAO;
-import com.dam.sendmeal.dao.PlateOrderJoinDAO;
+import com.dam.sendmeal.dao.PlateOrderRelationDAO;
 import com.dam.sendmeal.model.Order;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class OrderRepository implements OnOrderResultCallback {
     private OrderDAO orderDAO;
-    private PlateOrderJoinDAO plateOrderJoinDAO;
+    private PlateOrderRelationDAO plateOrderRelationDAO;
     private OnResultCallback callback;
 
     public OrderRepository(Application application, OnResultCallback context){
         AppDatabase db = AppDatabase.getInstance(application);
         orderDAO = db.orderDao();
+        plateOrderRelationDAO = db.plateOrderRelationDAO();
         callback = context;
     }
 
@@ -52,6 +51,15 @@ public class OrderRepository implements OnOrderResultCallback {
             @Override
             public void run() {
                 orderDAO.update(order);
+            }
+        });
+    }
+
+    public void getPlatesOfOrder(final long idOrder){
+        AppDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                plateOrderRelationDAO.getPlatesOfOrder(idOrder);
             }
         });
     }
