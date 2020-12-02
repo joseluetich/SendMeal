@@ -5,7 +5,7 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 
 import com.dam.sendmeal.model.Order;
-import com.dam.sendmeal.model.Plate;
+/*import com.dam.sendmeal.model.Plate;
 import com.dam.sendmeal.model.PlateOrderRelation;
 
 import java.util.List;
@@ -30,4 +30,4 @@ public interface PlateOrderRelationDAO {
             "WHERE plateOrderRelation.idOrder=:idOrder")
 
     List <Order> getPlatesOfOrder(final long idOrder);
-}
+}*/

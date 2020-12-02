@@ -134,6 +134,7 @@ public class PlatesListAdapter extends RecyclerView.Adapter<PlatesListAdapter.Pl
                             platePriceDouble.setText("$ "+totalPrice);
                         }
                     }
+                    System.out.println("selected : "+selectedPlates);
                 }
             });
 

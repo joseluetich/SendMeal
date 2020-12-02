@@ -32,7 +32,4 @@ public interface OrderDAO {
 
     @Query("DELETE FROM [order]")
     void deleteOrders();
-
-
-
 }

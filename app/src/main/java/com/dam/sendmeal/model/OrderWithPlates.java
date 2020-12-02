@@ -1,5 +1,5 @@
 package com.dam.sendmeal.model;
-
+/*
 import androidx.room.Embedded;
 import androidx.room.Junction;
 import androidx.room.Relation;
@@ -15,4 +15,4 @@ public class OrderWithPlates {
             associateBy = @Junction(PlateOrderRelation.class)
     )
     public List<Plate> plates;
-}
+}*/

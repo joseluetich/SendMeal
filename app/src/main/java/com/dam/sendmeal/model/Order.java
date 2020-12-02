@@ -20,15 +20,15 @@ public class Order {
     @Embedded
     private Address address;
     private Boolean toShip;
-    //private ArrayList<Plate> plates;
+    private List<Plate> plates;
 
     public Order() {
     }
 
-    public Order(String email, Boolean toShip, ArrayList<Plate> plates) {
+    public Order(String email, Boolean toShip, List<Plate> plates) {
         this.email = email;
         this.toShip = toShip;
-        //this.plates = plates;
+        this.plates = plates;
     }
 
     public Long getIdOrder() {
@@ -63,12 +63,12 @@ public class Order {
         this.address = address;
     }
 
-    /*public List<Plate> getPlates() {
+    public List<Plate> getPlates() {
         return plates;
     }
 
     public void setPlates(List<Plate> plates) {
         this.plates = plates;
     }
-*/
+
 }

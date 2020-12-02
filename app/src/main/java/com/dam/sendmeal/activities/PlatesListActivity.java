@@ -27,7 +27,7 @@ public class PlatesListActivity extends AppCompatActivity implements PlateReposi
     private RecyclerView.LayoutManager platesListLayoutManager;
     Toolbar platesListToolbar;
     PlateRepository repository;
-    List<Plate> plateList = new ArrayList<>();
+    //List<Plate> plateList = new ArrayList<>();
 
     ExtendedFloatingActionButton orderFloatingActionButton;
     ArrayList<String> selectedPlates = new ArrayList<>();
@@ -46,9 +46,6 @@ public class PlatesListActivity extends AppCompatActivity implements PlateReposi
         platesListLayoutManager = new LinearLayoutManager(this);
         platesListRecyclerView.setLayoutManager(platesListLayoutManager);
 
-        repository = new PlateRepository(this.getApplication(), this);
-        repository.searchAll();
-
         //platesListAdapter = new PlatesListAdapter(Plate.getListPlates(),this,selectedPlates);
         //platesListRecyclerView.setAdapter(platesListAdapter);
 
@@ -61,15 +58,9 @@ public class PlatesListActivity extends AppCompatActivity implements PlateReposi
             orderFloatingActionButton.hide();
         }
 
-        orderFloatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.putStringArrayListExtra("PLATE", selectedPlates);
-                setResult(RESULT_OK, intent);
-                finish();
-            }
-        });
+        repository = new PlateRepository(this.getApplication(), this);
+        repository.searchAll();
+
     }
 
     @Override
@@ -96,9 +87,20 @@ public class PlatesListActivity extends AppCompatActivity implements PlateReposi
     }
 
     @Override
-    public void onResult(List result) {
-        platesListAdapter = new PlatesListAdapter(result,this,selectedPlates);
+    public void onResult(List<Plate> result) {
+        System.out.println("result: "+result.toString());
+        platesListAdapter = new PlatesListAdapter(result,this, selectedPlates);
         platesListRecyclerView.setAdapter(platesListAdapter);
+        orderFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.putStringArrayListExtra("PLATE", selectedPlates);
+                setResult(RESULT_OK, intent);
+                System.out.println("selectedPlates 2 : "+selectedPlates);
+                finish();
+            }
+        });
     }
 
     @Override

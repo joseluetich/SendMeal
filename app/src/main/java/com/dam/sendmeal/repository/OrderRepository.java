@@ -4,26 +4,26 @@ import android.app.Application;
 import android.util.Log;
 
 import com.dam.sendmeal.dao.OrderDAO;
-import com.dam.sendmeal.dao.PlateOrderRelationDAO;
+//import com.dam.sendmeal.dao.PlateOrderRelationDAO;
 import com.dam.sendmeal.model.Order;
 
 import java.util.List;
 
 public class OrderRepository implements OnOrderResultCallback {
     private OrderDAO orderDAO;
-    private PlateOrderRelationDAO plateOrderRelationDAO;
+    //private PlateOrderRelationDAO plateOrderRelationDAO;
     private OnResultCallback callback;
 
     public OrderRepository(Application application, OnResultCallback context){
         AppDatabase db = AppDatabase.getInstance(application);
         orderDAO = db.orderDao();
-        plateOrderRelationDAO = db.plateOrderRelationDAO();
+        //plateOrderRelationDAO = db.plateOrderRelationDAO();
         callback = context;
     }
 
     @Override
     public void onResult(List<Order> orders) {
-        Log.d("DEBUG", "Plato found");
+        Log.d("DEBUG", "Order found");
         callback.onResult(orders);
     }
 
@@ -55,14 +55,14 @@ public class OrderRepository implements OnOrderResultCallback {
         });
     }
 
-    public void getPlatesOfOrder(final long idOrder){
+    /*public void getPlatesOfOrder(final long idOrder){
         AppDatabase.databaseWriteExecutor.execute(new Runnable() {
             @Override
             public void run() {
                 plateOrderRelationDAO.getPlatesOfOrder(idOrder);
             }
         });
-    }
+    }*/
 
     public void search(String id) {
         new SearchOrderById(orderDAO, this).execute(id);

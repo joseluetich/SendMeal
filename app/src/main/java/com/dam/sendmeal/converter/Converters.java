@@ -13,12 +13,12 @@ import java.util.List;
 public class Converters {
     @TypeConverter
     public static List<Plate> fromString(String value) {
-        Type listType = new TypeToken<ArrayList<String>>() {}.getType();
+        Type listType = new TypeToken<List<String>>() {}.getType();
         return new Gson().fromJson(value, listType);
     }
 
     @TypeConverter
-    public static String fromArrayList(List<Plate> list) {
+    public static String fromList(List<Plate> list) {
         Gson gson = new Gson();
         String json = gson.toJson(list);
         return json;

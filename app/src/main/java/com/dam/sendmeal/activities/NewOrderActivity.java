@@ -232,10 +232,13 @@ public class NewOrderActivity extends AppCompatActivity implements OrderReposito
                 ArrayList<String> selectedPlates = data.getStringArrayListExtra("PLATE");
                 if(selectedPlates != null) {
                     for (String title : selectedPlates) {
-                        for (Plate plate : Plate.getListPlates()) {
+                        //  repository.searchAll(); si agrego esto, deberia poner algo en on result, pero no quiero
+                        //  que se cambie para el onresult del insert
+                        for (Plate plate : Plate.getListPlates()) { //TODO cambiar Plate.getlistplates() por busqueda en bdd
                             if (title.toLowerCase().equals(plate.getTitle().toLowerCase()) && plate.getQuantity()>0) {
                                 if(!orderPlates.contains(plate)){
                                     orderPlates.add(plate);
+                                    System.out.println("add: "+plate);
                                 }
                             }
                         }
@@ -247,6 +250,7 @@ public class NewOrderActivity extends AppCompatActivity implements OrderReposito
                     orderPlatesListLayoutManager = new LinearLayoutManager(this);
                     orderPlatesListRecyclerView.setLayoutManager(orderPlatesListLayoutManager);
 
+                    System.out.println("orderplates: "+orderPlates);
                     orderPlatesListAdapter = new OrderPlatesListAdapter(orderPlates);
                     orderPlatesListRecyclerView.setAdapter(orderPlatesListAdapter);
 
@@ -273,13 +277,14 @@ public class NewOrderActivity extends AppCompatActivity implements OrderReposito
                         addPlateButton.setText(R.string.editPlate);
                     }
 
-                    //order.setPlates(orderPlates);
-
+                    order.setPlates(orderPlates);
 
                     String price = totalPrice.toString();
                     orderPriceTextView.setText("$ "+price);
                     String quantity = Integer.toString(totalPlates);
                     platesQuantityTextView.setText(quantity);
+
+                    repository.insert(order);
                 }
             }
         }
