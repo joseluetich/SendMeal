@@ -1,25 +1,45 @@
 package com.dam.sendmeal.model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity(tableName = "plates")
 public class Plate {
+    @PrimaryKey(autoGenerate = true)
+    private Long id;
     private String title;
     private String description;
     private Double price;
     private Integer calories;
     private Integer quantity;
-    private static List<Plate> plates = new ArrayList<>();
+//    private static List<Plate> plates = new ArrayList<>();
 
-    public Plate() {
+    public Plate() {}
 
-    }
-
-    public Plate(String title, String description, Double price, Integer calories) {
+    public Plate(Long id, String title, String description, Double price, Integer calories) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.price = price;
         this.calories = calories;
+    }
+
+    public Plate( String title, String description, Double price, Integer calories) {
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.calories = calories;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -58,7 +78,8 @@ public class Plate {
         this.calories = calories;
     }
 
-    public static List<Plate> getListPlates() {
+
+    /*public static List<Plate> getListPlates() {
         return plates;
     }
 
@@ -77,7 +98,7 @@ public class Plate {
             plato = (plato+" "+p.getTitle());
         }
         return plato;
-    }
+    }*/
 
 
     public Integer getQuantity() {

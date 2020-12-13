@@ -1,7 +1,10 @@
 package com.dam.sendmeal.ui;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,8 +18,10 @@ import android.widget.Toast;
 
 import com.dam.sendmeal.R;
 import com.dam.sendmeal.model.Plate;
+import com.dam.sendmeal.viewModel.PlateViewModel;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,10 +33,14 @@ public class NewPlateActivity extends AppCompatActivity {
     Button savePlateButton;
     Plate plate;
 
+    private PlateViewModel plateViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_plate);
+
+        plateViewModel = ViewModelProviders.of(this).get(PlateViewModel.class);
 
         titleTextField = findViewById(R.id.titleTextInputLayout);
         descriptionTextField = findViewById(R.id.descriptionTextInputLayout);
@@ -127,7 +136,9 @@ public class NewPlateActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (validateForm()) {
-                    plate.addToPlates();
+                    // TODO: Use repository implementation
+                    // plate.addToPlates();
+                    plateViewModel.add(plate);
                     Toast aviso = Toast.makeText(NewPlateActivity.this, "Plato creado correctamente", Toast.LENGTH_LONG); //aviso al usuario
                     aviso.show();
                     finish();
@@ -135,6 +146,8 @@ public class NewPlateActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
     public boolean validateAllMandatoryFields() {
         boolean allCompleted = true;
@@ -199,14 +212,16 @@ public class NewPlateActivity extends AppCompatActivity {
         }
         return validForm;
     }
+
     public boolean enteredValidTitle() {
         boolean validTitle = true;
         String title = titleTextField.getEditText().getText().toString();
-        for(Plate plate: Plate.getListPlates()) {
-            if(plate.getTitle().toLowerCase().equals(title.toLowerCase())) {
-                validTitle = false;
-            }
-        }
+        // TODO: Use repository implementation
+//        for(Plate plate: Plate.getListPlates()) {
+//            if(plate.getTitle().toLowerCase().equals(title.toLowerCase())) {
+//                validTitle = false;
+//            }
+//        }
         if(!validTitle) {
             titleTextField.setHelperTextEnabled(false);
             titleTextField.setError(getString(R.string.invalidTitle));

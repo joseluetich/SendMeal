@@ -1,9 +1,12 @@
 package com.dam.sendmeal.ui;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,10 +29,12 @@ import com.dam.sendmeal.model.Address;
 import com.dam.sendmeal.model.Order;
 import com.dam.sendmeal.model.Plate;
 import com.dam.sendmeal.utils.NotificationPublisher;
+import com.dam.sendmeal.viewModel.PlateViewModel;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -51,10 +56,25 @@ public class NewOrderActivity extends AppCompatActivity {
     RecyclerView.LayoutManager orderPlatesListLayoutManager;
     TextView orderPriceTextView, platesQuantityTextView, platesListTextView;
 
+    ArrayList<Plate> plates = new ArrayList<>();
+    private PlateViewModel plateViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_order);
+
+        plateViewModel = ViewModelProviders.of(this).get(PlateViewModel.class);
+
+        plateViewModel.getAllPlates().observe(this, new Observer<List<Plate>>() {
+            @Override
+            public void onChanged(@Nullable final List<Plate> platesDB) {
+                // Update the cached copy of the words in the adapter.
+                plates.clear();
+                plates.addAll(platesDB);
+            }
+        });
+
 
         newOrderToolbar = findViewById(R.id.newOrderToolbar);
         setSupportActionBar(newOrderToolbar);//configuro la toolbar
@@ -225,7 +245,8 @@ public class NewOrderActivity extends AppCompatActivity {
                 ArrayList<String> selectedPlates = data.getStringArrayListExtra("PLATE");
                 if(selectedPlates != null) {
                     for (String title : selectedPlates) {
-                        for (Plate plate : Plate.getListPlates()) {
+                        // TODO: Use repository implementation
+                        for (Plate plate : plates) {
                             if (title.toLowerCase().equals(plate.getTitle().toLowerCase()) && plate.getQuantity()>0) {
                                 if(!orderPlates.contains(plate)){
                                     orderPlates.add(plate);

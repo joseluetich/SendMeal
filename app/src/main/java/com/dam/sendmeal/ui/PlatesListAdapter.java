@@ -1,6 +1,7 @@
 package com.dam.sendmeal.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,21 +18,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dam.sendmeal.R;
 import com.dam.sendmeal.model.Plate;
+import com.dam.sendmeal.viewModel.PlateViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PlatesListAdapter extends RecyclerView.Adapter<PlatesListAdapter.PlatesViewHolder> {
 
+    private final LayoutInflater mInflater;
     private List<Plate> plates;
     Activity platesListActivity;
-    ArrayList<String> selectedPlates;
+    ArrayList<String> selectedPlates = new ArrayList<>();
 
-    public PlatesListAdapter(List<Plate> listPlates, Activity activity, ArrayList<String> selectedPlates) {
-        this.plates = listPlates;
-        this.platesListActivity = activity;
-        this.selectedPlates = selectedPlates;
-    }
+    // TODO: Verify platesListAdapter constructor
+    PlatesListAdapter(Context context) { mInflater = LayoutInflater.from(context); }
+
+//    public PlatesListAdapter(List<Plate> listPlates, Activity activity, ArrayList<String> selectedPlates) {
+//        this.plates = listPlates;
+//        this.platesListActivity = activity;
+//        this.selectedPlates = selectedPlates;
+//    }
 
     @NonNull
     @Override
@@ -40,33 +46,46 @@ public class PlatesListAdapter extends RecyclerView.Adapter<PlatesListAdapter.Pl
         //obtenemos una vista y la inflamos con el layout
 
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.plate_row, parent, false);
-        PlatesViewHolder platesHolder = new PlatesViewHolder(v,platesListActivity);
+        PlatesViewHolder platesHolder = new PlatesViewHolder(v,(Activity) parent.getContext());
         return platesHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull PlatesViewHolder holder, int position) {
-        holder.plateImageView.setTag(position);
-        holder.plateTitleString.setTag(position);
-        holder.platePriceDouble.setTag(position);
-        //holder.orderButton.setTag(position);
-        holder.minusImageView.setTag(position);
-        holder.plusImageView.setTag(position);
-        holder.numberPickerTextView.setTag(position);
-        holder.numberPickerConstraintLayout.setTag(position);
+        if (plates != null) {
+            Plate plate = plates.get(position);
 
-        Plate plate = plates.get(position);
+            holder.plateImageView.setTag(position);
+            holder.plateTitleString.setTag(position);
+            holder.platePriceDouble.setTag(position);
+            //holder.orderButton.setTag(position);
+            holder.minusImageView.setTag(position);
+            holder.plusImageView.setTag(position);
+            holder.numberPickerTextView.setTag(position);
+            holder.numberPickerConstraintLayout.setTag(position);
 
-        holder.plateImageView.setImageResource(R.drawable.pizza_image);
-        holder.plateTitleString.setText(plate.getTitle().toUpperCase());
-        holder.platePriceDouble.setText(plate.getStringPrice());
-        String quantity = plate.getQuantity().toString();
-        holder.numberPickerTextView.setText(quantity);
+            holder.plateImageView.setImageResource(R.drawable.pizza_image);
+            holder.plateTitleString.setText(plate.getTitle().toUpperCase());
+            holder.platePriceDouble.setText(plate.getStringPrice());
+            String quantity = plate.getQuantity() != null ? plate.getQuantity().toString() : "0" ;
+            holder.numberPickerTextView.setText(quantity);
+
+        } else {
+            // Covers the case of data not being ready yet.
+            holder.plateTitleString.setText("No Word");
+        }
+    }
+
+    public void setPlates(List<Plate> plates){
+        this.plates = plates;
+        notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return plates.size();
+        if (plates != null)
+            return plates.size();
+        else return 0;
     }
 
     public class PlatesViewHolder extends RecyclerView.ViewHolder {
@@ -92,7 +111,8 @@ public class PlatesListAdapter extends RecyclerView.Adapter<PlatesListAdapter.Pl
             }
             else {
                 numberPickerConstraintLayout.setVisibility(View.INVISIBLE);
-                for(Plate plate: Plate.getListPlates()){
+                // TODO: Verify how is accessing to plates
+                for(Plate plate: plates){
                     plate.setQuantity(0);
                 }
             }
