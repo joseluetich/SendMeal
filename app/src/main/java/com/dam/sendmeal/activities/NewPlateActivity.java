@@ -131,8 +131,6 @@ public class NewPlateActivity extends AppCompatActivity implements PlateReposito
             public void onClick(View view) {
                 if (validateForm()) {
                     plate.addToPlates();
-                    /*Toast aviso = Toast.makeText(NewPlateActivity.this, "Plato creado correctamente", Toast.LENGTH_LONG); //aviso al usuario
-                    aviso.show();*/
                     repository.insert(plate);
                     finish();
                 }
@@ -239,9 +237,8 @@ public class NewPlateActivity extends AppCompatActivity implements PlateReposito
         return validPrice;
     }
 
-
     @Override
-    public void onResult(List result) {
+    public void onResultPlate(List<Plate> result) {
 
     }
 

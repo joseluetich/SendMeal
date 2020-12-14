@@ -24,9 +24,9 @@ public class PlateRepository implements OnPlateResultCallback {
     }
 
     @Override
-    public void onResult(List<Plate> plates) {
+    public void onResultPlate(List<Plate> plates) {
         Log.d("DEBUG", "Plato found");
-        callback.onResult(plates);
+        callback.onResultPlate(plates);
     }
 
     public void insert(final Plate plate){
@@ -75,7 +75,7 @@ public class PlateRepository implements OnPlateResultCallback {
     }
 
     public interface OnResultCallback {
-        void onResult(List<Plate> result);
+        void onResultPlate(List<Plate> result);
         void onInsert();
     }
 }

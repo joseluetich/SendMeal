@@ -87,8 +87,7 @@ public class PlatesListActivity extends AppCompatActivity implements PlateReposi
     }
 
     @Override
-    public void onResult(List<Plate> result) {
-        System.out.println("result: "+result.toString());
+    public void onResultPlate(List<Plate> result) {
         platesListAdapter = new PlatesListAdapter(result,this, selectedPlates);
         platesListRecyclerView.setAdapter(platesListAdapter);
         orderFloatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -97,7 +96,6 @@ public class PlatesListActivity extends AppCompatActivity implements PlateReposi
                 Intent intent = new Intent();
                 intent.putStringArrayListExtra("PLATE", selectedPlates);
                 setResult(RESULT_OK, intent);
-                System.out.println("selectedPlates 2 : "+selectedPlates);
                 finish();
             }
         });

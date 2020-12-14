@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.widget.Toast;
 
 import com.dam.sendmeal.R;
+import com.dam.sendmeal.model.Plate;
 import com.dam.sendmeal.repository.OrderRepository;
 import com.dam.sendmeal.repository.PlateRepository;
 
@@ -33,8 +34,13 @@ public class HomeActivity extends AppCompatActivity implements PlateRepository.O
 
 
     @Override
-    public void onResult(List result) {
-        Toast.makeText(HomeActivity.this,"Platos y ordenes borradas",Toast.LENGTH_SHORT).show();
+    public void onResultOrder(List result) {
+
+    }
+
+    @Override
+    public void onResultPlate(List<Plate> result) {
+
     }
 
     @Override

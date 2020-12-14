@@ -5,5 +5,5 @@ import com.dam.sendmeal.model.Order;
 import java.util.List;
 
 public interface OnOrderResultCallback {
-    void onResult(List<Order> orders);
+    void onResultOrder(List<Order> orders);
 }

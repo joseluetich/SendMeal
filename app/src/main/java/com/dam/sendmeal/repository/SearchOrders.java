@@ -26,6 +26,6 @@ public class SearchOrders extends AsyncTask<String, Void, List<Order>> {
     @Override
     protected void onPostExecute(List<Order> orders) {
         super.onPostExecute(orders);
-        callback.onResult(orders);
+        callback.onResultOrder(orders);
     }
 }

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dam.sendmeal.R;
 import com.dam.sendmeal.model.Plate;
+import com.dam.sendmeal.repository.PlateRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,12 +69,12 @@ public class PlatesListAdapter extends RecyclerView.Adapter<PlatesListAdapter.Pl
         return plates.size();
     }
 
-    public class PlatesViewHolder extends RecyclerView.ViewHolder {
+    public class PlatesViewHolder extends RecyclerView.ViewHolder implements PlateRepository.OnResultCallback {
         CardView plateCardView;
         TextView plateTitleString, platePriceDouble, numberPickerTextView;
         ImageView plateImageView, minusImageView, plusImageView;
         ConstraintLayout numberPickerConstraintLayout;
-        //int number;
+        PlateRepository plateRepository;
 
         public PlatesViewHolder(@NonNull View itemView, final Activity platesListActivity) {
             super(itemView);
@@ -85,15 +86,15 @@ public class PlatesListAdapter extends RecyclerView.Adapter<PlatesListAdapter.Pl
             plusImageView = itemView.findViewById(R.id.plusImageView);
             numberPickerTextView = itemView.findViewById(R.id.numberPickerTextView);
             numberPickerConstraintLayout = itemView.findViewById(R.id.numberPickerConstraintLayout);
+            plateRepository = new PlateRepository(platesListActivity.getApplication(), this);
+
 
             if (platesListActivity.getIntent().getStringExtra("from").equals("NewOrderActivity")) {
                 numberPickerConstraintLayout.setVisibility(View.VISIBLE);
             }
             else {
                 numberPickerConstraintLayout.setVisibility(View.INVISIBLE);
-                for(Plate plate: Plate.getListPlates()){
-                    plate.setQuantity(0);
-                }
+                plateRepository.searchAll();
             }
 
             minusImageView.setOnClickListener(new View.OnClickListener() {
@@ -115,6 +116,7 @@ public class PlatesListAdapter extends RecyclerView.Adapter<PlatesListAdapter.Pl
                                 String totalPrice = Double.toString(plate.getPrice() * plate.getQuantity());
                                 platePriceDouble.setText("$ " + totalPrice);
                             }
+                            plateRepository.update(plate);
                         }
                     }
                 }
@@ -133,10 +135,23 @@ public class PlatesListAdapter extends RecyclerView.Adapter<PlatesListAdapter.Pl
                             String totalPrice = Double.toString(plate.getPrice()*plate.getQuantity());
                             platePriceDouble.setText("$ "+totalPrice);
                         }
+                        plateRepository.update(plate);
                     }
-                    System.out.println("selected : "+selectedPlates);
                 }
             });
+
+        }
+
+        @Override
+        public void onResultPlate(List<Plate> result) {
+            for(Plate plate: result){
+                plate.setQuantity(0);
+                plateRepository.update(plate);
+            }
+        }
+
+        @Override
+        public void onInsert() {
 
         }
     }

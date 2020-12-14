@@ -29,6 +29,6 @@ public class SearchOrderById extends AsyncTask<String, Void, Order> {
         super.onPostExecute(order);
         List<Order> orders = new ArrayList<>();
         orders.add(order);
-        callback.onResult(orders);
+        callback.onResultOrder(orders);
     }
 }

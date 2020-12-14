@@ -36,7 +36,7 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class NewOrderActivity extends AppCompatActivity implements OrderRepository.OnResultCallback{
+public class NewOrderActivity extends AppCompatActivity implements PlateRepository.OnResultCallback, OrderRepository.OnResultCallback {
 
     Toolbar newOrderToolbar;
     TextInputLayout emailOrderTextField, streetTextField, numberTextField, floorTextField, apartmentTextField;
@@ -45,14 +45,16 @@ public class NewOrderActivity extends AppCompatActivity implements OrderReposito
     Address address;
     Button addPlateButton, confirmOrderButton;
     Order order;
-    ArrayList<Plate> orderPlates = new ArrayList<>();
+    ArrayList<Plate> orderPlates;
     RecyclerView orderPlatesListRecyclerView;
     RecyclerView.Adapter orderPlatesListAdapter;
     //CardView orderDescriptionCardView;
     ConstraintLayout orderDescriptionConstraintLayout;
     RecyclerView.LayoutManager orderPlatesListLayoutManager;
     TextView orderPriceTextView, platesQuantityTextView, platesListTextView;
-    OrderRepository repository;
+    OrderRepository orderRepository;
+    PlateRepository plateRepository;
+    ArrayList<String> selectedPlates;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,11 +82,15 @@ public class NewOrderActivity extends AppCompatActivity implements OrderReposito
         //orderListCardView = findViewById(R.id.orderDescriptionCardView);
         orderDescriptionConstraintLayout = findViewById(R.id.orderDescriptionConstraintLayout);
 
+        orderRepository = new OrderRepository(this.getApplication(), this);
+        plateRepository = new PlateRepository(this.getApplication(), this);
+
+
         order = new Order();
+        orderRepository.insert(order);
+
         address = new Address();
         order.setAddress(address);
-
-        repository = new OrderRepository(this.getApplication(), this);
 
         mandatoryFieldValidation(emailOrderTextField);
         mandatoryFieldValidation(streetTextField);
@@ -199,9 +205,9 @@ public class NewOrderActivity extends AppCompatActivity implements OrderReposito
         addPlateButton.setOnClickListener(new View.OnClickListener() { //listener del boton registrar
             @Override
             public void onClick(View view) {
+                orderRepository.update(order);
                 Intent intent = new Intent(NewOrderActivity.this, PlatesListActivity.class).putExtra("from","NewOrderActivity");
                 startActivityForResult(intent, 2);
-
             }
         });
 
@@ -209,11 +215,11 @@ public class NewOrderActivity extends AppCompatActivity implements OrderReposito
             @Override
             public void onClick(View view) {
                 if(validateForm() && orderPlates.size() >= 1){
+                    orderRepository.update(order);
                     new SimpleAsyncTask(confirmOrderButton).execute();
                     Intent intent = new Intent(NewOrderActivity.this, MenuActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
-
                 }
             }
         });
@@ -224,68 +230,11 @@ public class NewOrderActivity extends AppCompatActivity implements OrderReposito
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // check if the request code is same as what is passed  here it is 2
-        Double totalPrice = 0.0;
-        Integer totalPlates = 0;
 
         if(resultCode==RESULT_OK) {
             if (requestCode == 2) {
-                ArrayList<String> selectedPlates = data.getStringArrayListExtra("PLATE");
-                if(selectedPlates != null) {
-                    for (String title : selectedPlates) {
-                        //  repository.searchAll(); si agrego esto, deberia poner algo en on result, pero no quiero
-                        //  que se cambie para el onresult del insert
-                        for (Plate plate : Plate.getListPlates()) { //TODO cambiar Plate.getlistplates() por busqueda en bdd
-                            if (title.toLowerCase().equals(plate.getTitle().toLowerCase()) && plate.getQuantity()>0) {
-                                if(!orderPlates.contains(plate)){
-                                    orderPlates.add(plate);
-                                    System.out.println("add: "+plate);
-                                }
-                            }
-                        }
-                    }
-
-                    orderPlatesListRecyclerView = findViewById(R.id.orderPlatesRecyclerView);
-                    orderPlatesListRecyclerView.setHasFixedSize(true);
-
-                    orderPlatesListLayoutManager = new LinearLayoutManager(this);
-                    orderPlatesListRecyclerView.setLayoutManager(orderPlatesListLayoutManager);
-
-                    System.out.println("orderplates: "+orderPlates);
-                    orderPlatesListAdapter = new OrderPlatesListAdapter(orderPlates);
-                    orderPlatesListRecyclerView.setAdapter(orderPlatesListAdapter);
-
-                    orderDescriptionConstraintLayout.setVisibility(View.VISIBLE);
-                    confirmOrderButton.setVisibility(View.VISIBLE);
-                    platesListTextView.setVisibility(View.VISIBLE);
-
-                    ArrayList<Plate> nullPlates = new ArrayList<>();
-                    for(Plate plate : orderPlates) {
-                        if(plate.getQuantity().equals(0)) {
-                            nullPlates.add(plate);
-                        }
-                        totalPlates += plate.getQuantity();
-                        totalPrice += plate.getPrice()*plate.getQuantity();
-                    }
-                    orderPlates.removeAll(nullPlates);
-                    if(orderPlates.size()==0) {
-                        confirmOrderButton.setVisibility(View.INVISIBLE);
-                        platesListTextView.setVisibility(View.INVISIBLE);
-                        orderDescriptionConstraintLayout.setVisibility(View.INVISIBLE);
-                        addPlateButton.setText(R.string.addPlate);
-                    }
-                    else {
-                        addPlateButton.setText(R.string.editPlate);
-                    }
-
-                    order.setPlates(orderPlates);
-
-                    String price = totalPrice.toString();
-                    orderPriceTextView.setText("$ "+price);
-                    String quantity = Integer.toString(totalPlates);
-                    platesQuantityTextView.setText(quantity);
-
-                    repository.insert(order);
-                }
+                selectedPlates = data.getStringArrayListExtra("PLATE");
+                plateRepository.searchAll();
             }
         }
     }
@@ -359,7 +308,76 @@ public class NewOrderActivity extends AppCompatActivity implements OrderReposito
     }
 
     @Override
-    public void onResult(List result) {
+    public void onResultPlate(List<Plate> result) {
+        Double totalPrice = 0.0;
+        Integer totalPlates = 0;
+        List<Plate> dbPlates = result;
+
+        if(selectedPlates != null) {
+
+            orderPlates = new ArrayList<>();
+
+            for(Plate plate : dbPlates) {
+                System.out.println("selected : "+selectedPlates);
+                /*for(String title : selectedPlates) {
+                    if(title.toLowerCase().equals(plate.getTitle().toLowerCase())) {
+                        plate.setQuantity(plate.getQuantity()+1);
+                        System.out.println("cantidad de "+plate.getTitle()+" : "+plate.getQuantity());
+                    }
+                }*/
+                if(!orderPlates.contains(plate)){
+                    orderPlates.add(plate);
+                }
+            }
+
+            orderPlatesListRecyclerView = findViewById(R.id.orderPlatesRecyclerView);
+            orderPlatesListRecyclerView.setHasFixedSize(true);
+
+            orderPlatesListLayoutManager = new LinearLayoutManager(this);
+            orderPlatesListRecyclerView.setLayoutManager(orderPlatesListLayoutManager);
+
+            for(Plate plate : orderPlates) {
+                System.out.println("  " + plate.getTitle());
+            }
+            orderPlatesListAdapter = new OrderPlatesListAdapter(orderPlates);
+            orderPlatesListRecyclerView.setAdapter(orderPlatesListAdapter);
+
+            orderDescriptionConstraintLayout.setVisibility(View.VISIBLE);
+            confirmOrderButton.setVisibility(View.VISIBLE);
+            platesListTextView.setVisibility(View.VISIBLE);
+
+            ArrayList<Plate> nullPlates = new ArrayList<>();
+            for(Plate plate : orderPlates) {
+                if(plate.getQuantity().equals(0)) {
+                    nullPlates.add(plate);
+                }
+                totalPlates += plate.getQuantity();
+                totalPrice += plate.getPrice()*plate.getQuantity();
+            }
+            orderPlates.removeAll(nullPlates);
+
+            if(orderPlates.size()==0) {
+                confirmOrderButton.setVisibility(View.INVISIBLE);
+                platesListTextView.setVisibility(View.INVISIBLE);
+                orderDescriptionConstraintLayout.setVisibility(View.INVISIBLE);
+                addPlateButton.setText(R.string.addPlate);
+            }
+            else {
+                addPlateButton.setText(R.string.editPlate);
+            }
+
+            order.setPlates(orderPlates);
+
+            String price = totalPrice.toString();
+            orderPriceTextView.setText("$ "+price);
+            String quantity = Integer.toString(totalPlates);
+            platesQuantityTextView.setText(quantity);
+
+        }
+    }
+
+    @Override
+    public void onResultOrder(List result) {
 
     }
 

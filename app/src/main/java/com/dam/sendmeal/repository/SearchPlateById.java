@@ -29,6 +29,6 @@ public class SearchPlateById extends AsyncTask<String, Void, Plate> {
         super.onPostExecute(plate);
         List<Plate> plates = new ArrayList<>();
         plates.add(plate);
-        callback.onResult(plates);
+        callback.onResultPlate(plates);
     }
 }

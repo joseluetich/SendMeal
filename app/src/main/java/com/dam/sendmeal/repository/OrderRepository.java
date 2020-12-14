@@ -22,9 +22,9 @@ public class OrderRepository implements OnOrderResultCallback {
     }
 
     @Override
-    public void onResult(List<Order> orders) {
+    public void onResultOrder(List<Order> orders) {
         Log.d("DEBUG", "Order found");
-        callback.onResult(orders);
+        callback.onResultOrder(orders);
     }
 
     public void insert(final Order order){
@@ -74,7 +74,7 @@ public class OrderRepository implements OnOrderResultCallback {
 
 
     public interface OnResultCallback<T> {
-        void onResult(List<T> result);
+        void onResultOrder(List<T> result);
         void onInsert();
     }
 }
