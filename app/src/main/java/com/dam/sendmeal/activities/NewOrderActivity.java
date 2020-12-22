@@ -220,6 +220,7 @@ public class NewOrderActivity extends AppCompatActivity implements PlateReposito
                     Intent intent = new Intent(NewOrderActivity.this, MenuActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
+                    Toast.makeText(NewOrderActivity.this, "Orden agregada", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -383,12 +384,7 @@ public class NewOrderActivity extends AppCompatActivity implements PlateReposito
 
     @Override
     public void onInsert() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(NewOrderActivity.this, "Orden agregada", Toast.LENGTH_SHORT).show();
-            }
-        });
+
     }
 
     private static class SimpleAsyncTask extends AsyncTask <Void, Void, String>{

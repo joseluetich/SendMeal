@@ -2,12 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dam.sendmeal">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_app_icon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_app_icon_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.App">
         <activity
             android:name=".activities.MenuActivity"
@@ -63,6 +67,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MenuActivity" />
         </activity>
+
     </application>
 
 </manifest>
