@@ -85,12 +85,10 @@ public class NewOrderActivity extends AppCompatActivity implements PlateReposito
         orderRepository = new OrderRepository(this.getApplication(), this);
         plateRepository = new PlateRepository(this.getApplication(), this);
 
-
         order = new Order();
-        orderRepository.insert(order);
-
         address = new Address();
         order.setAddress(address);
+        order.setToDeliver(true); //valor por defecto
 
         mandatoryFieldValidation(emailOrderTextField);
         mandatoryFieldValidation(streetTextField);
@@ -195,9 +193,10 @@ public class NewOrderActivity extends AppCompatActivity implements PlateReposito
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int id) { //listener radiogroup
                 if (id == R.id.shippingRadioButton) {
-                    order.setToShip(true);
+                    order.setToDeliver(true);
                 } else {
-                    order.setToShip(false);
+                    Toast.makeText(NewOrderActivity.this, "takeaway", Toast.LENGTH_SHORT).show();
+                    order.setToDeliver(false);
                 }
             }
         });
@@ -205,7 +204,6 @@ public class NewOrderActivity extends AppCompatActivity implements PlateReposito
         addPlateButton.setOnClickListener(new View.OnClickListener() { //listener del boton registrar
             @Override
             public void onClick(View view) {
-                orderRepository.update(order);
                 Intent intent = new Intent(NewOrderActivity.this, PlatesListActivity.class).putExtra("from","NewOrderActivity");
                 startActivityForResult(intent, 2);
             }
@@ -215,7 +213,7 @@ public class NewOrderActivity extends AppCompatActivity implements PlateReposito
             @Override
             public void onClick(View view) {
                 if(validateForm() && orderPlates.size() >= 1){
-                    orderRepository.update(order);
+                    orderRepository.insert(order);
                     new SimpleAsyncTask(confirmOrderButton).execute();
                     Intent intent = new Intent(NewOrderActivity.this, MenuActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

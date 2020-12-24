@@ -2,14 +2,8 @@ package com.dam.sendmeal.model;
 
 import androidx.room.Embedded;
 import androidx.room.Entity;
-import androidx.room.Junction;
 import androidx.room.PrimaryKey;
-import androidx.room.Relation;
-import androidx.room.TypeConverter;
 
-import com.dam.sendmeal.converter.Converters;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,15 +13,15 @@ public class Order {
     private String email;
     @Embedded
     private Address address;
-    private Boolean toShip;
+    private Boolean toDeliver;
     private List<Plate> plates;
 
     public Order() {
     }
 
-    public Order(String email, Boolean toShip, List<Plate> plates) {
+    public Order(String email, Boolean toDeliver, List<Plate> plates) {
         this.email = email;
-        this.toShip = toShip;
+        this.toDeliver = toDeliver;
         this.plates = plates;
     }
 
@@ -47,12 +41,12 @@ public class Order {
         this.email = email;
     }
 
-    public Boolean getToShip() {
-        return toShip;
+    public Boolean getToDeliver() {
+        return toDeliver;
     }
 
-    public void setToShip(Boolean toShip) {
-        this.toShip = toShip;
+    public void setToDeliver(Boolean toDeliver) {
+        this.toDeliver = toDeliver;
     }
 
     public Address getAddress() {
