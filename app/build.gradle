@@ -53,6 +53,13 @@ dependencies {
     //noinspection GradleCompatible
     implementation 'com.android.support:recyclerview-v7:28.0.0'
 
+    //maps
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    // Utilities for Maps SDK for Android (requires Google Play Services)
+    implementation 'com.google.maps.android:android-maps-utils:2.1.0'
+    // Alternately - Utilities for Maps SDK v3 BETA for Android (does not require Google Play Services)
+    //implementation 'com.google.maps.android:android-maps-utils-v3:2.1.0'
+
     //others
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'

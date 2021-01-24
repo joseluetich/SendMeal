@@ -2,6 +2,7 @@ package com.dam.sendmeal.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,6 +28,7 @@ import com.dam.sendmeal.model.Plate;
 import com.dam.sendmeal.repository.OrderRepository;
 import com.dam.sendmeal.repository.PlateRepository;
 import com.dam.sendmeal.utils.NotificationPublisher;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.lang.ref.WeakReference;
@@ -43,7 +45,7 @@ public class NewOrderActivity extends AppCompatActivity implements PlateReposito
     RadioGroup deliverRadioGroup;
     RadioButton shippingRadioButton, takeAwayRadioButton;
     Address address;
-    Button addPlateButton, confirmOrderButton;
+    Button addPlateButton, confirmOrderButton, locationButton;
     Order order;
     ArrayList<Plate> orderPlates;
     RecyclerView orderPlatesListRecyclerView;
@@ -52,6 +54,8 @@ public class NewOrderActivity extends AppCompatActivity implements PlateReposito
     ConstraintLayout orderDescriptionConstraintLayout;
     RecyclerView.LayoutManager orderPlatesListLayoutManager;
     TextView orderPriceTextView, platesQuantityTextView, platesListTextView;
+    Integer SELECTED_PLATES_CODE = 2, MAP_CODE = 3;
+
     OrderRepository orderRepository;
     PlateRepository plateRepository;
     ArrayList<String> selectedPlates;
@@ -81,6 +85,7 @@ public class NewOrderActivity extends AppCompatActivity implements PlateReposito
         platesListTextView = findViewById(R.id.platesListTextView);
         //orderListCardView = findViewById(R.id.orderDescriptionCardView);
         orderDescriptionConstraintLayout = findViewById(R.id.orderDescriptionConstraintLayout);
+        locationButton = findViewById(R.id.locationButton);
 
         orderRepository = new OrderRepository(this.getApplication(), this);
         plateRepository = new PlateRepository(this.getApplication(), this);
@@ -201,11 +206,19 @@ public class NewOrderActivity extends AppCompatActivity implements PlateReposito
             }
         });
 
+        locationButton.setOnClickListener(new View.OnClickListener() { //listener del boton registrar
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(NewOrderActivity.this, MapActivity.class);
+                startActivityForResult(intent, MAP_CODE);
+            }
+        });
+
         addPlateButton.setOnClickListener(new View.OnClickListener() { //listener del boton registrar
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(NewOrderActivity.this, PlatesListActivity.class).putExtra("from","NewOrderActivity");
-                startActivityForResult(intent, 2);
+                startActivityForResult(intent, SELECTED_PLATES_CODE);
             }
         });
 
@@ -234,6 +247,16 @@ public class NewOrderActivity extends AppCompatActivity implements PlateReposito
             if (requestCode == 2) {
                 selectedPlates = data.getStringArrayListExtra("PLATE");
                 plateRepository.searchAll();
+            }
+
+            LatLng location = null;
+            if(requestCode == MAP_CODE) {
+                //Obtengo la latitud y longitud seleccionadas
+                double latitude = data.getDoubleExtra("latitude",0d);
+                double longitude = data.getDoubleExtra("longitude",0d);
+
+                location = new LatLng(latitude,longitude);
+                order.setLocation(location);
             }
         }
     }

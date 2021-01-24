@@ -78,17 +78,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
             android:hint="@string/streetHint"
             android:textSize="@dimen/dim16"
-            app:errorEnabled="true"
-            app:endIconDrawable="@drawable/ic_baseline_location_on_24"
             app:endIconMode="custom"
+            app:errorEnabled="true"
             app:helperText="@string/obligatoryFieldHelper"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/emailOrderTextField">
-
+            <!--app:endIconDrawable="@drawable/ic_baseline_location_on_24"-->
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -200,7 +197,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
             android:drawableLeft="@drawable/selector"
             android:enabled="false"
@@ -213,7 +210,7 @@
             android:textSize="@dimen/dim18"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/deliverRadioGroup" />
+            app:layout_constraintTop_toBottomOf="@+id/locationButton" />
 
         <TextView
             android:id="@+id/platesListTextView"
@@ -342,6 +339,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/orderDescriptionConstraintLayout" />
+
+        <Button
+            android:id="@+id/locationButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_weight="1"
+            android:text="@string/location_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/deliverRadioGroup" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

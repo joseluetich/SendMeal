@@ -1,5 +1,8 @@
 package com.dam.sendmeal.model;
 
+import com.google.android.gms.maps.model.LatLng;
+
+import java.util.ArrayList;
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -13,6 +16,8 @@ public class Order {
     private String email;
     @Embedded
     private Address address;
+    private Boolean toShip;
+    private LatLng location;
     private Boolean toDeliver;
     private List<Plate> plates;
 
@@ -65,4 +70,11 @@ public class Order {
         this.plates = plates;
     }
 
+    public LatLng getLocation() {
+        return location;
+    }
+
+    public void setLocation(LatLng location) {
+        this.location = location;
+    }
 }
