@@ -1,9 +1,11 @@
 package com.dam.sendmeal.repository;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.dam.sendmeal.dao.PlateDAO;
 import com.dam.sendmeal.model.Plate;
+import com.dam.sendmeal.retrofit.PlateCallback;
 
 import java.util.List;
 

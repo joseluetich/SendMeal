@@ -1,5 +1,6 @@
 package com.dam.sendmeal.retrofit;
 
+import com.dam.sendmeal.model.Order;
 import com.dam.sendmeal.model.Plate;
 
 import java.util.List;
@@ -10,15 +11,16 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-public interface PlateService {
-    @GET("platos/{id}")
-    Call<Plate> getPlate(@Path("id") String id);
+public interface OrderService {
 
-    @GET("platos")
-    Call<List<Plate>> getPlateList();
+    @GET("pedidos/{id}")
+    Call<Order> getOrder(@Path("id") String id);
 
-    @POST("platos")
-    Call<Plate> createPlate(@Body Plate plato);
+    @GET("pedidos")
+    Call<List<Order>> getOrderList();
+
+    @POST("pedidos")
+    Call<Order> createOrder(@Body String order);
     /*
     Si deciden usar SendMeal-Fake-API deberán usar un body
     del tipo @Body String body. Lo cual les facilitara cumplir el formato esperado
