@@ -9,7 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/parentConstraintLayout"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
@@ -35,9 +35,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
-            android:textFontWeight="600"
             android:text="@string/crearPlato"
             android:textAllCaps="false"
+            android:textFontWeight="600"
             android:textSize="@dimen/dim32"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -51,9 +51,9 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
+            android:digits="@string/nameDigits"
             android:ems="10"
             android:hint="@string/titleHint"
-            android:digits="@string/nameDigits"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/createPlateTextView">
@@ -73,9 +73,9 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
+            android:digits="@string/nameDigits"
             android:ems="10"
             android:hint="@string/descriptionHint"
-            android:digits="@string/nameDigits"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titleTextInputLayout">
@@ -97,17 +97,17 @@
             android:layout_marginEnd="24dp"
             android:ems="10"
             android:hint="@string/priceHint"
-            app:prefixText="@string/moneySign"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/descriptionTextInputLayout">
+            app:layout_constraintTop_toBottomOf="@+id/descriptionTextInputLayout"
+            app:prefixText="@string/moneySign">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/priceEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
-                android:maxLength="25"/>
+                android:maxLength="25" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -130,28 +130,79 @@
                 android:id="@+id/caloriesEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"/>
+                android:inputType="numberDecimal" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/caloriesTextInputLayout">
+
+            <Button
+                android:id="@+id/takePhotoButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/colorPrimaryLight"
+                android:drawableLeft="@drawable/ic_dslr_camera"
+                android:text="@string/take_photo"
+                android:textAllCaps="false"
+                android:textColor="@color/black" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/uploadPhotoButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="40dp"
+                android:backgroundTint="@color/colorPrimaryLight"
+                android:drawableLeft="@drawable/ic_image"
+                android:text="@string/upload_photo"
+                android:textAllCaps="false"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/photoImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_min="300dp"
+            app:layout_constraintWidth_max="300dp"
+            app:layout_constraintHeight_min="300dp"
+            app:layout_constraintHeight_max="300dp"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+            tools:srcCompat="@tools:sample/avatars"
+            tools:visibility="gone" />
 
         <Button
             android:id="@+id/savePlateButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="20dp"
             android:paddingHorizontal="40dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:text="@string/save"
-            android:textSize="18dp"
             android:textFontWeight="600"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="18dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/caloriesTextInputLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/photoImageView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

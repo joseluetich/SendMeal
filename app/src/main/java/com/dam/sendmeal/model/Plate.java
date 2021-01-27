@@ -1,5 +1,7 @@
 package com.dam.sendmeal.model;
 
+import android.net.Uri;
+
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -36,6 +38,7 @@ public class Plate {
     @Expose
     private Integer calories;
     private Integer quantity;
+    private String photo;
 
     public Plate() {
     }
@@ -126,5 +129,13 @@ public class Plate {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }
