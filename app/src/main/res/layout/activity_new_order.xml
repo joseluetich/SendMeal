@@ -6,7 +6,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context=".ui.NewOrderActivity">
+    tools:context=".activities.NewOrderActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
         android:clickable="true"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        tools:context=".ui.NewOrderActivity">
+        tools:context=".activities.NewOrderActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/newOrderToolbar"
@@ -221,26 +221,25 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
+            android:text="@string/listaDePlatos"
             android:textSize="18sp"
             android:visibility="gone"
-            android:text="@string/listaDePlatos"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/addPlateButton" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <!--<androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/orderConstraintLayout"
             android:layout_width="0dp"
-            android:layout_height="250dp"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addPlateButton">
+            app:layout_constraintTop_toBottomOf="@+id/platesListTextView">
 
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/nestedScrollView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -248,30 +247,32 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical">-->
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/orderPlatesRecyclerView"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/orderPlatesRecyclerView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/platesListTextView">
 
-                    </androidx.recyclerview.widget.RecyclerView>
-                </LinearLayout>
-            </androidx.core.widget.NestedScrollView>
+        </androidx.recyclerview.widget.RecyclerView>
+        <!--<</LinearLayout>
+    /androidx.core.widget.NestedScrollView>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/orderDescriptionConstraintLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="8dp"
             android:background="@color/white"
-            android:visibility="gone"
             android:padding="16dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/orderConstraintLayout">
+            app:layout_constraintTop_toBottomOf="@+id/orderPlatesRecyclerView">
 
             <TextView
                 android:id="@+id/orderDescriptionTextView"

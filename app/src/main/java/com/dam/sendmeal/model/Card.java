@@ -1,8 +1,14 @@
 package com.dam.sendmeal.model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.util.Date;
 
+@Entity
 public class Card {
+    @PrimaryKey(autoGenerate = true)
+    private long idCard;
     private String number;
     private String ccv;
     private Date expiration;
@@ -16,6 +22,14 @@ public class Card {
         this.ccv = ccv;
         this.expiration = expiration;
         this.isCredit = isCredit;
+    }
+
+    public long getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(long idCard) {
+        this.idCard = idCard;
     }
 
     public String getNumero() {

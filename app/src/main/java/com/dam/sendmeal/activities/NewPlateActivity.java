@@ -1,4 +1,4 @@
-package com.dam.sendmeal.ui;
+package com.dam.sendmeal.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -9,24 +9,25 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.dam.sendmeal.R;
 import com.dam.sendmeal.model.Plate;
+import com.dam.sendmeal.repository.PlateRepository;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class NewPlateActivity extends AppCompatActivity {
+public class NewPlateActivity extends AppCompatActivity implements PlateRepository.OnResultCallback {
 
     Toolbar newPlateToolbar;
     TextInputLayout titleTextField, descriptionTextField, priceTextField, caloriesTextField;
     Button savePlateButton;
     Plate plate;
+    PlateRepository repository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,8 @@ public class NewPlateActivity extends AppCompatActivity {
 
         plate = new Plate();
         plate.setQuantity(0);
+
+        repository = new PlateRepository(this.getApplication(), this);
 
         newPlateToolbar = findViewById(R.id.newPlateToolbar);
         setSupportActionBar(newPlateToolbar);
@@ -128,8 +131,7 @@ public class NewPlateActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (validateForm()) {
                     plate.addToPlates();
-                    Toast aviso = Toast.makeText(NewPlateActivity.this, "Plato creado correctamente", Toast.LENGTH_LONG); //aviso al usuario
-                    aviso.show();
+                    repository.insert(plate);
                     finish();
                 }
             }
@@ -233,5 +235,20 @@ public class NewPlateActivity extends AppCompatActivity {
         }
         priceTextField.setError(pricePatternError);
         return validPrice;
+    }
+
+    @Override
+    public void onResultPlate(List<Plate> result) {
+
+    }
+
+    @Override
+    public void onInsert() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(NewPlateActivity.this, "Plato agregado", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

@@ -1,20 +1,36 @@
 package com.dam.sendmeal.model;
 
-import java.util.ArrayList;
+import androidx.room.Embedded;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+import java.util.List;
+
+@Entity
 public class Order {
+    @PrimaryKey(autoGenerate = true)
+    private Long idOrder;
     private String email;
+    @Embedded
     private Address address;
-    private Boolean toShip;
-    private ArrayList<Plate> plates = new ArrayList<>();
+    private Boolean toDeliver;
+    private List<Plate> plates;
 
     public Order() {
     }
 
-    public Order(String email, Boolean toShip, ArrayList<Plate> plates) {
+    public Order(String email, Boolean toDeliver, List<Plate> plates) {
         this.email = email;
-        this.toShip = toShip;
+        this.toDeliver = toDeliver;
         this.plates = plates;
+    }
+
+    public Long getIdOrder() {
+        return idOrder;
+    }
+
+    public void setIdOrder(Long idOrder) {
+        this.idOrder = idOrder;
     }
 
     public String getEmail() {
@@ -25,12 +41,12 @@ public class Order {
         this.email = email;
     }
 
-    public Boolean getToShip() {
-        return toShip;
+    public Boolean getToDeliver() {
+        return toDeliver;
     }
 
-    public void setToShip(Boolean toShip) {
-        this.toShip = toShip;
+    public void setToDeliver(Boolean toDeliver) {
+        this.toDeliver = toDeliver;
     }
 
     public Address getAddress() {
@@ -41,11 +57,12 @@ public class Order {
         this.address = address;
     }
 
-    public ArrayList<Plate> getPlates() {
+    public List<Plate> getPlates() {
         return plates;
     }
 
-    public void setPlates(ArrayList<Plate> plates) {
+    public void setPlates(List<Plate> plates) {
         this.plates = plates;
     }
+
 }

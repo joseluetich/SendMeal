@@ -1,8 +1,7 @@
-package com.dam.sendmeal.ui;
+package com.dam.sendmeal.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,16 +24,19 @@ import com.dam.sendmeal.R;
 import com.dam.sendmeal.model.Address;
 import com.dam.sendmeal.model.Order;
 import com.dam.sendmeal.model.Plate;
+import com.dam.sendmeal.repository.OrderRepository;
+import com.dam.sendmeal.repository.PlateRepository;
 import com.dam.sendmeal.utils.NotificationPublisher;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class NewOrderActivity extends AppCompatActivity {
+public class NewOrderActivity extends AppCompatActivity implements PlateRepository.OnResultCallback, OrderRepository.OnResultCallback {
 
     Toolbar newOrderToolbar;
     TextInputLayout emailOrderTextField, streetTextField, numberTextField, floorTextField, apartmentTextField;
@@ -43,13 +45,16 @@ public class NewOrderActivity extends AppCompatActivity {
     Address address;
     Button addPlateButton, confirmOrderButton;
     Order order;
-    ArrayList<Plate> orderPlates = new ArrayList<>();
+    ArrayList<Plate> orderPlates;
     RecyclerView orderPlatesListRecyclerView;
     RecyclerView.Adapter orderPlatesListAdapter;
     //CardView orderDescriptionCardView;
     ConstraintLayout orderDescriptionConstraintLayout;
     RecyclerView.LayoutManager orderPlatesListLayoutManager;
     TextView orderPriceTextView, platesQuantityTextView, platesListTextView;
+    OrderRepository orderRepository;
+    PlateRepository plateRepository;
+    ArrayList<String> selectedPlates;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,9 +82,13 @@ public class NewOrderActivity extends AppCompatActivity {
         //orderListCardView = findViewById(R.id.orderDescriptionCardView);
         orderDescriptionConstraintLayout = findViewById(R.id.orderDescriptionConstraintLayout);
 
-        address = new Address();
+        orderRepository = new OrderRepository(this.getApplication(), this);
+        plateRepository = new PlateRepository(this.getApplication(), this);
+
         order = new Order();
+        address = new Address();
         order.setAddress(address);
+        order.setToDeliver(true); //valor por defecto
 
         mandatoryFieldValidation(emailOrderTextField);
         mandatoryFieldValidation(streetTextField);
@@ -184,9 +193,10 @@ public class NewOrderActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int id) { //listener radiogroup
                 if (id == R.id.shippingRadioButton) {
-                    order.setToShip(true);
+                    order.setToDeliver(true);
                 } else {
-                    order.setToShip(false);
+                    Toast.makeText(NewOrderActivity.this, "takeaway", Toast.LENGTH_SHORT).show();
+                    order.setToDeliver(false);
                 }
             }
         });
@@ -203,10 +213,12 @@ public class NewOrderActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(validateForm() && orderPlates.size() >= 1){
+                    orderRepository.insert(order);
                     new SimpleAsyncTask(confirmOrderButton).execute();
                     Intent intent = new Intent(NewOrderActivity.this, MenuActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
+                    Toast.makeText(NewOrderActivity.this, "Orden agregada", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -217,66 +229,11 @@ public class NewOrderActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // check if the request code is same as what is passed  here it is 2
-        Double totalPrice = 0.0;
-        Integer totalPlates = 0;
 
         if(resultCode==RESULT_OK) {
             if (requestCode == 2) {
-                ArrayList<String> selectedPlates = data.getStringArrayListExtra("PLATE");
-                if(selectedPlates != null) {
-                    for (String title : selectedPlates) {
-                        for (Plate plate : Plate.getListPlates()) {
-                            if (title.toLowerCase().equals(plate.getTitle().toLowerCase()) && plate.getQuantity()>0) {
-                                if(!orderPlates.contains(plate)){
-                                    orderPlates.add(plate);
-                                }
-                            }
-                        }
-                    }
-
-                    orderPlatesListRecyclerView = findViewById(R.id.orderPlatesRecyclerView);
-                    orderPlatesListRecyclerView.setHasFixedSize(true);
-
-                    orderPlatesListLayoutManager = new LinearLayoutManager(this);
-                    orderPlatesListRecyclerView.setLayoutManager(orderPlatesListLayoutManager);
-
-                    orderPlatesListAdapter = new OrderPlatesListAdapter(orderPlates);
-                    orderPlatesListRecyclerView.setAdapter(orderPlatesListAdapter);
-
-                    //orderDescriptionCardView.setVisibility(View.VISIBLE);
-                    //orderListCardView.setVisibility(View.VISIBLE);
-                    orderDescriptionConstraintLayout.setVisibility(View.VISIBLE);
-                    confirmOrderButton.setVisibility(View.VISIBLE);
-                    platesListTextView.setVisibility(View.VISIBLE);
-
-                    ArrayList<Plate> nullPlates = new ArrayList<>();
-                    for(Plate plate : orderPlates) {
-                        if(plate.getQuantity().equals(0)) {
-                            nullPlates.add(plate);
-                        }
-                        totalPlates += plate.getQuantity();
-                        totalPrice += plate.getPrice()*plate.getQuantity();
-                    }
-                    orderPlates.removeAll(nullPlates);
-                    if(orderPlates.size()==0) {
-                        //orderDescriptionCardView.setVisibility(View.INVISIBLE);
-                        confirmOrderButton.setVisibility(View.INVISIBLE);
-                        platesListTextView.setVisibility(View.INVISIBLE);
-                        //orderListCardView.setVisibility(View.INVISIBLE);
-                        orderDescriptionConstraintLayout.setVisibility(View.INVISIBLE);
-                        addPlateButton.setText(R.string.addPlate);
-                    }
-                    else {
-                        addPlateButton.setText(R.string.editPlate);
-                    }
-
-                    order.setPlates(orderPlates);
-
-                    String price = totalPrice.toString();
-                    orderPriceTextView.setText("$ "+price);
-                    String quantity = Integer.toString(totalPlates);
-                    platesQuantityTextView.setText(quantity);
-                }
+                selectedPlates = data.getStringArrayListExtra("PLATE");
+                plateRepository.searchAll();
             }
         }
     }
@@ -347,6 +304,85 @@ public class NewOrderActivity extends AppCompatActivity {
         }
 
         return formValid;
+    }
+
+    @Override
+    public void onResultPlate(List<Plate> result) {
+        Double totalPrice = 0.0;
+        Integer totalPlates = 0;
+        List<Plate> dbPlates = result;
+
+        if(selectedPlates != null) {
+
+            orderPlates = new ArrayList<>();
+
+            for(Plate plate : dbPlates) {
+                System.out.println("selected : "+selectedPlates);
+                /*for(String title : selectedPlates) {
+                    if(title.toLowerCase().equals(plate.getTitle().toLowerCase())) {
+                        plate.setQuantity(plate.getQuantity()+1);
+                        System.out.println("cantidad de "+plate.getTitle()+" : "+plate.getQuantity());
+                    }
+                }*/
+                if(!orderPlates.contains(plate)){
+                    orderPlates.add(plate);
+                }
+            }
+
+            orderPlatesListRecyclerView = findViewById(R.id.orderPlatesRecyclerView);
+            orderPlatesListRecyclerView.setHasFixedSize(true);
+
+            orderPlatesListLayoutManager = new LinearLayoutManager(this);
+            orderPlatesListRecyclerView.setLayoutManager(orderPlatesListLayoutManager);
+
+            for(Plate plate : orderPlates) {
+                System.out.println("  " + plate.getTitle());
+            }
+            orderPlatesListAdapter = new OrderPlatesListAdapter(orderPlates);
+            orderPlatesListRecyclerView.setAdapter(orderPlatesListAdapter);
+
+            orderDescriptionConstraintLayout.setVisibility(View.VISIBLE);
+            confirmOrderButton.setVisibility(View.VISIBLE);
+            platesListTextView.setVisibility(View.VISIBLE);
+
+            ArrayList<Plate> nullPlates = new ArrayList<>();
+            for(Plate plate : orderPlates) {
+                if(plate.getQuantity().equals(0)) {
+                    nullPlates.add(plate);
+                }
+                totalPlates += plate.getQuantity();
+                totalPrice += plate.getPrice()*plate.getQuantity();
+            }
+            orderPlates.removeAll(nullPlates);
+
+            if(orderPlates.size()==0) {
+                confirmOrderButton.setVisibility(View.INVISIBLE);
+                platesListTextView.setVisibility(View.INVISIBLE);
+                orderDescriptionConstraintLayout.setVisibility(View.INVISIBLE);
+                addPlateButton.setText(R.string.addPlate);
+            }
+            else {
+                addPlateButton.setText(R.string.editPlate);
+            }
+
+            order.setPlates(orderPlates);
+
+            String price = totalPrice.toString();
+            orderPriceTextView.setText("$ "+price);
+            String quantity = Integer.toString(totalPlates);
+            platesQuantityTextView.setText(quantity);
+
+        }
+    }
+
+    @Override
+    public void onResultOrder(List result) {
+
+    }
+
+    @Override
+    public void onInsert() {
+
     }
 
     private static class SimpleAsyncTask extends AsyncTask <Void, Void, String>{

@@ -1,4 +1,4 @@
-package com.dam.sendmeal.ui;
+package com.dam.sendmeal.activities;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,10 +44,6 @@ public class OrderPlatesListAdapter extends RecyclerView.Adapter<OrderPlatesList
         holder.orderPlateTitleString.setText(plate.getTitle().toUpperCase());
         String totalPrice = Double.toString(plate.getPrice() * plate.getQuantity());
         holder.orderPlatePriceDouble.setText("$ " + totalPrice);
-        /*if(plate.getQuantity()==1)
-            holder.quantityTextView.setText(plate.getQuantity()+" unidad");
-        else
-            holder.quantityTextView.setText(plate.getQuantity()+" unidades");*/
         holder.quantityTextView.setText(plate.getQuantity()+"x");
     }
 

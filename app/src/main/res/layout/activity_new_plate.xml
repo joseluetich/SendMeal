@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context=".ui.NewPlateActivity">
+    tools:context=".activities.NewPlateActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/parentConstraintLayout"
@@ -14,7 +14,7 @@
         android:clickable="true"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        tools:context=".ui.NewPlateActivity">
+        tools:context=".activities.NewPlateActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/newPlateToolbar"
