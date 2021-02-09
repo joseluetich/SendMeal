@@ -1,11 +1,16 @@
 package com.dam.sendmeal.activities;
 
 import android.app.Activity;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -15,6 +20,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dam.sendmeal.R;
 import com.dam.sendmeal.model.Plate;
 import com.dam.sendmeal.repository.PlateRepository;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +33,7 @@ public class PlatesListAdapter extends RecyclerView.Adapter<PlatesListAdapter.Pl
     private List<Plate> plates;
     Activity platesListActivity;
     ArrayList<String> selectedPlates;
+    StorageReference gsReference;
 
 
     public PlatesListAdapter(List<Plate> listPlates, Activity activity, ArrayList<String> selectedPlates) {
@@ -56,7 +66,7 @@ public class PlatesListAdapter extends RecyclerView.Adapter<PlatesListAdapter.Pl
 
         Plate plate = plates.get(position);
 
-        holder.plateImageView.setImageResource(R.drawable.pizza_image);
+        //holder.plateImageView.setImageResource(plate.getPhoto());
         holder.plateTitleString.setText(plate.getTitle().toUpperCase());
         holder.platePriceDouble.setText(plate.getStringPrice());
         String quantity = plate.getQuantity().toString();
@@ -88,6 +98,10 @@ public class PlatesListAdapter extends RecyclerView.Adapter<PlatesListAdapter.Pl
             numberPickerConstraintLayout = itemView.findViewById(R.id.numberPickerConstraintLayout);
             plateRepository = new PlateRepository(platesListActivity.getApplication(), this);
 
+
+            for(Plate plate: plates) {
+                uploadPhoto(plate);
+            }
 
             if (platesListActivity.getIntent().getStringExtra("from").equals("NewOrderActivity")) {
                 numberPickerConstraintLayout.setVisibility(View.VISIBLE);
@@ -154,6 +168,33 @@ public class PlatesListAdapter extends RecyclerView.Adapter<PlatesListAdapter.Pl
         public void onInsert() {
 
         }
+
+        public void uploadPhoto(Plate plate) {
+            // Creamos una referencia al storage con la Uri de la img("images/"+plate.getTitle()+".jpg")
+            gsReference = FirebaseStorage.getInstance().getReference("images/"+plate.getTitle()+".jpg");
+
+            final long THREE_MEGABYTE = 3 * 1024 * 1024;
+            gsReference.getBytes(THREE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                @Override
+                public void onSuccess(byte[] bytes) {
+                    // Exito
+                    Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    DisplayMetrics dm = new DisplayMetrics();
+                    platesListActivity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+                    plateImageView.setMinimumHeight(dm.heightPixels);
+                    plateImageView.setMinimumWidth(dm.widthPixels);
+                    plateImageView.setImageBitmap(bm);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    Toast.makeText(platesListActivity, "Error al cargar la imagen", Toast.LENGTH_LONG).show();
+                }
+            });
+
+        }
+
     }
 
 }

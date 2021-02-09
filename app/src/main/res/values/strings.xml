@@ -139,4 +139,13 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
 
+    <!--mapa-->
+    <string name="google_maps_key">AIzaSyAYA_LmoN0wzhKdv4tH2-dQ5Q7XzRZXO-Y</string>
+    <string name="location_button">Seleccionar ubicacion en el mapa</string>
+    <string name="confirm_location">Confirmar ubicacion</string>
+
+    <!--cloud storage-->
+    <string name="upload_photo">Subir foto</string>
+    <string name="take_photo">Tomar foto</string>
+
 </resources>

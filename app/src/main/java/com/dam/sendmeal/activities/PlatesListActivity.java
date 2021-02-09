@@ -37,7 +37,7 @@ public class PlatesListActivity extends AppCompatActivity implements PlateReposi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_plates);
 
-        platesListToolbar = findViewById(R.id.platesListToolbar);
+        platesListToolbar = findViewById(R.id.mapToolbar);
         setSupportActionBar(platesListToolbar);
 
         platesListRecyclerView = findViewById(R.id.platesRecyclerView);
