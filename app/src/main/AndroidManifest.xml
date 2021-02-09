@@ -80,12 +80,12 @@
                 android:value=".activities.MenuActivity" />
         </activity>
 
-        <activity android:name=".ui.MapActivity"
-            android:parentActivityName=".ui.NewOrderActivity">
+        <activity android:name=".activities.MapActivity"
+            android:parentActivityName=".activities.NewOrderActivity">
 
             <meta-data
             android:name="android.support.PARENT_ACTIVITY"
-            android:value=".ui.NewOrderActivity" />
+            android:value=".activities.NewOrderActivity" />
         </activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"

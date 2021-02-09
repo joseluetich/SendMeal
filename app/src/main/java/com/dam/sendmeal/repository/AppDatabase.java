@@ -14,13 +14,14 @@ import com.dam.sendmeal.dao.PlateDAO;
 //import com.dam.sendmeal.dao.PlateOrderRelationDAO;
 import com.dam.sendmeal.model.Order;
 import com.dam.sendmeal.model.Plate;
+import com.dam.sendmeal.utils.LatLongConverter;
 //import com.dam.sendmeal.model.PlateOrderRelation;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Plate.class, Order.class}, version = 6)
-@TypeConverters({Converters.class})
+@Database(entities = {Plate.class, Order.class}, version = 7)
+@TypeConverters({Converters.class, LatLongConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract PlateDAO plateDao();

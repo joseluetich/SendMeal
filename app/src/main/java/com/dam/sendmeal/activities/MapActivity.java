@@ -1,4 +1,4 @@
-package com.dam.sendmeal.ui;
+package com.dam.sendmeal.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
