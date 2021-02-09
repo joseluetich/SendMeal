@@ -1,3 +1,151 @@
 <resources>
-    <string name="app_name">SendMeal</string>
+    <string name="app_name">Send Meal</string>
+    <string name="menu">Menú</string>
+
+    <string name="crearCuenta">Crear Cuenta</string>
+    <string name="crearPlato">Crear Plato</string>
+    <string name="listaDePlatos">Lista de Platos</string>
+
+    <!--Create Account Page-->
+    <string name="createAccount">Crear cuenta</string>
+    <string name="nameHint">Nombre y Apellido</string>
+    <string name="emailHint">Email</string>
+    <string name="passwordHint">Contraseña</string>
+    <string name="repeatPasswordHint">Repetir Contraseña</string>
+    <string name="cardType">Tipo de Tarjeta</string>
+    <string name="debitRadioButtonText">Débito</string>
+    <string name="creditRadioButtonText">Crédito</string>
+    <string name="cardNumberHint">Número de Tarjeta</string>
+    <string name="ccvHint">CCV</string>
+    <string name="dueDate">Fecha de vencimiento</string>
+    <string name="mes">Mes</string>
+    <string name="ano">Año</string>
+    <string name="cbuHint">CBU</string>
+    <string name="aliasCbuHint">Alias CBU</string>
+    <string name="addInitialAmountLabel">Realizar carga inicial?</string>
+    <string name="initialCredit">Crédito inicial</string>
+    <string name="termsAndConditions">Acepto los términos y condiciones</string>
+    <string name="amountLabel">0</string>
+    <string name="registerButtonText">Registrar</string>
+    <string name="bienvenida">Bienvenido!</string>
+
+    <!--Create new plate-->
+    <string name="titleHint">Título</string>
+    <string name="descriptionHint">Descripción</string>
+    <string name="priceHint">Precio</string>
+    <string name="moneySign">"$ "</string>
+    <string name="caloriesHint">Calorías</string>
+    <string name="save">GUARDAR</string>
+
+    <!--Plates list-->
+    <string name="newOrder">NUEVO PEDIDO</string>
+    <string name="order">PEDIR</string>
+    <string name="finishOrder">Finalizar pedido</string>
+
+    <!--New Order-->
+    <string name="newOrderLower">Nuevo Pedido</string>
+    <string name="streetHint">Calle</string>
+    <string name="numberHint">Numero</string>
+    <string name="floorHint">Piso</string>
+    <string name="apartmentHint">Dpto</string>
+    <string name="takeAway">Take Away</string>
+    <string name="shipping">Delivery</string>
+    <string name="addPlate">Agregar Platos</string>
+    <string name="editPlate">Editar Platos</string>
+    <string name="platesQuantity">Cantidad de Platos</string>
+    <string name="totalPrice">TOTAL</string>
+    <string name="confirmOrder">CONFIRMAR PEDIDO</string>
+
+    <!--Tipo de entradas-->
+    <string name="nameDigits">"áéíóúÁÉÍÓÚQWERTYUIOPASDFGHJKLÑZXCVBNMqwertyuiopasdfghjklñzxcvbnm "</string>
+    <string name="emailDigits">"+QWERTYUIOPASDFGHJKLÑZXCVBNMqwertyuiopasdfghjklñzxcvbnm@.-_0123456789"</string>
+    <string name="entidadRegularEmail">"@[a-z][a-z][a-z]"</string>
+    <string name="digitosPrecio">",0123456789"</string>
+    <string name="entidadRegularPrecio">"^[0-9]+(.[0-9]{1,2})?$"</string>
+
+    <!--Helpers-->
+    <string name="obligatoryFieldHelper">"*Campo obligatorio"</string>
+
+    <!--Errors-->
+    <string name="errorObligatoryField">"Campo obligatorio"</string>
+    <string name="invalidEmail">"Email inválido: ejemplo@gmail.com"</string>
+    <string name="errorPasswordMatch">"Las contraseñas no coinciden"</string>
+    <string name="errorInitialCredit">Carga inicial inválida</string>
+    <string name="errorDueDate">Fecha de vencimiento inválida</string>
+    <string name="errorCCV">Debe poseer 3 dígitos</string>
+    <string name="invalidPrice">"Precio invalido: Solo se permiten dos decimales"</string>
+    <string name="invalidTitle">El titulo ingresado ya existe</string>
+
+    <!--Arrays-->
+    <string-array name="meses">
+        <item>Mes</item>
+        <item>Enero</item>
+        <item>Febrero</item>
+        <item>Marzo</item>
+        <item>Abril</item>
+        <item>Mayo</item>
+        <item>Junio</item>
+        <item>Julio</item>
+        <item>Agosto</item>
+        <item>Septiembre</item>
+        <item>Octubre</item>
+        <item>Noviembre</item>
+        <item>Diciembre</item>
+    </string-array>
+    <string-array name="anos">
+        <item>Año</item>
+        <item>2020</item>
+        <item>2021</item>
+        <item>2022</item>
+        <item>2023</item>
+        <item>2024</item>
+        <item>2025</item>
+        <item>2026</item>
+        <item>2027</item>
+        <item>2028</item>
+        <item>2029</item>
+        <item>2030</item>
+        <item>2031</item>
+        <item>2032</item>
+        <item>2033</item>
+        <item>2034</item>
+        <item>2035</item>
+        <item>2036</item>
+        <item>2037</item>
+        <item>2038</item>
+        <item>2039</item>
+        <item>2040</item>
+        <item>2041</item>
+        <item>2042</item>
+        <item>2043</item>
+        <item>2044</item>
+        <item>2045</item>
+        <item>2046</item>
+        <item>2047</item>
+        <item>2048</item>
+        <item>2049</item>
+        <item>2050</item>
+    </string-array>
+
+    <string name="title_activity_menu">menuActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+
+    <!--mapa-->
+    <string name="google_maps_key">AIzaSyAYA_LmoN0wzhKdv4tH2-dQ5Q7XzRZXO-Y</string>
+    <string name="location_button">Seleccionar ubicacion en el mapa</string>
+    <string name="confirm_location">Confirmar ubicacion</string>
+
+    <!--cloud storage-->
+    <string name="upload_photo">Subir foto</string>
+    <string name="take_photo">Tomar foto</string>
+
 </resources>

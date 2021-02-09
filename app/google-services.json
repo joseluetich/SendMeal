@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "996966636394",
+    "project_id": "augmented-voice-302322",
+    "storage_bucket": "augmented-voice-302322.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:996966636394:android:7b2057f203c021095ae313",
+        "android_client_info": {
+          "package_name": "com.dam.sendmeal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "996966636394-m5e7g04ngb6gjicuknpo1gpd4ucaonl6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcWzNosODlOq04FOrCQ7yahzhg347C5Gs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "996966636394-m5e7g04ngb6gjicuknpo1gpd4ucaonl6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

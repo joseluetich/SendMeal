@@ -1,10 +1,80 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="Theme.App" parent="Theme.MaterialComponents.Light">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/greenBasil</item>
+        <item name="colorPrimaryDark">@color/greenBasil_600</item>
+        <item name="colorSecondary">@color/orangeBrick</item>
+        <item name="colorSecondaryVariant">@color/orangeBrick</item>
+        <item name="android:colorBackground">@color/white</item>
+        <item name="colorSurface">@color/whiteCreamGreen</item>
+
+        <item name="android:fontFamily">@font/product_sans</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="fontWeight">500</item>
+        <item name="android:textSize">16sp</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
+    </style>
+
+    <!--Toolbar-->
+    <style name="Theme.App.Toolbar" parent="ThemeOverlay.AppCompat.ActionBar">
+        <!-- Customize color of navigation drawer icon and back arrow -->
+        <item name="colorControlNormal">?attr/colorOnPrimary</item>
+        <item name="android:actionMenuTextColor">?attr/colorOnPrimary</item>
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:actionMenuTextAppearance">@font/bold</item>
+        <item name="titleTextAppearance">@style/Theme.App.Toolbar.Title</item>
+    </style>
+
+    <style name="Theme.App.Toolbar.Title" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <!-- Set title color -->
+        <item name="android:textColor">@color/colorPrimaryLight</item>
+    </style>
+
+    <style name="Theme.App.Toolbar.Popup" parent="Base.ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textColor">@color/colorPrimaryLight</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Theme.App.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.App.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.App.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">5dp</item>
+    </style>
+
+    <style name="Widget.App.TextInputLayout" parent="Base.Widget.MaterialComponents.TextInputLayout">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.TextInputLayout</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>
+        <item name="boxBackgroundColor">@color/white</item>
+        <item name="colorSurface">@android:color/black</item>
+        <item name="android:hint">@android:color/transparent</item>
+        <item name="hintTextAppearance">@style/Widget.App.TextInputLayout.TextFloatLabelAppearance</item>
+    </style>
+
+    <style name="ThemeOverlay.App.TextInputLayout" parent="">
+        <item name="colorSurface">@color/white</item>
+<!--        <item name="colorError">@color/shrine_red</item>-->
+<!--        <item name="textAppearanceSubtitle1">@style/TextAppearance.App.Subtitle1</item>-->
+<!--        <item name="textAppearanceCaption">@style/TextAppearance.App.Caption</item>-->
+<!--        <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.*</item>-->
+    </style>
+
+    <style name="Widget.App.TextInputLayout.TextFloatLabelAppearance" parent="TextAppearance.Design.Hint">
+        <!-- Floating label appearance here -->
+        <item name="background">@color/white</item>
+        <item name="colorPrimary">?attr/colorSecondary</item>
+
     </style>
 
 </resources>
