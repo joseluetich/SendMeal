@@ -19,7 +19,7 @@ import com.dam.sendmeal.model.Plate;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Plate.class, Order.class}, version = 5)
+@Database(entities = {Plate.class, Order.class}, version = 6)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 

@@ -14,11 +14,15 @@ import java.util.List;
 public class Plate {
 
     private static List<Plate> plates = new ArrayList<>();
-    @Expose
-    @SerializedName("id")
-    @PrimaryKey()
-    @NonNull
-    private String idPlate;
+    @PrimaryKey(autoGenerate = true)
+    private Long idPlate;
+
+//    @Expose
+//    @SerializedName("id")
+//    @PrimaryKey()
+//    @NonNull
+    // RETROFIT
+    // private String idPlate;
     @SerializedName("titulo")
     @Expose
     private String title;
@@ -68,11 +72,11 @@ public class Plate {
         return plato;
     }
 
-    public String getIdPlate() {
+    public Long getIdPlate() {
         return idPlate;
     }
 
-    public void setIdPlate(String id) {
+    public void setIdPlate(Long id) {
         this.idPlate = id;
     }
 
